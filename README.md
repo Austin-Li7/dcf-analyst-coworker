@@ -27,7 +27,6 @@ DCF analysis with LLMs becomes fragile when every step is just free-form prose. 
 - **DCF demo fixture**: lightweight JSON/CSV/TXT fixtures are retained for repeatable local tests
 - **Market data fetch**: WACC step can fetch ticker-level market data through Yahoo Finance
 - **SEC bootstrap endpoint**: `/api/bootstrap-company?ticker=AAPL` builds a lightweight DCF baseline from SEC Company Facts at runtime
-- **Streamlit demo shell**: `streamlit_app/` provides quick SEC bootstrap testing, prompt browsing, and optional Next app embedding
 
 ## Implementation Process
 
@@ -60,8 +59,6 @@ The portfolio code includes the first backend slice of this pattern through `GET
 
 ## Running Locally
 
-### Next.js App
-
 ```bash
 cd dcf-cfp-module
 npm install
@@ -74,15 +71,18 @@ The LLM-backed analysis routes require API keys entered through the app settings
 
 For SEC bootstrap requests, set `SEC_USER_AGENT` in `.env.local` so SEC can identify the client.
 
-### Streamlit Shell
+## Deployment
 
-```bash
-cd streamlit_app
-python3 -m pip install -r requirements.txt
-streamlit run app.py
-```
+This is a Next.js app, so it can be deployed as a normal web application. The simplest portfolio path is to push this repository to GitHub and connect `dcf-cfp-module/` to Vercel. Vercel will build the app and provide a public URL that people can open directly in a browser.
 
-The Streamlit shell is useful for repeatable ticker-based SEC bootstrap tests without preparing local files. It can also embed the Next.js app if the app is running locally or deployed.
+Required deployment settings:
+
+- root directory: `dcf-cfp-module`
+- build command: `npm run build`
+- install command: `npm install`
+- environment variables: `ANTHROPIC_API_KEY` and/or `GEMINI_API_KEY` if server-side keys are desired; `SEC_USER_AGENT` for SEC bootstrap requests
+
+The app also supports entering LLM keys in the browser settings UI for local experimentation.
 
 ## Verification
 
@@ -96,7 +96,6 @@ npm run build
 ## Repository Layout
 
 - `dcf-cfp-module/` - Next.js workflow app, schemas, API routes, and tests
-- `streamlit_app/` - lightweight Streamlit shell for SEC bootstrap experiments and demos
 - `v5.5_DCF/` - final prompt workflow specification
 - `dcf-cfp-module/test/fixtures/` - small sanitized fixtures for deterministic tests
 
