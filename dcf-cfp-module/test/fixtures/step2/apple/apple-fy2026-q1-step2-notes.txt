@@ -1,0 +1,21 @@
+Apple Inc. fiscal 2026 Q1 ended December 27, 2025.
+
+Official source: Apple FY2026 Q1 consolidated financial statements PDF.
+Source URL: https://www.apple.com/newsroom/pdfs/fy2026-q1/FY26_Q1_Consolidated_Financial_Statements.pdf
+
+Net sales by category, USD millions:
+- iPhone: 85,269
+- Mac: 8,386
+- iPad: 8,595
+- Wearables, Home and Accessories: 11,493
+- Services: 30,013
+- Total net sales: 143,756
+
+Geographic reportable segment rows, USD millions, should be excluded from Step 2 canonical product/category mapping:
+- Americas: 58,529
+- Europe: 38,146
+- Greater China: 25,526
+- Japan: 9,413
+- Rest of Asia Pacific: 12,142
+
+Consolidated operating income was 50,852 USD millions. Category-level operating income was not disclosed, so Step 2 structured rows should keep operating_income_usd_m as null and add validation warnings.

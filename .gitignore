@@ -1,0 +1,54 @@
+# macOS
+.DS_Store
+
+# Dependencies
+node_modules/
+.pnp/
+.pnp.*
+
+# Next.js / build output
+.next/
+out/
+build/
+coverage/
+*.tsbuildinfo
+next-env.d.ts
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Local AI/tooling state
+.claude/
+.codex/
+AGENTS.md
+CLAUDE.md
+
+# Python / local experiments
+__pycache__/
+.pytest_cache/
+.venv/
+venv/
+*.pyc
+dcf_pipeline/
+
+# Generated exports and downloaded raw filings
+downloads/
+exports/
+generated/
+prompt_test/**/output/
+validation_review/**/output/
+*.pdf
+*.docx
+*.xlsx
+*.xls
+*.html
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*

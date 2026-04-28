@@ -1,0 +1,153 @@
+{
+  "schema_version": "v5.5",
+  "company_name": "Apple Inc.",
+  "target_year": 2026,
+  "rows": [
+    {
+      "row_id": "row:2026:q1:iphone",
+      "fiscal_year": 2026,
+      "quarter": "Q1",
+      "segment": "Products",
+      "product_category": "Products",
+      "product_name": "iPhone",
+      "revenue_usd_m": 85269,
+      "operating_income_usd_m": null,
+      "mapped_from_step1_ids": ["segment:products", "offering:iphone"],
+      "source_id": "source:file:apple-fy2026-q1",
+      "evidence_level": "DISCLOSED",
+      "validation_status": "verified_source",
+      "review_note": "Revenue is disclosed by category; operating income is not disclosed by category."
+    },
+    {
+      "row_id": "row:2026:q1:mac",
+      "fiscal_year": 2026,
+      "quarter": "Q1",
+      "segment": "Products",
+      "product_category": "Products",
+      "product_name": "Mac",
+      "revenue_usd_m": 8386,
+      "operating_income_usd_m": null,
+      "mapped_from_step1_ids": ["segment:products", "offering:mac"],
+      "source_id": "source:file:apple-fy2026-q1",
+      "evidence_level": "DISCLOSED",
+      "validation_status": "verified_source",
+      "review_note": "Revenue is disclosed by category; operating income is not disclosed by category."
+    },
+    {
+      "row_id": "row:2026:q1:ipad",
+      "fiscal_year": 2026,
+      "quarter": "Q1",
+      "segment": "Products",
+      "product_category": "Products",
+      "product_name": "iPad",
+      "revenue_usd_m": 8595,
+      "operating_income_usd_m": null,
+      "mapped_from_step1_ids": ["segment:products", "offering:ipad"],
+      "source_id": "source:file:apple-fy2026-q1",
+      "evidence_level": "DISCLOSED",
+      "validation_status": "verified_source",
+      "review_note": "Revenue is disclosed by category; operating income is not disclosed by category."
+    },
+    {
+      "row_id": "row:2026:q1:wearables-home-accessories",
+      "fiscal_year": 2026,
+      "quarter": "Q1",
+      "segment": "Products",
+      "product_category": "Products",
+      "product_name": "Wearables, Home and Accessories",
+      "revenue_usd_m": 11493,
+      "operating_income_usd_m": null,
+      "mapped_from_step1_ids": ["segment:products", "offering:wearables-home-accessories"],
+      "source_id": "source:file:apple-fy2026-q1",
+      "evidence_level": "DISCLOSED",
+      "validation_status": "verified_source",
+      "review_note": "Revenue is disclosed by category; operating income is not disclosed by category."
+    },
+    {
+      "row_id": "row:2026:q1:services",
+      "fiscal_year": 2026,
+      "quarter": "Q1",
+      "segment": "Services",
+      "product_category": "Services",
+      "product_name": "Services",
+      "revenue_usd_m": 30013,
+      "operating_income_usd_m": null,
+      "mapped_from_step1_ids": ["segment:services", "offering:services"],
+      "source_id": "source:file:apple-fy2026-q1",
+      "evidence_level": "DISCLOSED",
+      "validation_status": "verified_source",
+      "review_note": "Revenue is disclosed by category; operating income is not disclosed by category."
+    }
+  ],
+  "sources": [
+    {
+      "source_id": "source:file:apple-fy2026-q1",
+      "source_type": "uploaded_file",
+      "name": "apple-fy2026-q1-step2-source.csv",
+      "locator": "Net sales by category rows for Q1 FY2026",
+      "excerpt": "iPhone 85269; Mac 8386; iPad 8595; Wearables, Home and Accessories 11493; Services 30013."
+    }
+  ],
+  "excluded_items": [
+    {
+      "label": "Americas",
+      "reason": "Geographic line, not a Step 1 canonical analysis segment.",
+      "source_id": "source:file:apple-fy2026-q1",
+      "evidence_level": "DISCLOSED"
+    },
+    {
+      "label": "Europe",
+      "reason": "Geographic line, not a Step 1 canonical analysis segment.",
+      "source_id": "source:file:apple-fy2026-q1",
+      "evidence_level": "DISCLOSED"
+    },
+    {
+      "label": "Greater China",
+      "reason": "Geographic line, not a Step 1 canonical analysis segment.",
+      "source_id": "source:file:apple-fy2026-q1",
+      "evidence_level": "DISCLOSED"
+    },
+    {
+      "label": "Japan",
+      "reason": "Geographic line, not a Step 1 canonical analysis segment.",
+      "source_id": "source:file:apple-fy2026-q1",
+      "evidence_level": "DISCLOSED"
+    },
+    {
+      "label": "Rest of Asia Pacific",
+      "reason": "Geographic line, not a Step 1 canonical analysis segment.",
+      "source_id": "source:file:apple-fy2026-q1",
+      "evidence_level": "DISCLOSED"
+    },
+    {
+      "label": "Operating income",
+      "reason": "Consolidated company metric, not disclosed by Step 1 canonical offering.",
+      "source_id": "source:file:apple-fy2026-q1",
+      "evidence_level": "DISCLOSED"
+    }
+  ],
+  "validation_warnings": [
+    {
+      "code": "MISSING_OPERATING_INCOME",
+      "severity": "warn",
+      "message": "Operating income is disclosed only at consolidated level, not by category.",
+      "row_ids": [
+        "row:2026:q1:iphone",
+        "row:2026:q1:mac",
+        "row:2026:q1:ipad",
+        "row:2026:q1:wearables-home-accessories",
+        "row:2026:q1:services"
+      ]
+    }
+  ],
+  "review_summary": {
+    "one_line": "5 verified category revenue rows; category-level operating income requires review.",
+    "highlights": [
+      "Apple FY2026 Q1 category net sales mapped to Step 1 canonical offerings.",
+      "Geographic reportable-segment rows are excluded."
+    ],
+    "warnings": [
+      "Operating income is not disclosed by category; legacy rows will display 0 for that metric."
+    ]
+  }
+}

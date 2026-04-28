@@ -1,0 +1,118 @@
+{
+  "schema_version": "v5.5",
+  "company_name": "Apple Inc.",
+  "review_summary": {
+    "one_line": "Services supports device retention, while capital checks indicate an asset-light model with normal reinvestment constraints.",
+    "highlights": [
+      "One synergy is forecast-eligible but capped because causality is partial.",
+      "Capital intensity is low relative to revenue, supporting an asset-light exemption."
+    ],
+    "warnings": [
+      "Installed-base monetization should not be treated as proof of unlimited pricing power."
+    ]
+  },
+  "sources": [
+    {
+      "source_id": "source:apple:10k:segments",
+      "source_type": "official_filing",
+      "name": "Apple FY2025 Form 10-K",
+      "url": "https://www.sec.gov/Archives/edgar/data/320193/000032019325000079/aapl-20250927.htm",
+      "locator": "Business and Segment Information",
+      "excerpt": "Services revenue includes advertising, AppleCare, cloud, digital content and payment services."
+    },
+    {
+      "source_id": "source:apple:10k:cashflow",
+      "source_type": "official_filing",
+      "name": "Apple FY2025 Form 10-K",
+      "url": "https://www.sec.gov/Archives/edgar/data/320193/000032019325000079/aapl-20250927.htm",
+      "locator": "Consolidated Statements of Cash Flows",
+      "excerpt": "Payments for acquisition of property, plant and equipment were disclosed in investing activities."
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "S4-C1",
+      "text": "Apple Services monetizes the installed base created by iPhone and other devices.",
+      "source_ids": ["source:apple:10k:segments"],
+      "evidence_level": "DISCLOSED",
+      "source_snippet": "Services includes cloud, digital content, payment and AppleCare offerings."
+    },
+    {
+      "claim_id": "S4-C2",
+      "text": "Apple capital spending is modest relative to revenue, so Step 5 does not need a hard reinvestment ceiling.",
+      "source_ids": ["source:apple:10k:cashflow"],
+      "evidence_level": "DISCLOSED",
+      "source_snippet": "PP&E purchases are disclosed in the cash flow statement."
+    }
+  ],
+  "synergy_registry": [
+    {
+      "synergy_id": "synergy:iphone-services",
+      "source_business": "iPhone",
+      "core_capability": "Installed base distribution",
+      "recipient_business": "Services",
+      "mechanism": "Device ownership creates default access points for App Store, iCloud, AppleCare and payments.",
+      "product_impact": "Services can bundle and distribute through native device experiences.",
+      "competitor_constraint": "Standalone service competitors lack operating-system level distribution on Apple devices.",
+      "financial_signal": {
+        "type": "Revenue Enablement",
+        "evidence": "Services revenue is disclosed separately and linked to offerings consumed by the installed base.",
+        "status": "financially-material",
+        "claim_id": "S4-C1",
+        "source_ids": ["source:apple:10k:segments"]
+      },
+      "flywheel": {
+        "is_flywheel": true,
+        "loop_description": "Installed base -> services adoption -> ecosystem switching cost -> device retention"
+      },
+      "integration_verdict": "PROVEN",
+      "differentiation_verdict": "PARTIAL",
+      "causality_verdict": "PARTIAL",
+      "classification": "integration_only",
+      "driver_eligibility": "CAPPED_3PP",
+      "basis_claim_ids": ["S4-C1"],
+      "financial_metric_link": "Services revenue growth and gross margin",
+      "impact_score": 3,
+      "human_review_required": true,
+      "review_rationale": "The relationship passes integration but causality remains capped because service growth is not solely caused by device sales."
+    }
+  ],
+  "capital_allocation": {
+    "capital_metrics": [
+      {
+        "metric_id": "capital:ppe-purchases",
+        "pillar": "Core infrastructure",
+        "objective": "Maintain product tooling, data centers and operational capacity.",
+        "capital_intensity": "Low",
+        "strategic_leverage": "Supports ecosystem reliability without requiring a revenue ceiling.",
+        "synergy_link": "synergy:iphone-services",
+        "efficiency_score": 4,
+        "claim_id": "S4-C2",
+        "source_ids": ["source:apple:10k:cashflow"],
+        "review_note": "Uses PP&E purchase line rather than total investing cash flow."
+      }
+    ],
+    "feasibility_checkpoints": {
+      "capex_runway": "Normal: historical PP&E purchases are modest relative to revenue.",
+      "scale_economics": "Scale economics appear favorable because Services monetization is not capital intensive.",
+      "guidance_alignment": "No management target was used as proof; current disclosed data supports only a normal constraint."
+    },
+    "step5_revenue_ceiling": {
+      "applies": false,
+      "reason": "Asset-light exemption applies; no hard reinvestment ceiling is required.",
+      "ceiling_revenue_usd_m": null
+    },
+    "asset_light_exemption": true,
+    "workflow_status": "NEEDS_REVIEW",
+    "next_action": "HUMAN_REVIEW_CAPITAL_CONSTRAINT"
+  },
+  "validation_warnings": [
+    {
+      "code": "CAPPED_DRIVER",
+      "severity": "warn",
+      "message": "The Services synergy is capped until causality is reviewed.",
+      "synergy_ids": ["synergy:iphone-services"],
+      "capital_metric_ids": []
+    }
+  ]
+}

@@ -1,0 +1,154 @@
+{
+  "schema_version": "v5.5",
+  "company_name": "Apple Inc.",
+  "reported_view": {
+    "view_type": "mixed",
+    "nodes": [
+      {
+        "id": "reported:products",
+        "label": "Products",
+        "raw_name_variants": ["Products"],
+        "products": ["iPhone", "Mac", "iPad", "Wearables, Home and Accessories"],
+        "customer_type": "Consumers, enterprises, education, and government customers",
+        "claim_id": "claim:products-services",
+        "evidence_level": "DISCLOSED",
+        "children": []
+      },
+      {
+        "id": "reported:services",
+        "label": "Services",
+        "raw_name_variants": ["Services"],
+        "products": ["Services"],
+        "customer_type": "Installed base users and developers",
+        "claim_id": "claim:products-services",
+        "evidence_level": "DISCLOSED",
+        "children": []
+      }
+    ]
+  },
+  "analysis_view": {
+    "segments": [
+      {
+        "id": "segment:products",
+        "canonical_name": "Products",
+        "raw_name_variants": ["Products"],
+        "mapped_from_reported_node_ids": ["reported:products"],
+        "claim_id": "claim:products-services",
+        "evidence_level": "DISCLOSED",
+        "offerings": [
+          {
+            "id": "offering:iphone",
+            "canonical_name": "iPhone",
+            "category": "Products",
+            "raw_name_variants": ["iPhone"],
+            "mapped_from_reported_node_ids": ["reported:products"],
+            "products": ["iPhone"],
+            "customer_type": "Consumers, enterprises, education, and government customers",
+            "claim_id": "claim:category-sales",
+            "evidence_level": "DISCLOSED"
+          },
+          {
+            "id": "offering:mac",
+            "canonical_name": "Mac",
+            "category": "Products",
+            "raw_name_variants": ["Mac"],
+            "mapped_from_reported_node_ids": ["reported:products"],
+            "products": ["Mac"],
+            "customer_type": "Consumers, enterprises, education, and government customers",
+            "claim_id": "claim:category-sales",
+            "evidence_level": "DISCLOSED"
+          },
+          {
+            "id": "offering:ipad",
+            "canonical_name": "iPad",
+            "category": "Products",
+            "raw_name_variants": ["iPad"],
+            "mapped_from_reported_node_ids": ["reported:products"],
+            "products": ["iPad"],
+            "customer_type": "Consumers, enterprises, education, and government customers",
+            "claim_id": "claim:category-sales",
+            "evidence_level": "DISCLOSED"
+          },
+          {
+            "id": "offering:wearables-home-accessories",
+            "canonical_name": "Wearables, Home and Accessories",
+            "category": "Products",
+            "raw_name_variants": ["Wearables, Home and Accessories"],
+            "mapped_from_reported_node_ids": ["reported:products"],
+            "products": ["Wearables, Home and Accessories"],
+            "customer_type": "Consumers, enterprises, education, and government customers",
+            "claim_id": "claim:category-sales",
+            "evidence_level": "DISCLOSED"
+          }
+        ]
+      },
+      {
+        "id": "segment:services",
+        "canonical_name": "Services",
+        "raw_name_variants": ["Services"],
+        "mapped_from_reported_node_ids": ["reported:services"],
+        "claim_id": "claim:products-services",
+        "evidence_level": "DISCLOSED",
+        "offerings": [
+          {
+            "id": "offering:services",
+            "canonical_name": "Services",
+            "category": "Services",
+            "raw_name_variants": ["Services"],
+            "mapped_from_reported_node_ids": ["reported:services"],
+            "products": ["Services"],
+            "customer_type": "Installed base users and developers",
+            "claim_id": "claim:category-sales",
+            "evidence_level": "DISCLOSED"
+          }
+        ]
+      }
+    ],
+    "excluded_items": [
+      {
+        "raw_name": "Americas",
+        "reason": "Geographic region, not a canonical analysis segment.",
+        "evidence_level": "DISCLOSED",
+        "claim_id": "claim:geography-sales"
+      }
+    ],
+    "canonical_name_registry": {
+      "products": "Products",
+      "iphone": "iPhone",
+      "mac": "Mac",
+      "ipad": "iPad",
+      "wearables, home and accessories": "Wearables, Home and Accessories",
+      "services": "Services"
+    }
+  },
+  "claims": [
+    {
+      "claim_id": "claim:products-services",
+      "text": "Apple discloses net sales for Products and Services.",
+      "source_snippet": "Net sales: Products; Services.",
+      "source_location": "FY2026 Q1 consolidated financial statements, page 1",
+      "evidence_level": "DISCLOSED"
+    },
+    {
+      "claim_id": "claim:category-sales",
+      "text": "Apple discloses net sales by iPhone, Mac, iPad, Wearables Home and Accessories, and Services.",
+      "source_snippet": "Net sales by category: iPhone, Mac, iPad, Wearables, Home and Accessories, Services.",
+      "source_location": "FY2026 Q1 consolidated financial statements, page 1",
+      "evidence_level": "DISCLOSED"
+    },
+    {
+      "claim_id": "claim:geography-sales",
+      "text": "Apple discloses geographic net sales separately from category sales.",
+      "source_snippet": "Net sales by reportable segment: Americas, Europe, Greater China, Japan, Rest of Asia Pacific.",
+      "source_location": "FY2026 Q1 consolidated financial statements, page 1",
+      "evidence_level": "DISCLOSED"
+    }
+  ],
+  "sources": [
+    {
+      "document": "Apple FY2026 Q1 Consolidated Financial Statements",
+      "section": "Condensed Consolidated Statements of Operations",
+      "page": "1"
+    }
+  ]
+}

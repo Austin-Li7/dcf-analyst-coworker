@@ -1,0 +1,170 @@
+### **Part 1: Segment-Level Product Architecture**
+
+Apple Inc. manages its business on a geographic basis, with five reportable operating segments: **Americas**, **Europe**, **Greater China**, **Japan**, and **Rest of Asia Pacific**. The product and service architecture is consistent across these geographic segments and is categorized for revenue reporting purposes into two primary business lines: **Products** and **Services**.
+
+| Major Category | Sub-Product Family | Specific Commercial Offerings | Customer Type(s) | Data Source (Form 10-K) |
+| :--- | :--- | :--- | :--- | :--- |
+| **Products** | **iPhone** | iPhone 17 Pro, iPhone Air™, iPhone 17, iPhone 16, iPhone 16e | Consumer, Small & Mid-Sized Business, Education, Enterprise, Government | Item 1. Business > Products > iPhone |
+| | **Mac** | **Laptops:** MacBook Air®, MacBook Pro® <br> **Desktops:** iMac®, Mac mini®, Mac Studio™, Mac Pro® | Consumer, Small & Mid-Sized Business, Education, Enterprise, Government | Item 1. Business > Products > Mac |
+| | **iPad** | iPad Pro®, iPad Air®, iPad®, iPad mini® | Consumer, Small & Mid-Sized Business, Education, Enterprise, Government | Item 1. Business > Products > iPad |
+| | **Wearables, Home and Accessories** | **Wearables:** Apple Watch® (Series 11, SE 3, Ultra 3), AirPods® (Pro, Max), Beats® products, Apple Vision Pro™ <br> **Home:** Apple TV 4K®, HomePod®, HomePod mini® <br> **Accessories:** Apple-branded and third-party accessories | Consumer, Small & Mid-Sized Business, Education, Enterprise, Government | Item 1. Business > Products > Wearables, Home and Accessories |
+| **Services** | **Advertising** | Third-party licensing arrangements, Company's own advertising platforms (e.g., App Store search ads) | Small & Mid-Sized Business, Enterprise | Item 1. Business > Services > Advertising |
+| | **AppleCare** | Fee-based service and support products providing technical support, repair/replacement services, and additional coverage for accidental damage or theft/loss. | Consumer, Small & Mid-Sized Business, Education, Enterprise, Government | Item 1. Business > Services > AppleCare |
+| | **Cloud Services** | Services to store and sync customer content across multiple devices (e.g., iCloud®). | Consumer, Small & Mid-Sized Business, Education, Enterprise, Government | Item 1. Business > Services > Cloud Services |
+| | **Digital Content** | **Platforms:** App Store® for applications and digital content (books, music, video, games, podcasts). <br> **Subscriptions:** Apple Arcade®, Apple Fitness+®, Apple Music®, Apple News+®, Apple TV+® (original content and live sports). | Consumer | Item 1. Business > Services > Digital Content |
+| | **Payment Services** | Apple Card® (co-branded credit card), Apple Pay® (cashless payment service). | Consumer | Item 1. Business > Services > Payment Services |
+
+**Revenue Generation Mechanics:**
+Revenue is generated through two primary distribution channels:
+1.  **Direct Sales (40% of 2025 Net Sales):** The company sells its products and services directly to customers through its retail stores, online stores, and its direct sales force.
+2.  **Indirect Sales (60% of 2025 Net Sales):** The company utilizes third-party cellular network carriers, wholesalers, retailers, and other resellers for the sale of its products and certain services.
+
+*   **Products Revenue:** Generated from the one-time sale of physical hardware through both direct and indirect channels.
+*   **Services Revenue:** Generated through various models, including:
+    *   **Advertising:** Fees from developers and other businesses for advertising on its platforms.
+    *   **Commissions:** A commission on the sale of third-party applications and digital content through the App Store and other platforms.
+    *   **Subscriptions:** Recurring fees for access to digital content and services like Apple Music, Apple TV+, iCloud, and Apple Arcade.
+    *   **Direct Fees:** One-time or recurring fees for services like AppleCare extended warranties and support.
+    *   **Payment Services:** Fees associated with the use of Apple Pay and Apple Card.
+
+### **Part 2: Source References**
+
+1.  **Document Name:** Apple Inc. Form 10-K Annual Report
+    *   **Description:** For the fiscal year ended September 27, 2025. This document provides a comprehensive overview of the company's business, products, services, segments, and distribution channels.
+
+2.  **Document Name:** Apple Inc. Form 10-Q Quarterly Report
+    *   **Description:** For the quarterly period ended December 27, 2025. This document confirms the segment and product category structure and provides updated financial information.
+
+### **Part 3: Structured JSON List**
+
+```json
+{
+  "architecture": [
+    {
+      "name": "Products",
+      "description": "The Company designs, manufactures and markets smartphones, personal computers, tablets, wearables and accessories.",
+      "productFamilies": [
+        {
+          "name": "iPhone",
+          "description": "The Company’s line of smartphones based on its iOS operating system.",
+          "commercialOfferings": [
+            {"name": "iPhone 17 Pro", "description": "High-end smartphone model."},
+            {"name": "iPhone Air™", "description": "A model within the iPhone smartphone line."},
+            {"name": "iPhone 17", "description": "Standard smartphone model."},
+            {"name": "iPhone 16", "description": "Previous generation standard smartphone model."},
+            {"name": "iPhone 16e", "description": "A model within the iPhone smartphone line, potentially for a different market segment."}
+          ],
+          "customerTypes": ["Consumer", "Small & Mid-Sized Business", "Education", "Enterprise", "Government"],
+          "revenueMechanics": "Revenue generated from the sale of physical hardware devices through direct (retail, online) and indirect (carriers, resellers) channels."
+        },
+        {
+          "name": "Mac",
+          "description": "The Company’s line of personal computers based on its macOS operating system.",
+          "commercialOfferings": [
+            {"name": "MacBook Air®", "description": "Laptop personal computer."},
+            {"name": "MacBook Pro®", "description": "Laptop personal computer."},
+            {"name": "iMac®", "description": "Desktop personal computer."},
+            {"name": "Mac mini®", "description": "Desktop personal computer."},
+            {"name": "Mac Studio™", "description": "Desktop personal computer."},
+            {"name": "Mac Pro®", "description": "Desktop personal computer."}
+          ],
+          "customerTypes": ["Consumer", "Small & Mid-Sized Business", "Education", "Enterprise", "Government"],
+          "revenueMechanics": "Revenue generated from the sale of physical hardware devices through direct (retail, online) and indirect (resellers) channels."
+        },
+        {
+          "name": "iPad",
+          "description": "The Company’s line of multipurpose tablets based on its iPadOS operating system.",
+          "commercialOfferings": [
+            {"name": "iPad Pro®", "description": "High-end multipurpose tablet."},
+            {"name": "iPad Air®", "description": "Mid-range multipurpose tablet."},
+            {"name": "iPad®", "description": "Standard multipurpose tablet."},
+            {"name": "iPad mini®", "description": "Small form-factor multipurpose tablet."}
+          ],
+          "customerTypes": ["Consumer", "Small & Mid-Sized Business", "Education", "Enterprise", "Government"],
+          "revenueMechanics": "Revenue generated from the sale of physical hardware devices through direct (retail, online) and indirect (carriers, resellers) channels."
+        },
+        {
+          "name": "Wearables, Home and Accessories",
+          "description": "A category of products including smartwatches, wireless headphones, spatial computers, media streaming devices, smart speakers, and accessories.",
+          "commercialOfferings": [
+            {"name": "Apple Watch®", "description": "Line of smartwatches, including Series 11, SE 3, and Ultra 3."},
+            {"name": "AirPods®", "description": "Line of wireless headphones, including AirPods, AirPods Pro, and AirPods Max."},
+            {"name": "Beats® products", "description": "Line of headphones and earphones."},
+            {"name": "Apple Vision Pro™", "description": "A spatial computer based on the visionOS operating system."},
+            {"name": "Apple TV 4K®", "description": "A media streaming and gaming device."},
+            {"name": "HomePod®", "description": "Line of high-fidelity wireless smart speakers, including HomePod and HomePod mini."},
+            {"name": "Accessories", "description": "Includes both Apple-branded and third-party accessories."}
+          ],
+          "customerTypes": ["Consumer", "Small & Mid-Sized Business", "Education", "Enterprise", "Government"],
+          "revenueMechanics": "Revenue generated from the sale of physical hardware and accessory devices through direct (retail, online) and indirect (resellers) channels."
+        }
+      ]
+    },
+    {
+      "name": "Services",
+      "description": "A variety of services including advertising, extended support, cloud, digital content, and payment services.",
+      "productFamilies": [
+        {
+          "name": "Advertising",
+          "description": "Includes third-party licensing arrangements and the Company’s own advertising platforms.",
+          "commercialOfferings": [],
+          "customerTypes": ["Small & Mid-Sized Business", "Enterprise"],
+          "revenueMechanics": "Revenue generated from fees for advertising placement on platforms like the App Store and from licensing arrangements."
+        },
+        {
+          "name": "AppleCare",
+          "description": "A portfolio of fee-based service and support products.",
+          "commercialOfferings": [
+            {"name": "AppleCare Plans", "description": "Provides priority access to technical support, repair/replacement services, and additional coverage for accidental damage or theft."}
+          ],
+          "customerTypes": ["Consumer", "Small & Mid-Sized Business", "Education", "Enterprise", "Government"],
+          "revenueMechanics": "Revenue generated from fixed-fee contracts for extended service and support."
+        },
+        {
+          "name": "Cloud Services",
+          "description": "Services that store and keep customers’ content up-to-date and available across multiple devices.",
+          "commercialOfferings": [
+            {"name": "iCloud®", "description": "Cloud storage and services for consumers and businesses."}
+          ],
+          "customerTypes": ["Consumer", "Small & Mid-Sized Business", "Education", "Enterprise", "Government"],
+          "revenueMechanics": "Revenue generated from recurring subscription fees for storage tiers."
+        },
+        {
+          "name": "Digital Content",
+          "description": "Platforms for discovering and downloading applications and digital content, as well as subscription-based content services.",
+          "commercialOfferings": [
+            {"name": "App Store®", "description": "Platform for discovering and downloading applications and digital content like books, music, video, games, and podcasts."},
+            {"name": "Apple Arcade®", "description": "Subscription-based game service."},
+            {"name": "Apple Fitness+®", "description": "Subscription-based personalized fitness service."},
+            {"name": "Apple Music®", "description": "Subscription-based music and radio streaming service."},
+            {"name": "Apple News+®", "description": "Subscription-based news and magazine service."},
+            {"name": "Apple TV+®", "description": "Subscription-based service offering exclusive original content and live sports."}
+          ],
+          "customerTypes": ["Consumer"],
+          "revenueMechanics": "Revenue generated from commissions on the sale of third-party digital content and apps, and from recurring subscription fees for first-party content services."
+        },
+        {
+          "name": "Payment Services",
+          "description": "Includes a co-branded credit card and a cashless payment service.",
+          "commercialOfferings": [
+            {"name": "Apple Card®", "description": "A co-branded credit card."},
+            {"name": "Apple Pay®", "description": "A cashless payment service for in-store, in-app, and online purchases."}
+          ],
+          "customerTypes": ["Consumer"],
+          "revenueMechanics": "Revenue generated from fees associated with payment transactions and credit card services."
+        }
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "documentName": "Apple Inc. Form 10-K",
+      "description": "Annual report for the fiscal year ended September 27, 2025."
+    },
+    {
+      "documentName": "Apple Inc. Form 10-Q",
+      "description": "Quarterly report for the period ended December 27, 2025."
+    }
+  ]
+}
+```

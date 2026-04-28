@@ -1,0 +1,560 @@
+{
+  "schema_version": "demo_dcf_input_v1",
+  "company": {
+    "ticker": "AAPL",
+    "cik": "0000320193",
+    "name": "Apple Inc.",
+    "currency": "USD",
+    "units": "USD millions except per-share and rates",
+    "fiscal_year_end_month": 9
+  },
+  "purpose": "Complete end-to-end DCF demo input package. Real historical financial statement values are separated from explicit demo assumptions.",
+  "historical_quarterly_baseline": {
+    "granularity": "total_company",
+    "rows": [
+      {
+        "fiscal_year": 2021,
+        "quarter": "Q1",
+        "revenue_usd_m": 111439,
+        "operating_income_usd_m": 33534,
+        "segment": "Total Company",
+        "product_category": "Total Company",
+        "product_name": "Apple Inc.",
+        "source_url": "https://images.apple.com/newsroom/pdfs/FY21%20Q1%20Consolidated%20Financial%20Statements.pdf",
+        "source_name": "Apple FY2021 Q1 Consolidated Financial Statements"
+      },
+      {
+        "fiscal_year": 2021,
+        "quarter": "Q2",
+        "revenue_usd_m": 89584,
+        "operating_income_usd_m": 27503,
+        "segment": "Total Company",
+        "product_category": "Total Company",
+        "product_name": "Apple Inc.",
+        "source_url": "https://images.apple.com/newsroom/pdfs/FY21_Q2_Consolidated_Financial_Statements.pdf",
+        "source_name": "Apple FY2021 Q2 Consolidated Financial Statements"
+      },
+      {
+        "fiscal_year": 2021,
+        "quarter": "Q3",
+        "revenue_usd_m": 81434,
+        "operating_income_usd_m": 24126,
+        "segment": "Total Company",
+        "product_category": "Total Company",
+        "product_name": "Apple Inc.",
+        "source_url": "https://images.apple.com/newsroom/pdfs/FY21_Q3_Consolidated_Financial_Statements.pdf",
+        "source_name": "Apple FY2021 Q3 Consolidated Financial Statements"
+      },
+      {
+        "fiscal_year": 2021,
+        "quarter": "Q4",
+        "revenue_usd_m": 83360,
+        "operating_income_usd_m": 23786,
+        "segment": "Total Company",
+        "product_category": "Total Company",
+        "product_name": "Apple Inc.",
+        "source_url": "https://images.apple.com/newsroom/pdfs/FY21_Q4_Consolidated_Financial_Statements.pdf",
+        "source_name": "Apple FY2021 Q4 Consolidated Financial Statements"
+      },
+      {
+        "fiscal_year": 2022,
+        "quarter": "Q1",
+        "revenue_usd_m": 123945,
+        "operating_income_usd_m": 41488,
+        "segment": "Total Company",
+        "product_category": "Total Company",
+        "product_name": "Apple Inc.",
+        "source_url": "https://images.apple.com/newsroom/pdfs/FY22_Q1_Consolidated_Financial_Statements.pdf",
+        "source_name": "Apple FY2022 Q1 Consolidated Financial Statements"
+      },
+      {
+        "fiscal_year": 2022,
+        "quarter": "Q2",
+        "revenue_usd_m": 97278,
+        "operating_income_usd_m": 29979,
+        "segment": "Total Company",
+        "product_category": "Total Company",
+        "product_name": "Apple Inc.",
+        "source_url": "https://images.apple.com/newsroom/pdfs/FY22_Q2_Consolidated_Financial_Statements.pdf",
+        "source_name": "Apple FY2022 Q2 Consolidated Financial Statements"
+      },
+      {
+        "fiscal_year": 2022,
+        "quarter": "Q3",
+        "revenue_usd_m": 82959,
+        "operating_income_usd_m": 23076,
+        "segment": "Total Company",
+        "product_category": "Total Company",
+        "product_name": "Apple Inc.",
+        "source_url": "https://images.apple.com/newsroom/pdfs/FY22_Q3_Consolidated_Financial_Statements.pdf",
+        "source_name": "Apple FY2022 Q3 Consolidated Financial Statements"
+      },
+      {
+        "fiscal_year": 2022,
+        "quarter": "Q4",
+        "revenue_usd_m": 90146,
+        "operating_income_usd_m": 24894,
+        "segment": "Total Company",
+        "product_category": "Total Company",
+        "product_name": "Apple Inc.",
+        "source_url": "https://images.apple.com/newsroom/pdfs/FY22_Q4_Consolidated_Financial_Statements.pdf",
+        "source_name": "Apple FY2022 Q4 Consolidated Financial Statements"
+      },
+      {
+        "fiscal_year": 2023,
+        "quarter": "Q1",
+        "revenue_usd_m": 117154,
+        "operating_income_usd_m": 36016,
+        "segment": "Total Company",
+        "product_category": "Total Company",
+        "product_name": "Apple Inc.",
+        "source_url": "https://images.apple.com/newsroom/pdfs/FY23_Q1_Consolidated_Financial_Statements.pdf",
+        "source_name": "Apple FY2023 Q1 Consolidated Financial Statements"
+      },
+      {
+        "fiscal_year": 2023,
+        "quarter": "Q2",
+        "revenue_usd_m": 94836,
+        "operating_income_usd_m": 28318,
+        "segment": "Total Company",
+        "product_category": "Total Company",
+        "product_name": "Apple Inc.",
+        "source_url": "https://images.apple.com/newsroom/pdfs/FY23_Q2_Consolidated_Financial_Statements.pdf",
+        "source_name": "Apple FY2023 Q2 Consolidated Financial Statements"
+      },
+      {
+        "fiscal_year": 2023,
+        "quarter": "Q3",
+        "revenue_usd_m": 81797,
+        "operating_income_usd_m": 22998,
+        "segment": "Total Company",
+        "product_category": "Total Company",
+        "product_name": "Apple Inc.",
+        "source_url": "https://images.apple.com/newsroom/pdfs/FY23_Q3_Consolidated_Financial_Statements.pdf",
+        "source_name": "Apple FY2023 Q3 Consolidated Financial Statements"
+      },
+      {
+        "fiscal_year": 2023,
+        "quarter": "Q4",
+        "revenue_usd_m": 89498,
+        "operating_income_usd_m": 26969,
+        "segment": "Total Company",
+        "product_category": "Total Company",
+        "product_name": "Apple Inc.",
+        "source_url": "https://images.apple.com/newsroom/pdfs/FY23_Q4_Consolidated_Financial_Statements.pdf",
+        "source_name": "Apple FY2023 Q4 Consolidated Financial Statements"
+      },
+      {
+        "fiscal_year": 2024,
+        "quarter": "Q1",
+        "revenue_usd_m": 119575,
+        "operating_income_usd_m": 40373,
+        "segment": "Total Company",
+        "product_category": "Total Company",
+        "product_name": "Apple Inc.",
+        "source_url": "https://images.apple.com/newsroom/pdfs/FY24_Q1_Consolidated_Financial_Statements.pdf",
+        "source_name": "Apple FY2024 Q1 Consolidated Financial Statements"
+      },
+      {
+        "fiscal_year": 2024,
+        "quarter": "Q2",
+        "revenue_usd_m": 90753,
+        "operating_income_usd_m": 27900,
+        "segment": "Total Company",
+        "product_category": "Total Company",
+        "product_name": "Apple Inc.",
+        "source_url": "https://images.apple.com/newsroom/pdfs/FY24_Q2_Consolidated_Financial_Statements.pdf",
+        "source_name": "Apple FY2024 Q2 Consolidated Financial Statements"
+      },
+      {
+        "fiscal_year": 2024,
+        "quarter": "Q3",
+        "revenue_usd_m": 85777,
+        "operating_income_usd_m": 25352,
+        "segment": "Total Company",
+        "product_category": "Total Company",
+        "product_name": "Apple Inc.",
+        "source_url": "https://images.apple.com/newsroom/pdfs/FY24_Q3_Consolidated_Financial_Statements.pdf",
+        "source_name": "Apple FY2024 Q3 Consolidated Financial Statements"
+      },
+      {
+        "fiscal_year": 2024,
+        "quarter": "Q4",
+        "revenue_usd_m": 94930,
+        "operating_income_usd_m": 29591,
+        "segment": "Total Company",
+        "product_category": "Total Company",
+        "product_name": "Apple Inc.",
+        "source_url": "https://images.apple.com/newsroom/pdfs/FY24_Q4_Consolidated_Financial_Statements.pdf",
+        "source_name": "Apple FY2024 Q4 Consolidated Financial Statements"
+      },
+      {
+        "fiscal_year": 2025,
+        "quarter": "Q1",
+        "revenue_usd_m": 124300,
+        "operating_income_usd_m": 42832,
+        "segment": "Total Company",
+        "product_category": "Total Company",
+        "product_name": "Apple Inc.",
+        "source_url": "https://www.apple.com/newsroom/pdfs/fy2025-q1/FY25_Q1_Consolidated_Financial_Statements.pdf",
+        "source_name": "Apple FY2025 Q1 Consolidated Financial Statements"
+      },
+      {
+        "fiscal_year": 2025,
+        "quarter": "Q2",
+        "revenue_usd_m": 95359,
+        "operating_income_usd_m": 29589,
+        "segment": "Total Company",
+        "product_category": "Total Company",
+        "product_name": "Apple Inc.",
+        "source_url": "https://www.apple.com/newsroom/pdfs/fy2025-q2/FY25_Q2_Consolidated_Financial_Statements.pdf",
+        "source_name": "Apple FY2025 Q2 Consolidated Financial Statements"
+      },
+      {
+        "fiscal_year": 2025,
+        "quarter": "Q3",
+        "revenue_usd_m": 94036,
+        "operating_income_usd_m": 28202,
+        "segment": "Total Company",
+        "product_category": "Total Company",
+        "product_name": "Apple Inc.",
+        "source_url": "https://www.apple.com/newsroom/pdfs/fy2025-q3/FY25_Q3_Consolidated_Financial_Statements.pdf",
+        "source_name": "Apple FY2025 Q3 Consolidated Financial Statements"
+      },
+      {
+        "fiscal_year": 2025,
+        "quarter": "Q4",
+        "revenue_usd_m": 102466,
+        "operating_income_usd_m": 32427,
+        "segment": "Total Company",
+        "product_category": "Total Company",
+        "product_name": "Apple Inc.",
+        "source_url": "https://www.apple.com/newsroom/pdfs/fy2025-q4/FY25_Q4_Consolidated_Financial_Statements.pdf",
+        "source_name": "Apple FY2025 Q4 Consolidated Financial Statements"
+      }
+    ]
+  },
+  "historical_annual_dcf_drivers": [
+    {
+      "fiscal_year": 2021,
+      "period_start": "2020-09-27",
+      "period_end": "2021-09-25",
+      "income_statement": {
+        "revenue_usd_m": 365817,
+        "operating_income_usd_m": 108949,
+        "ebit_usd_m": 108949,
+        "pretax_income_usd_m": 109207,
+        "income_tax_expense_usd_m": 14527,
+        "net_income_usd_m": 94680,
+        "effective_tax_rate": 0.133,
+        "operating_margin": 0.2978
+      },
+      "cash_flow": {
+        "depreciation_amortization_usd_m": 11284,
+        "capital_expenditures_usd_m": 11085,
+        "operating_cash_flow_usd_m": 104038,
+        "free_cash_flow_usd_m": 92953,
+        "fcf_margin": 0.2541,
+        "nopat_usd_m": 94456
+      },
+      "balance_sheet": {
+        "cash_and_equivalents_usd_m": 34940,
+        "current_marketable_securities_usd_m": 27699,
+        "noncurrent_marketable_securities_usd_m": 127877,
+        "cash_and_marketable_securities_usd_m": 190516,
+        "commercial_paper_usd_m": 6000,
+        "current_long_term_debt_usd_m": 9613,
+        "noncurrent_long_term_debt_usd_m": 109106,
+        "total_debt_usd_m": 124719,
+        "net_debt_usd_m": -65797,
+        "current_assets_usd_m": 134836,
+        "current_liabilities_usd_m": 125481,
+        "net_working_capital_usd_m": 9355,
+        "change_in_net_working_capital_usd_m": null
+      },
+      "share_data": {
+        "diluted_weighted_average_shares_m": 16865,
+        "common_shares_outstanding_m": 16427
+      },
+      "source": {
+        "sec_companyfacts_cik": "0000320193",
+        "form": "10-K",
+        "filed": "2023-11-03",
+        "source": "SEC XBRL companyfacts API"
+      }
+    },
+    {
+      "fiscal_year": 2022,
+      "period_start": "2021-09-26",
+      "period_end": "2022-09-24",
+      "income_statement": {
+        "revenue_usd_m": 394328,
+        "operating_income_usd_m": 119437,
+        "ebit_usd_m": 119437,
+        "pretax_income_usd_m": 119103,
+        "income_tax_expense_usd_m": 19300,
+        "net_income_usd_m": 99803,
+        "effective_tax_rate": 0.162,
+        "operating_margin": 0.3029
+      },
+      "cash_flow": {
+        "depreciation_amortization_usd_m": 11104,
+        "capital_expenditures_usd_m": 10708,
+        "operating_cash_flow_usd_m": 122151,
+        "free_cash_flow_usd_m": 111443,
+        "fcf_margin": 0.2826,
+        "nopat_usd_m": 100083
+      },
+      "balance_sheet": {
+        "cash_and_equivalents_usd_m": 23646,
+        "current_marketable_securities_usd_m": 24658,
+        "noncurrent_marketable_securities_usd_m": 120805,
+        "cash_and_marketable_securities_usd_m": 169109,
+        "commercial_paper_usd_m": 9982,
+        "current_long_term_debt_usd_m": 11128,
+        "noncurrent_long_term_debt_usd_m": 98959,
+        "total_debt_usd_m": 120069,
+        "net_debt_usd_m": -49040,
+        "current_assets_usd_m": 135405,
+        "current_liabilities_usd_m": 153982,
+        "net_working_capital_usd_m": -18577,
+        "change_in_net_working_capital_usd_m": -27932
+      },
+      "share_data": {
+        "diluted_weighted_average_shares_m": 16326,
+        "common_shares_outstanding_m": 15943
+      },
+      "source": {
+        "sec_companyfacts_cik": "0000320193",
+        "form": "10-K",
+        "filed": "2024-11-01",
+        "source": "SEC XBRL companyfacts API"
+      }
+    },
+    {
+      "fiscal_year": 2023,
+      "period_start": "2022-09-25",
+      "period_end": "2023-09-30",
+      "income_statement": {
+        "revenue_usd_m": 383285,
+        "operating_income_usd_m": 114301,
+        "ebit_usd_m": 114301,
+        "pretax_income_usd_m": 113736,
+        "income_tax_expense_usd_m": 16741,
+        "net_income_usd_m": 96995,
+        "effective_tax_rate": 0.1472,
+        "operating_margin": 0.2982
+      },
+      "cash_flow": {
+        "depreciation_amortization_usd_m": 11519,
+        "capital_expenditures_usd_m": 10959,
+        "operating_cash_flow_usd_m": 110543,
+        "free_cash_flow_usd_m": 99584,
+        "fcf_margin": 0.2598,
+        "nopat_usd_m": 97477
+      },
+      "balance_sheet": {
+        "cash_and_equivalents_usd_m": 29965,
+        "current_marketable_securities_usd_m": 31590,
+        "noncurrent_marketable_securities_usd_m": 100544,
+        "cash_and_marketable_securities_usd_m": 162099,
+        "commercial_paper_usd_m": 5985,
+        "current_long_term_debt_usd_m": 9822,
+        "noncurrent_long_term_debt_usd_m": 95281,
+        "total_debt_usd_m": 111088,
+        "net_debt_usd_m": -51011,
+        "current_assets_usd_m": 143566,
+        "current_liabilities_usd_m": 145308,
+        "net_working_capital_usd_m": -1742,
+        "change_in_net_working_capital_usd_m": 16835
+      },
+      "share_data": {
+        "diluted_weighted_average_shares_m": 15813,
+        "common_shares_outstanding_m": 15550
+      },
+      "source": {
+        "sec_companyfacts_cik": "0000320193",
+        "form": "10-K",
+        "filed": "2025-10-31",
+        "source": "SEC XBRL companyfacts API"
+      }
+    },
+    {
+      "fiscal_year": 2024,
+      "period_start": "2023-10-01",
+      "period_end": "2024-09-28",
+      "income_statement": {
+        "revenue_usd_m": 391035,
+        "operating_income_usd_m": 123216,
+        "ebit_usd_m": 123216,
+        "pretax_income_usd_m": 123485,
+        "income_tax_expense_usd_m": 29749,
+        "net_income_usd_m": 93736,
+        "effective_tax_rate": 0.2409,
+        "operating_margin": 0.3151
+      },
+      "cash_flow": {
+        "depreciation_amortization_usd_m": 11445,
+        "capital_expenditures_usd_m": 9447,
+        "operating_cash_flow_usd_m": 118254,
+        "free_cash_flow_usd_m": 108807,
+        "fcf_margin": 0.2783,
+        "nopat_usd_m": 93532
+      },
+      "balance_sheet": {
+        "cash_and_equivalents_usd_m": 29943,
+        "current_marketable_securities_usd_m": 35228,
+        "noncurrent_marketable_securities_usd_m": 91479,
+        "cash_and_marketable_securities_usd_m": 156650,
+        "commercial_paper_usd_m": 9967,
+        "current_long_term_debt_usd_m": 10912,
+        "noncurrent_long_term_debt_usd_m": 85750,
+        "total_debt_usd_m": 106629,
+        "net_debt_usd_m": -50021,
+        "current_assets_usd_m": 152987,
+        "current_liabilities_usd_m": 176392,
+        "net_working_capital_usd_m": -23405,
+        "change_in_net_working_capital_usd_m": -21663
+      },
+      "share_data": {
+        "diluted_weighted_average_shares_m": 15408,
+        "common_shares_outstanding_m": 15117
+      },
+      "source": {
+        "sec_companyfacts_cik": "0000320193",
+        "form": "10-K",
+        "filed": "2025-10-31",
+        "source": "SEC XBRL companyfacts API"
+      }
+    },
+    {
+      "fiscal_year": 2025,
+      "period_start": "2024-09-29",
+      "period_end": "2025-09-27",
+      "income_statement": {
+        "revenue_usd_m": 416161,
+        "operating_income_usd_m": 133050,
+        "ebit_usd_m": 133050,
+        "pretax_income_usd_m": 132729,
+        "income_tax_expense_usd_m": 20719,
+        "net_income_usd_m": 112010,
+        "effective_tax_rate": 0.1561,
+        "operating_margin": 0.3197
+      },
+      "cash_flow": {
+        "depreciation_amortization_usd_m": 11698,
+        "capital_expenditures_usd_m": 12715,
+        "operating_cash_flow_usd_m": 111482,
+        "free_cash_flow_usd_m": 98767,
+        "fcf_margin": 0.2373,
+        "nopat_usd_m": 112281
+      },
+      "balance_sheet": {
+        "cash_and_equivalents_usd_m": 35934,
+        "current_marketable_securities_usd_m": 18763,
+        "noncurrent_marketable_securities_usd_m": 77723,
+        "cash_and_marketable_securities_usd_m": 132420,
+        "commercial_paper_usd_m": 7979,
+        "current_long_term_debt_usd_m": 12350,
+        "noncurrent_long_term_debt_usd_m": 78328,
+        "total_debt_usd_m": 98657,
+        "net_debt_usd_m": -33763,
+        "current_assets_usd_m": 147957,
+        "current_liabilities_usd_m": 165631,
+        "net_working_capital_usd_m": -17674,
+        "change_in_net_working_capital_usd_m": 5731
+      },
+      "share_data": {
+        "diluted_weighted_average_shares_m": 15005,
+        "common_shares_outstanding_m": 14773
+      },
+      "source": {
+        "sec_companyfacts_cik": "0000320193",
+        "form": "10-K",
+        "filed": "2025-10-31",
+        "source": "SEC XBRL companyfacts API"
+      }
+    }
+  ],
+  "normalized_base_year": {
+    "fiscal_year": 2025,
+    "revenue_usd_m": 416161,
+    "ebit_usd_m": 133050,
+    "operating_margin": 0.3197,
+    "effective_tax_rate": 0.1561,
+    "depreciation_amortization_pct_revenue": 0.0281,
+    "capex_pct_revenue": 0.0306,
+    "free_cash_flow_usd_m": 98767,
+    "fcf_margin": 0.2373,
+    "cash_and_marketable_securities_usd_m": 132420,
+    "total_debt_usd_m": 98657,
+    "net_debt_usd_m": -33763,
+    "diluted_weighted_average_shares_m": 15005,
+    "common_shares_outstanding_m": 14773
+  },
+  "forecast_seed_assumptions": {
+    "source_type": "demo_assumption",
+    "revenue_cagr_anchor_from_history": 0.0328,
+    "forecast_years": 5,
+    "revenue_growth_rates": [
+      0.05,
+      0.045,
+      0.04,
+      0.035,
+      0.03
+    ],
+    "target_ebit_margin": 0.3197,
+    "tax_rate": 0.1561,
+    "depreciation_amortization_pct_revenue": 0.0281,
+    "capex_pct_revenue": 0.0306,
+    "change_in_working_capital_pct_incremental_revenue": 0.03,
+    "note": "These are explicit demo assumptions, not disclosed Apple guidance."
+  },
+  "valuation_assumptions": {
+    "source_type": "demo_assumption",
+    "wacc": 0.085,
+    "terminal_growth_rate": 0.025,
+    "mid_year_convention": false,
+    "cash_treatment": "cash_and_marketable_securities_added_to_enterprise_value",
+    "debt_treatment": "commercial_paper_plus_current_and_noncurrent_long_term_debt_subtracted_from_enterprise_value",
+    "share_count_for_equity_value": "common_shares_outstanding_m",
+    "note": "Replace WACC and terminal assumptions with live market/company database values before production use."
+  },
+  "minimum_dcf_readiness_checklist": {
+    "historical_revenue": true,
+    "historical_ebit_or_operating_income": true,
+    "tax_rate": true,
+    "depreciation_amortization": true,
+    "capital_expenditures": true,
+    "operating_cash_flow": true,
+    "free_cash_flow": true,
+    "working_capital_proxy": true,
+    "cash_and_marketable_securities": true,
+    "debt": true,
+    "share_count": true,
+    "wacc_assumption": true,
+    "terminal_value_assumption": true
+  },
+  "source_audit": {
+    "official_sources": [
+      {
+        "name": "SEC XBRL Company Facts API for Apple Inc. CIK 0000320193",
+        "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000320193.json",
+        "used_for": [
+          "annual income statement",
+          "cash flow statement",
+          "balance sheet",
+          "share count"
+        ]
+      },
+      {
+        "name": "Apple quarterly consolidated financial statement PDFs FY2021-FY2025",
+        "used_for": [
+          "quarterly total-company revenue and operating income baseline"
+        ]
+      }
+    ],
+    "generated_at": "2026-04-24T21:48:20.622Z",
+    "data_quality_note": "Historical fields are filing-grounded. Forecast and valuation fields are marked as demo assumptions."
+  }
+}

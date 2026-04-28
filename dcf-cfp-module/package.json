@@ -1,0 +1,40 @@
+{
+  "name": "dcf-cfp-module",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint",
+    "test": "node --test src/lib/step1-review.test.mts src/lib/step1-schema.test.mts src/lib/llm-service.test.mts src/lib/ticker-lookup.test.mts src/lib/wacc-handoff.test.mts src/lib/dcf-valuation.test.mts src/lib/step2-schema.test.mts src/lib/step2-baseline.test.mts src/lib/step2-fixture-ingest.test.mts src/lib/step3-schema.test.mts src/lib/step4-schema.test.mts src/lib/step5-schema.test.mts src/lib/aggregate-forecast.test.mts src/lib/dcf-demo-fixture.test.mts src/lib/sec-companyfacts.test.mts"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.88.0",
+    "@google/generative-ai": "^0.24.1",
+    "date-fns": "^4.1.0",
+    "documind": "^1.1.5",
+    "lucide-react": "^1.8.0",
+    "next": "16.2.3",
+    "react": "19.2.4",
+    "react-datepicker": "^9.1.0",
+    "react-dom": "19.2.4",
+    "react-markdown": "^10.1.0",
+    "unpdf": "^1.4.0",
+    "xlsx": "^0.18.5",
+    "yahoo-finance2": "^3.14.0",
+    "zod": "^3.25.76",
+    "zod-to-json-schema": "^3.25.2"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-datepicker": "^6.2.0",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.2.3",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}

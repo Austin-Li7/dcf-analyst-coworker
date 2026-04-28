@@ -1,0 +1,237 @@
+{
+  "schema_version": "v5.5",
+  "company_name": "Apple Inc.",
+  "review_summary": {
+    "one_line": "2 material categories mapped to forecast-relevant competitors; Services needs user review due to mixed evidence.",
+    "highlights": [
+      "iPhone pairing uses direct premium smartphone overlap.",
+      "Services pairing is marked medium confidence because business model overlap is partial."
+    ],
+    "warnings": [
+      "Services has mixed source quality and should be reviewed before Step 4."
+    ]
+  },
+  "sources": [
+    {
+      "source_id": "source:apple-10k-products",
+      "source_type": "official_filing",
+      "name": "Apple FY2025 Form 10-K",
+      "url": "https://www.sec.gov/Archives/edgar/data/320193/example-apple-10k.htm",
+      "locator": "Products and Services net sales",
+      "excerpt": "Products and Services net sales are disclosed separately."
+    },
+    {
+      "source_id": "source:samsung-annual",
+      "source_type": "competitor_filing",
+      "name": "Samsung Electronics Annual Report",
+      "url": "https://www.samsung.com/global/ir/reports-disclosures/annual-reports/",
+      "locator": "Mobile experience revenue discussion",
+      "excerpt": "Mobile experience includes smartphones and connected devices."
+    },
+    {
+      "source_id": "source:services-market",
+      "source_type": "market_research",
+      "name": "Digital services market tracker",
+      "url": "https://example.com/digital-services-market-share",
+      "locator": "Premium digital subscriptions",
+      "excerpt": "Major platforms compete across app stores, payments, streaming, and subscriptions."
+    }
+  ],
+  "categories": [
+    {
+      "category_id": "category:iphone",
+      "category": "iPhone",
+      "mapped_from_step1_ids": ["offering:iphone"],
+      "materiality": "HIGH",
+      "primary_competitor": "Samsung Electronics",
+      "competitive_status": "Leader",
+      "basis_for_pairing": "Samsung is the closest direct premium smartphone competitor with global scale.",
+      "basis_claim_ids": ["S3-001", "S3-002"],
+      "source_ids": ["source:apple-10k-products", "source:samsung-annual"],
+      "source_quality": "Mixed",
+      "confidence": "High",
+      "human_review_required": false,
+      "verification_note": "Official filings support category presence; market position still depends on external share data.",
+      "forces": {
+        "rivalry": {
+          "rating": "High",
+          "justification": "Premium smartphones compete on ecosystem, hardware refresh cycles, and price bands.",
+          "claim_id": "S3-003",
+          "source_ids": ["source:samsung-annual"]
+        },
+        "new_entrants": {
+          "rating": "Low",
+          "justification": "Brand, supply chain, OS ecosystem, and distribution scale create high entry barriers.",
+          "claim_id": "S3-004",
+          "source_ids": ["source:apple-10k-products"]
+        },
+        "suppliers": {
+          "rating": "Medium",
+          "justification": "Specialized components matter, but Apple has scale and supplier diversification.",
+          "claim_id": "S3-005",
+          "source_ids": ["source:apple-10k-products"]
+        },
+        "buyers": {
+          "rating": "Medium",
+          "justification": "Consumers have alternatives, but switching costs and ecosystem lock-in reduce churn.",
+          "claim_id": "S3-006",
+          "source_ids": ["source:apple-10k-products"]
+        },
+        "substitutes": {
+          "rating": "Low",
+          "justification": "Tablets and PCs complement smartphones rather than replacing primary mobile usage.",
+          "claim_id": "S3-007",
+          "source_ids": ["source:apple-10k-products"]
+        }
+      }
+    },
+    {
+      "category_id": "category:services",
+      "category": "Services",
+      "mapped_from_step1_ids": ["offering:services"],
+      "materiality": "HIGH",
+      "primary_competitor": "Alphabet",
+      "competitive_status": "Challenger",
+      "basis_for_pairing": "Alphabet overlaps across app distribution, payments, subscriptions, advertising, and cloud-adjacent services.",
+      "basis_claim_ids": ["S3-008"],
+      "source_ids": ["source:apple-10k-products", "source:services-market"],
+      "source_quality": "Mixed",
+      "confidence": "Medium",
+      "human_review_required": true,
+      "verification_note": "Overlap is broad but not one-to-one; user review should confirm the carry-forward competitor.",
+      "forces": {
+        "rivalry": {
+          "rating": "High",
+          "justification": "Platform services compete for developer economics, subscriptions, and advertising budgets.",
+          "claim_id": "S3-009",
+          "source_ids": ["source:services-market"]
+        },
+        "new_entrants": {
+          "rating": "Medium",
+          "justification": "New services can launch quickly, but platform distribution and trust are hard to replicate.",
+          "claim_id": "S3-010",
+          "source_ids": ["source:services-market"]
+        },
+        "suppliers": {
+          "rating": "Medium",
+          "justification": "Content owners and developers can influence economics in subscriptions and app marketplaces.",
+          "claim_id": "S3-011",
+          "source_ids": ["source:services-market"]
+        },
+        "buyers": {
+          "rating": "Medium",
+          "justification": "Users can switch individual services while remaining inside the device ecosystem.",
+          "claim_id": "S3-012",
+          "source_ids": ["source:services-market"]
+        },
+        "substitutes": {
+          "rating": "High",
+          "justification": "Third-party apps, web services, and competing bundles can substitute for individual services.",
+          "claim_id": "S3-013",
+          "source_ids": ["source:services-market"]
+        }
+      }
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "S3-001",
+      "text": "iPhone is a material Apple product category.",
+      "source_ids": ["source:apple-10k-products"],
+      "evidence_level": "DISCLOSED",
+      "source_snippet": "Products and Services net sales are disclosed separately."
+    },
+    {
+      "claim_id": "S3-002",
+      "text": "Samsung is a direct premium smartphone competitor.",
+      "source_ids": ["source:samsung-annual"],
+      "evidence_level": "STRONG_INFERENCE",
+      "source_snippet": "Mobile experience includes smartphones and connected devices."
+    },
+    {
+      "claim_id": "S3-003",
+      "text": "iPhone rivalry is high.",
+      "source_ids": ["source:samsung-annual"],
+      "evidence_level": "STRONG_INFERENCE",
+      "source_snippet": "Mobile experience includes smartphones and connected devices."
+    },
+    {
+      "claim_id": "S3-004",
+      "text": "iPhone new entrant threat is low.",
+      "source_ids": ["source:apple-10k-products"],
+      "evidence_level": "STRONG_INFERENCE",
+      "source_snippet": "Products and Services net sales are disclosed separately."
+    },
+    {
+      "claim_id": "S3-005",
+      "text": "iPhone supplier power is medium.",
+      "source_ids": ["source:apple-10k-products"],
+      "evidence_level": "STRONG_INFERENCE",
+      "source_snippet": "Products and Services net sales are disclosed separately."
+    },
+    {
+      "claim_id": "S3-006",
+      "text": "iPhone buyer power is medium.",
+      "source_ids": ["source:apple-10k-products"],
+      "evidence_level": "STRONG_INFERENCE",
+      "source_snippet": "Products and Services net sales are disclosed separately."
+    },
+    {
+      "claim_id": "S3-007",
+      "text": "iPhone substitute threat is low.",
+      "source_ids": ["source:apple-10k-products"],
+      "evidence_level": "STRONG_INFERENCE",
+      "source_snippet": "Products and Services net sales are disclosed separately."
+    },
+    {
+      "claim_id": "S3-008",
+      "text": "Alphabet is a broad Services competitor.",
+      "source_ids": ["source:services-market"],
+      "evidence_level": "WEAK_INFERENCE",
+      "source_snippet": "Major platforms compete across app stores, payments, streaming, and subscriptions."
+    },
+    {
+      "claim_id": "S3-009",
+      "text": "Services rivalry is high.",
+      "source_ids": ["source:services-market"],
+      "evidence_level": "STRONG_INFERENCE",
+      "source_snippet": "Major platforms compete across app stores, payments, streaming, and subscriptions."
+    },
+    {
+      "claim_id": "S3-010",
+      "text": "Services new entrant threat is medium.",
+      "source_ids": ["source:services-market"],
+      "evidence_level": "STRONG_INFERENCE",
+      "source_snippet": "Major platforms compete across app stores, payments, streaming, and subscriptions."
+    },
+    {
+      "claim_id": "S3-011",
+      "text": "Services supplier power is medium.",
+      "source_ids": ["source:services-market"],
+      "evidence_level": "STRONG_INFERENCE",
+      "source_snippet": "Major platforms compete across app stores, payments, streaming, and subscriptions."
+    },
+    {
+      "claim_id": "S3-012",
+      "text": "Services buyer power is medium.",
+      "source_ids": ["source:services-market"],
+      "evidence_level": "STRONG_INFERENCE",
+      "source_snippet": "Major platforms compete across app stores, payments, streaming, and subscriptions."
+    },
+    {
+      "claim_id": "S3-013",
+      "text": "Services substitute threat is high.",
+      "source_ids": ["source:services-market"],
+      "evidence_level": "STRONG_INFERENCE",
+      "source_snippet": "Major platforms compete across app stores, payments, streaming, and subscriptions."
+    }
+  ],
+  "validation_warnings": [
+    {
+      "code": "HUMAN_REVIEW_COMPETITOR_PAIRING",
+      "severity": "warn",
+      "message": "Services competitor pairing is medium confidence due to partial overlap.",
+      "category_ids": ["category:services"]
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+========================================================================
+  STEP 4 COMPLETE: SYNERGIES + CAPITAL ALLOCATION
+  Company: Apple Inc.
+  Generated: 4/24/2026
+========================================================================
+
+  PART A: CROSS-BUSINESS CAPABILITY PENETRATION
+------------------------------------------------
+
+  1. Hardware Products  -->  Services
+     Capability:  Large, loyal installed base on an integrated, proprietary operating system (iOS, macOS).
+     Mechanism:   Hardware devices serve as a low-CAC distribution channel for all Services (e.g., App Store, iCloud, Apple Music), which are pre-installed or deeply integrated into the OS. This creates a captive audience for high-margin, recurring revenue streams.
+     Impact:      Services enhance the value of the hardware, creating high switching costs and increasing customer loyalty. In turn, the growing Services portfolio makes the hardware ecosystem more attractive to new customers, fueling a virtuous cycle.
+     Constraint:  Fragmented ecosystems like Android/Windows cannot replicate the seamless hardware-software-service integration. Competitors must spend heavily on marketing to acquire users that Apple accesses at near-zero marginal cost.
+     Financial:   Revenue Enablement (financially-material)
+     Evidence:    Growth in the hardware installed base is consistently cited as the primary driver of record Services revenue.
+     Review:      Material Synergy
+     Rationale:   The hardware installed base is the 'but-for' cause of the Services segment's low customer acquisition cost. This reciprocal relationship is the central driver of Apple's growth and profitability, creating high switching costs and a significant competitive moat.
+     Flywheel:    Yes — More hardware sales -> larger installed base -> more services revenue & engagement data -> improved services & higher developer investment -> more compelling hardware proposition -> more hardware sales.
+     SCORE:       +5/5
+
+  Avg Impact Score: 5.0  |  Flywheels: 1/1
+
+========================================================================
+  PART B: CAPITAL ALLOCATION
+------------------------------------------------
+
+  1. Pillar: Ecosystem Infrastructure & Support
+     Objective:         Invest in data center capacity, corporate facilities, and retail stores to support the growth of the Services business and the integrated user experience.
+     Capital Intensity: Low
+     Strategic Leverage: Capital spending directly enables the scalability and reliability of high-margin services (iCloud, App Store, etc.) that depend on the hardware installed base, reinforcing the core synergy.
+     Synergy Link:      syn_hardware_services
+     Efficiency Score:  +4/5
+
+  CHECKPOINTS:
+     CapEx Runway:          Historical CapEx as a percentage of revenue is low (<3%), and the company generates substantial free cash flow, indicating no constraints on funding necessary infrastructure investments.
+     Subsidiary Margin:     Investments in data centers and infrastructure exhibit clear economies of scale, as the marginal cost of supporting an additional user on the platform is minimal.
+     Investment Efficiency: Company disclosures confirm ongoing investment in its ecosystem. The low capital intensity model is stable and well-understood.
+
+========================================================================
+  END OF REPORT
+========================================================================

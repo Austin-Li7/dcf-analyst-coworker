@@ -1,0 +1,64 @@
+{
+  "schema_version": "v5.5",
+  "company_name": "Apple Inc.",
+  "reported_view": {
+    "node_id": "reported:total-company",
+    "parent_id": null,
+    "depth": 0,
+    "name": "Total Company",
+    "view_type": "operating_segment",
+    "confidence": "high",
+    "source_refs": [
+      "claim:total-company"
+    ],
+    "children": [
+      {
+        "node_id": "reported:apple-inc",
+        "parent_id": "reported:total-company",
+        "depth": 1,
+        "name": "Apple Inc.",
+        "view_type": "revenue_category",
+        "confidence": "high",
+        "source_refs": [
+          "claim:total-company"
+        ],
+        "children": []
+      }
+    ]
+  },
+  "analysis_view": {
+    "segments": [
+      {
+        "segment_id": "segment:total-company",
+        "name": "Total Company",
+        "description": "Company-level DCF baseline for Apple Inc.",
+        "mapped_reported_node_ids": [
+          "reported:total-company"
+        ],
+        "revenue_categories": [
+          {
+            "category_id": "offering:apple-inc",
+            "name": "Apple Inc.",
+            "description": "Total company net sales and operating income.",
+            "mapped_reported_node_ids": [
+              "reported:apple-inc"
+            ],
+            "products": []
+          }
+        ]
+      }
+    ]
+  },
+  "source_claims": [
+    {
+      "claim_id": "claim:total-company",
+      "source_type": "uploaded_file",
+      "source_name": "Apple consolidated financial statements FY2021-FY2025",
+      "source_locator": "Consolidated statements of operations",
+      "text": "Apple reports total net sales and operating income in its consolidated statements of operations."
+    }
+  ],
+  "review_notes": [
+    "Demo architecture intentionally uses total-company granularity so the full DCF flow has complete revenue and operating income inputs."
+  ]
+}

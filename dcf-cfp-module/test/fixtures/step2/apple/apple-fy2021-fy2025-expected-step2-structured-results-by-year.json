@@ -1,0 +1,2142 @@
+{
+  "2021": {
+    "schema_version": "v5.5",
+    "company_name": "Apple Inc.",
+    "target_year": 2021,
+    "rows": [
+      {
+        "row_id": "row:2021:q1:ipad",
+        "fiscal_year": 2021,
+        "quarter": "Q1",
+        "segment": "Products",
+        "product_category": "Products",
+        "product_name": "iPad",
+        "revenue_usd_m": 8435,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:products",
+          "offering:ipad"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      },
+      {
+        "row_id": "row:2021:q1:iphone",
+        "fiscal_year": 2021,
+        "quarter": "Q1",
+        "segment": "Products",
+        "product_category": "Products",
+        "product_name": "iPhone",
+        "revenue_usd_m": 65597,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:products",
+          "offering:iphone"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      },
+      {
+        "row_id": "row:2021:q1:mac",
+        "fiscal_year": 2021,
+        "quarter": "Q1",
+        "segment": "Products",
+        "product_category": "Products",
+        "product_name": "Mac",
+        "revenue_usd_m": 8675,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:products",
+          "offering:mac"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      },
+      {
+        "row_id": "row:2021:q1:services",
+        "fiscal_year": 2021,
+        "quarter": "Q1",
+        "segment": "Services",
+        "product_category": "Services",
+        "product_name": "Services",
+        "revenue_usd_m": 15761,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:services",
+          "offering:services"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      },
+      {
+        "row_id": "row:2021:q1:wearables-home-and-accessories",
+        "fiscal_year": 2021,
+        "quarter": "Q1",
+        "segment": "Products",
+        "product_category": "Products",
+        "product_name": "Wearables, Home and Accessories",
+        "revenue_usd_m": 12971,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:products",
+          "offering:wearables-home-accessories"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      },
+      {
+        "row_id": "row:2021:q2:ipad",
+        "fiscal_year": 2021,
+        "quarter": "Q2",
+        "segment": "Products",
+        "product_category": "Products",
+        "product_name": "iPad",
+        "revenue_usd_m": 7807,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:products",
+          "offering:ipad"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      },
+      {
+        "row_id": "row:2021:q2:iphone",
+        "fiscal_year": 2021,
+        "quarter": "Q2",
+        "segment": "Products",
+        "product_category": "Products",
+        "product_name": "iPhone",
+        "revenue_usd_m": 47938,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:products",
+          "offering:iphone"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      },
+      {
+        "row_id": "row:2021:q2:mac",
+        "fiscal_year": 2021,
+        "quarter": "Q2",
+        "segment": "Products",
+        "product_category": "Products",
+        "product_name": "Mac",
+        "revenue_usd_m": 9102,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:products",
+          "offering:mac"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      },
+      {
+        "row_id": "row:2021:q2:services",
+        "fiscal_year": 2021,
+        "quarter": "Q2",
+        "segment": "Services",
+        "product_category": "Services",
+        "product_name": "Services",
+        "revenue_usd_m": 16901,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:services",
+          "offering:services"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      },
+      {
+        "row_id": "row:2021:q2:wearables-home-and-accessories",
+        "fiscal_year": 2021,
+        "quarter": "Q2",
+        "segment": "Products",
+        "product_category": "Products",
+        "product_name": "Wearables, Home and Accessories",
+        "revenue_usd_m": 7836,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:products",
+          "offering:wearables-home-accessories"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      },
+      {
+        "row_id": "row:2021:q3:ipad",
+        "fiscal_year": 2021,
+        "quarter": "Q3",
+        "segment": "Products",
+        "product_category": "Products",
+        "product_name": "iPad",
+        "revenue_usd_m": 7368,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:products",
+          "offering:ipad"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      },
+      {
+        "row_id": "row:2021:q3:iphone",
+        "fiscal_year": 2021,
+        "quarter": "Q3",
+        "segment": "Products",
+        "product_category": "Products",
+        "product_name": "iPhone",
+        "revenue_usd_m": 39570,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:products",
+          "offering:iphone"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      },
+      {
+        "row_id": "row:2021:q3:mac",
+        "fiscal_year": 2021,
+        "quarter": "Q3",
+        "segment": "Products",
+        "product_category": "Products",
+        "product_name": "Mac",
+        "revenue_usd_m": 8235,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:products",
+          "offering:mac"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      },
+      {
+        "row_id": "row:2021:q3:services",
+        "fiscal_year": 2021,
+        "quarter": "Q3",
+        "segment": "Services",
+        "product_category": "Services",
+        "product_name": "Services",
+        "revenue_usd_m": 17486,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:services",
+          "offering:services"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      },
+      {
+        "row_id": "row:2021:q3:wearables-home-and-accessories",
+        "fiscal_year": 2021,
+        "quarter": "Q3",
+        "segment": "Products",
+        "product_category": "Products",
+        "product_name": "Wearables, Home and Accessories",
+        "revenue_usd_m": 8775,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:products",
+          "offering:wearables-home-accessories"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      },
+      {
+        "row_id": "row:2021:q4:ipad",
+        "fiscal_year": 2021,
+        "quarter": "Q4",
+        "segment": "Products",
+        "product_category": "Products",
+        "product_name": "iPad",
+        "revenue_usd_m": 8252,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:products",
+          "offering:ipad"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      },
+      {
+        "row_id": "row:2021:q4:iphone",
+        "fiscal_year": 2021,
+        "quarter": "Q4",
+        "segment": "Products",
+        "product_category": "Products",
+        "product_name": "iPhone",
+        "revenue_usd_m": 38868,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:products",
+          "offering:iphone"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      },
+      {
+        "row_id": "row:2021:q4:mac",
+        "fiscal_year": 2021,
+        "quarter": "Q4",
+        "segment": "Products",
+        "product_category": "Products",
+        "product_name": "Mac",
+        "revenue_usd_m": 9178,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:products",
+          "offering:mac"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      },
+      {
+        "row_id": "row:2021:q4:services",
+        "fiscal_year": 2021,
+        "quarter": "Q4",
+        "segment": "Services",
+        "product_category": "Services",
+        "product_name": "Services",
+        "revenue_usd_m": 18277,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:services",
+          "offering:services"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      },
+      {
+        "row_id": "row:2021:q4:wearables-home-and-accessories",
+        "fiscal_year": 2021,
+        "quarter": "Q4",
+        "segment": "Products",
+        "product_category": "Products",
+        "product_name": "Wearables, Home and Accessories",
+        "revenue_usd_m": 8785,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:products",
+          "offering:wearables-home-accessories"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      }
+    ],
+    "sources": [
+      {
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "source_type": "uploaded_file",
+        "name": "apple-fy2021-fy2025-step2-full-history.csv",
+        "locator": "Rows filtered by target fiscal year and quarter",
+        "excerpt": "Apple net sales by category for FY2021-FY2025 quarters, USD millions."
+      }
+    ],
+    "excluded_items": [
+      {
+        "label": "Geographic net sales rows",
+        "reason": "Geographic lines are not Step 1 canonical analysis offerings.",
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED"
+      },
+      {
+        "label": "Consolidated operating income",
+        "reason": "Consolidated company metric, not disclosed by Step 1 canonical offering.",
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED"
+      }
+    ],
+    "validation_warnings": [
+      {
+        "code": "MISSING_OPERATING_INCOME",
+        "severity": "warn",
+        "message": "Operating income is disclosed only at consolidated level, not by category.",
+        "row_ids": [
+          "row:2021:q1:ipad",
+          "row:2021:q1:iphone",
+          "row:2021:q1:mac",
+          "row:2021:q1:services",
+          "row:2021:q1:wearables-home-and-accessories",
+          "row:2021:q2:ipad",
+          "row:2021:q2:iphone",
+          "row:2021:q2:mac",
+          "row:2021:q2:services",
+          "row:2021:q2:wearables-home-and-accessories",
+          "row:2021:q3:ipad",
+          "row:2021:q3:iphone",
+          "row:2021:q3:mac",
+          "row:2021:q3:services",
+          "row:2021:q3:wearables-home-and-accessories",
+          "row:2021:q4:ipad",
+          "row:2021:q4:iphone",
+          "row:2021:q4:mac",
+          "row:2021:q4:services",
+          "row:2021:q4:wearables-home-and-accessories"
+        ]
+      }
+    ],
+    "review_summary": {
+      "one_line": "20 verified Apple FY2021 category revenue rows; category-level operating income requires review.",
+      "highlights": [
+        "Apple FY2021 quarterly category net sales mapped to Step 1 canonical offerings."
+      ],
+      "warnings": [
+        "Operating income is not disclosed by category; legacy rows will display 0 for that metric."
+      ]
+    }
+  },
+  "2022": {
+    "schema_version": "v5.5",
+    "company_name": "Apple Inc.",
+    "target_year": 2022,
+    "rows": [
+      {
+        "row_id": "row:2022:q1:ipad",
+        "fiscal_year": 2022,
+        "quarter": "Q1",
+        "segment": "Products",
+        "product_category": "Products",
+        "product_name": "iPad",
+        "revenue_usd_m": 7248,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:products",
+          "offering:ipad"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      },
+      {
+        "row_id": "row:2022:q1:iphone",
+        "fiscal_year": 2022,
+        "quarter": "Q1",
+        "segment": "Products",
+        "product_category": "Products",
+        "product_name": "iPhone",
+        "revenue_usd_m": 71628,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:products",
+          "offering:iphone"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      },
+      {
+        "row_id": "row:2022:q1:mac",
+        "fiscal_year": 2022,
+        "quarter": "Q1",
+        "segment": "Products",
+        "product_category": "Products",
+        "product_name": "Mac",
+        "revenue_usd_m": 10852,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:products",
+          "offering:mac"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      },
+      {
+        "row_id": "row:2022:q1:services",
+        "fiscal_year": 2022,
+        "quarter": "Q1",
+        "segment": "Services",
+        "product_category": "Services",
+        "product_name": "Services",
+        "revenue_usd_m": 19516,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:services",
+          "offering:services"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      },
+      {
+        "row_id": "row:2022:q1:wearables-home-and-accessories",
+        "fiscal_year": 2022,
+        "quarter": "Q1",
+        "segment": "Products",
+        "product_category": "Products",
+        "product_name": "Wearables, Home and Accessories",
+        "revenue_usd_m": 14701,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:products",
+          "offering:wearables-home-accessories"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      },
+      {
+        "row_id": "row:2022:q2:ipad",
+        "fiscal_year": 2022,
+        "quarter": "Q2",
+        "segment": "Products",
+        "product_category": "Products",
+        "product_name": "iPad",
+        "revenue_usd_m": 7646,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:products",
+          "offering:ipad"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      },
+      {
+        "row_id": "row:2022:q2:iphone",
+        "fiscal_year": 2022,
+        "quarter": "Q2",
+        "segment": "Products",
+        "product_category": "Products",
+        "product_name": "iPhone",
+        "revenue_usd_m": 50570,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:products",
+          "offering:iphone"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      },
+      {
+        "row_id": "row:2022:q2:mac",
+        "fiscal_year": 2022,
+        "quarter": "Q2",
+        "segment": "Products",
+        "product_category": "Products",
+        "product_name": "Mac",
+        "revenue_usd_m": 10435,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:products",
+          "offering:mac"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      },
+      {
+        "row_id": "row:2022:q2:services",
+        "fiscal_year": 2022,
+        "quarter": "Q2",
+        "segment": "Services",
+        "product_category": "Services",
+        "product_name": "Services",
+        "revenue_usd_m": 19821,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:services",
+          "offering:services"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      },
+      {
+        "row_id": "row:2022:q2:wearables-home-and-accessories",
+        "fiscal_year": 2022,
+        "quarter": "Q2",
+        "segment": "Products",
+        "product_category": "Products",
+        "product_name": "Wearables, Home and Accessories",
+        "revenue_usd_m": 8806,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:products",
+          "offering:wearables-home-accessories"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      },
+      {
+        "row_id": "row:2022:q3:ipad",
+        "fiscal_year": 2022,
+        "quarter": "Q3",
+        "segment": "Products",
+        "product_category": "Products",
+        "product_name": "iPad",
+        "revenue_usd_m": 7224,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:products",
+          "offering:ipad"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      },
+      {
+        "row_id": "row:2022:q3:iphone",
+        "fiscal_year": 2022,
+        "quarter": "Q3",
+        "segment": "Products",
+        "product_category": "Products",
+        "product_name": "iPhone",
+        "revenue_usd_m": 40665,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:products",
+          "offering:iphone"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      },
+      {
+        "row_id": "row:2022:q3:mac",
+        "fiscal_year": 2022,
+        "quarter": "Q3",
+        "segment": "Products",
+        "product_category": "Products",
+        "product_name": "Mac",
+        "revenue_usd_m": 7382,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:products",
+          "offering:mac"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      },
+      {
+        "row_id": "row:2022:q3:services",
+        "fiscal_year": 2022,
+        "quarter": "Q3",
+        "segment": "Services",
+        "product_category": "Services",
+        "product_name": "Services",
+        "revenue_usd_m": 19604,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:services",
+          "offering:services"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      },
+      {
+        "row_id": "row:2022:q3:wearables-home-and-accessories",
+        "fiscal_year": 2022,
+        "quarter": "Q3",
+        "segment": "Products",
+        "product_category": "Products",
+        "product_name": "Wearables, Home and Accessories",
+        "revenue_usd_m": 8084,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:products",
+          "offering:wearables-home-accessories"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      },
+      {
+        "row_id": "row:2022:q4:ipad",
+        "fiscal_year": 2022,
+        "quarter": "Q4",
+        "segment": "Products",
+        "product_category": "Products",
+        "product_name": "iPad",
+        "revenue_usd_m": 7174,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:products",
+          "offering:ipad"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      },
+      {
+        "row_id": "row:2022:q4:iphone",
+        "fiscal_year": 2022,
+        "quarter": "Q4",
+        "segment": "Products",
+        "product_category": "Products",
+        "product_name": "iPhone",
+        "revenue_usd_m": 42626,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:products",
+          "offering:iphone"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      },
+      {
+        "row_id": "row:2022:q4:mac",
+        "fiscal_year": 2022,
+        "quarter": "Q4",
+        "segment": "Products",
+        "product_category": "Products",
+        "product_name": "Mac",
+        "revenue_usd_m": 11508,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:products",
+          "offering:mac"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      },
+      {
+        "row_id": "row:2022:q4:services",
+        "fiscal_year": 2022,
+        "quarter": "Q4",
+        "segment": "Services",
+        "product_category": "Services",
+        "product_name": "Services",
+        "revenue_usd_m": 19188,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:services",
+          "offering:services"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      },
+      {
+        "row_id": "row:2022:q4:wearables-home-and-accessories",
+        "fiscal_year": 2022,
+        "quarter": "Q4",
+        "segment": "Products",
+        "product_category": "Products",
+        "product_name": "Wearables, Home and Accessories",
+        "revenue_usd_m": 9650,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:products",
+          "offering:wearables-home-accessories"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      }
+    ],
+    "sources": [
+      {
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "source_type": "uploaded_file",
+        "name": "apple-fy2021-fy2025-step2-full-history.csv",
+        "locator": "Rows filtered by target fiscal year and quarter",
+        "excerpt": "Apple net sales by category for FY2021-FY2025 quarters, USD millions."
+      }
+    ],
+    "excluded_items": [
+      {
+        "label": "Geographic net sales rows",
+        "reason": "Geographic lines are not Step 1 canonical analysis offerings.",
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED"
+      },
+      {
+        "label": "Consolidated operating income",
+        "reason": "Consolidated company metric, not disclosed by Step 1 canonical offering.",
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED"
+      }
+    ],
+    "validation_warnings": [
+      {
+        "code": "MISSING_OPERATING_INCOME",
+        "severity": "warn",
+        "message": "Operating income is disclosed only at consolidated level, not by category.",
+        "row_ids": [
+          "row:2022:q1:ipad",
+          "row:2022:q1:iphone",
+          "row:2022:q1:mac",
+          "row:2022:q1:services",
+          "row:2022:q1:wearables-home-and-accessories",
+          "row:2022:q2:ipad",
+          "row:2022:q2:iphone",
+          "row:2022:q2:mac",
+          "row:2022:q2:services",
+          "row:2022:q2:wearables-home-and-accessories",
+          "row:2022:q3:ipad",
+          "row:2022:q3:iphone",
+          "row:2022:q3:mac",
+          "row:2022:q3:services",
+          "row:2022:q3:wearables-home-and-accessories",
+          "row:2022:q4:ipad",
+          "row:2022:q4:iphone",
+          "row:2022:q4:mac",
+          "row:2022:q4:services",
+          "row:2022:q4:wearables-home-and-accessories"
+        ]
+      }
+    ],
+    "review_summary": {
+      "one_line": "20 verified Apple FY2022 category revenue rows; category-level operating income requires review.",
+      "highlights": [
+        "Apple FY2022 quarterly category net sales mapped to Step 1 canonical offerings."
+      ],
+      "warnings": [
+        "Operating income is not disclosed by category; legacy rows will display 0 for that metric."
+      ]
+    }
+  },
+  "2023": {
+    "schema_version": "v5.5",
+    "company_name": "Apple Inc.",
+    "target_year": 2023,
+    "rows": [
+      {
+        "row_id": "row:2023:q1:ipad",
+        "fiscal_year": 2023,
+        "quarter": "Q1",
+        "segment": "Products",
+        "product_category": "Products",
+        "product_name": "iPad",
+        "revenue_usd_m": 9396,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:products",
+          "offering:ipad"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      },
+      {
+        "row_id": "row:2023:q1:iphone",
+        "fiscal_year": 2023,
+        "quarter": "Q1",
+        "segment": "Products",
+        "product_category": "Products",
+        "product_name": "iPhone",
+        "revenue_usd_m": 65775,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:products",
+          "offering:iphone"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      },
+      {
+        "row_id": "row:2023:q1:mac",
+        "fiscal_year": 2023,
+        "quarter": "Q1",
+        "segment": "Products",
+        "product_category": "Products",
+        "product_name": "Mac",
+        "revenue_usd_m": 7735,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:products",
+          "offering:mac"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      },
+      {
+        "row_id": "row:2023:q1:services",
+        "fiscal_year": 2023,
+        "quarter": "Q1",
+        "segment": "Services",
+        "product_category": "Services",
+        "product_name": "Services",
+        "revenue_usd_m": 20766,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:services",
+          "offering:services"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      },
+      {
+        "row_id": "row:2023:q1:wearables-home-and-accessories",
+        "fiscal_year": 2023,
+        "quarter": "Q1",
+        "segment": "Products",
+        "product_category": "Products",
+        "product_name": "Wearables, Home and Accessories",
+        "revenue_usd_m": 13482,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:products",
+          "offering:wearables-home-accessories"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      },
+      {
+        "row_id": "row:2023:q2:ipad",
+        "fiscal_year": 2023,
+        "quarter": "Q2",
+        "segment": "Products",
+        "product_category": "Products",
+        "product_name": "iPad",
+        "revenue_usd_m": 6670,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:products",
+          "offering:ipad"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      },
+      {
+        "row_id": "row:2023:q2:iphone",
+        "fiscal_year": 2023,
+        "quarter": "Q2",
+        "segment": "Products",
+        "product_category": "Products",
+        "product_name": "iPhone",
+        "revenue_usd_m": 51334,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:products",
+          "offering:iphone"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      },
+      {
+        "row_id": "row:2023:q2:mac",
+        "fiscal_year": 2023,
+        "quarter": "Q2",
+        "segment": "Products",
+        "product_category": "Products",
+        "product_name": "Mac",
+        "revenue_usd_m": 7168,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:products",
+          "offering:mac"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      },
+      {
+        "row_id": "row:2023:q2:services",
+        "fiscal_year": 2023,
+        "quarter": "Q2",
+        "segment": "Services",
+        "product_category": "Services",
+        "product_name": "Services",
+        "revenue_usd_m": 20907,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:services",
+          "offering:services"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      },
+      {
+        "row_id": "row:2023:q2:wearables-home-and-accessories",
+        "fiscal_year": 2023,
+        "quarter": "Q2",
+        "segment": "Products",
+        "product_category": "Products",
+        "product_name": "Wearables, Home and Accessories",
+        "revenue_usd_m": 8757,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:products",
+          "offering:wearables-home-accessories"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      },
+      {
+        "row_id": "row:2023:q3:ipad",
+        "fiscal_year": 2023,
+        "quarter": "Q3",
+        "segment": "Products",
+        "product_category": "Products",
+        "product_name": "iPad",
+        "revenue_usd_m": 5791,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:products",
+          "offering:ipad"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      },
+      {
+        "row_id": "row:2023:q3:iphone",
+        "fiscal_year": 2023,
+        "quarter": "Q3",
+        "segment": "Products",
+        "product_category": "Products",
+        "product_name": "iPhone",
+        "revenue_usd_m": 39669,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:products",
+          "offering:iphone"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      },
+      {
+        "row_id": "row:2023:q3:mac",
+        "fiscal_year": 2023,
+        "quarter": "Q3",
+        "segment": "Products",
+        "product_category": "Products",
+        "product_name": "Mac",
+        "revenue_usd_m": 6840,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:products",
+          "offering:mac"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      },
+      {
+        "row_id": "row:2023:q3:services",
+        "fiscal_year": 2023,
+        "quarter": "Q3",
+        "segment": "Services",
+        "product_category": "Services",
+        "product_name": "Services",
+        "revenue_usd_m": 21213,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:services",
+          "offering:services"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      },
+      {
+        "row_id": "row:2023:q3:wearables-home-and-accessories",
+        "fiscal_year": 2023,
+        "quarter": "Q3",
+        "segment": "Products",
+        "product_category": "Products",
+        "product_name": "Wearables, Home and Accessories",
+        "revenue_usd_m": 8284,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:products",
+          "offering:wearables-home-accessories"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      },
+      {
+        "row_id": "row:2023:q4:ipad",
+        "fiscal_year": 2023,
+        "quarter": "Q4",
+        "segment": "Products",
+        "product_category": "Products",
+        "product_name": "iPad",
+        "revenue_usd_m": 6443,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:products",
+          "offering:ipad"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      },
+      {
+        "row_id": "row:2023:q4:iphone",
+        "fiscal_year": 2023,
+        "quarter": "Q4",
+        "segment": "Products",
+        "product_category": "Products",
+        "product_name": "iPhone",
+        "revenue_usd_m": 43805,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:products",
+          "offering:iphone"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      },
+      {
+        "row_id": "row:2023:q4:mac",
+        "fiscal_year": 2023,
+        "quarter": "Q4",
+        "segment": "Products",
+        "product_category": "Products",
+        "product_name": "Mac",
+        "revenue_usd_m": 7614,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:products",
+          "offering:mac"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      },
+      {
+        "row_id": "row:2023:q4:services",
+        "fiscal_year": 2023,
+        "quarter": "Q4",
+        "segment": "Services",
+        "product_category": "Services",
+        "product_name": "Services",
+        "revenue_usd_m": 22314,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:services",
+          "offering:services"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      },
+      {
+        "row_id": "row:2023:q4:wearables-home-and-accessories",
+        "fiscal_year": 2023,
+        "quarter": "Q4",
+        "segment": "Products",
+        "product_category": "Products",
+        "product_name": "Wearables, Home and Accessories",
+        "revenue_usd_m": 9322,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:products",
+          "offering:wearables-home-accessories"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      }
+    ],
+    "sources": [
+      {
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "source_type": "uploaded_file",
+        "name": "apple-fy2021-fy2025-step2-full-history.csv",
+        "locator": "Rows filtered by target fiscal year and quarter",
+        "excerpt": "Apple net sales by category for FY2021-FY2025 quarters, USD millions."
+      }
+    ],
+    "excluded_items": [
+      {
+        "label": "Geographic net sales rows",
+        "reason": "Geographic lines are not Step 1 canonical analysis offerings.",
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED"
+      },
+      {
+        "label": "Consolidated operating income",
+        "reason": "Consolidated company metric, not disclosed by Step 1 canonical offering.",
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED"
+      }
+    ],
+    "validation_warnings": [
+      {
+        "code": "MISSING_OPERATING_INCOME",
+        "severity": "warn",
+        "message": "Operating income is disclosed only at consolidated level, not by category.",
+        "row_ids": [
+          "row:2023:q1:ipad",
+          "row:2023:q1:iphone",
+          "row:2023:q1:mac",
+          "row:2023:q1:services",
+          "row:2023:q1:wearables-home-and-accessories",
+          "row:2023:q2:ipad",
+          "row:2023:q2:iphone",
+          "row:2023:q2:mac",
+          "row:2023:q2:services",
+          "row:2023:q2:wearables-home-and-accessories",
+          "row:2023:q3:ipad",
+          "row:2023:q3:iphone",
+          "row:2023:q3:mac",
+          "row:2023:q3:services",
+          "row:2023:q3:wearables-home-and-accessories",
+          "row:2023:q4:ipad",
+          "row:2023:q4:iphone",
+          "row:2023:q4:mac",
+          "row:2023:q4:services",
+          "row:2023:q4:wearables-home-and-accessories"
+        ]
+      }
+    ],
+    "review_summary": {
+      "one_line": "20 verified Apple FY2023 category revenue rows; category-level operating income requires review.",
+      "highlights": [
+        "Apple FY2023 quarterly category net sales mapped to Step 1 canonical offerings."
+      ],
+      "warnings": [
+        "Operating income is not disclosed by category; legacy rows will display 0 for that metric."
+      ]
+    }
+  },
+  "2024": {
+    "schema_version": "v5.5",
+    "company_name": "Apple Inc.",
+    "target_year": 2024,
+    "rows": [
+      {
+        "row_id": "row:2024:q1:ipad",
+        "fiscal_year": 2024,
+        "quarter": "Q1",
+        "segment": "Products",
+        "product_category": "Products",
+        "product_name": "iPad",
+        "revenue_usd_m": 7023,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:products",
+          "offering:ipad"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      },
+      {
+        "row_id": "row:2024:q1:iphone",
+        "fiscal_year": 2024,
+        "quarter": "Q1",
+        "segment": "Products",
+        "product_category": "Products",
+        "product_name": "iPhone",
+        "revenue_usd_m": 69702,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:products",
+          "offering:iphone"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      },
+      {
+        "row_id": "row:2024:q1:mac",
+        "fiscal_year": 2024,
+        "quarter": "Q1",
+        "segment": "Products",
+        "product_category": "Products",
+        "product_name": "Mac",
+        "revenue_usd_m": 7780,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:products",
+          "offering:mac"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      },
+      {
+        "row_id": "row:2024:q1:services",
+        "fiscal_year": 2024,
+        "quarter": "Q1",
+        "segment": "Services",
+        "product_category": "Services",
+        "product_name": "Services",
+        "revenue_usd_m": 23117,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:services",
+          "offering:services"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      },
+      {
+        "row_id": "row:2024:q1:wearables-home-and-accessories",
+        "fiscal_year": 2024,
+        "quarter": "Q1",
+        "segment": "Products",
+        "product_category": "Products",
+        "product_name": "Wearables, Home and Accessories",
+        "revenue_usd_m": 11953,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:products",
+          "offering:wearables-home-accessories"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      },
+      {
+        "row_id": "row:2024:q2:ipad",
+        "fiscal_year": 2024,
+        "quarter": "Q2",
+        "segment": "Products",
+        "product_category": "Products",
+        "product_name": "iPad",
+        "revenue_usd_m": 5559,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:products",
+          "offering:ipad"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      },
+      {
+        "row_id": "row:2024:q2:iphone",
+        "fiscal_year": 2024,
+        "quarter": "Q2",
+        "segment": "Products",
+        "product_category": "Products",
+        "product_name": "iPhone",
+        "revenue_usd_m": 45963,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:products",
+          "offering:iphone"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      },
+      {
+        "row_id": "row:2024:q2:mac",
+        "fiscal_year": 2024,
+        "quarter": "Q2",
+        "segment": "Products",
+        "product_category": "Products",
+        "product_name": "Mac",
+        "revenue_usd_m": 7451,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:products",
+          "offering:mac"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      },
+      {
+        "row_id": "row:2024:q2:services",
+        "fiscal_year": 2024,
+        "quarter": "Q2",
+        "segment": "Services",
+        "product_category": "Services",
+        "product_name": "Services",
+        "revenue_usd_m": 23867,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:services",
+          "offering:services"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      },
+      {
+        "row_id": "row:2024:q2:wearables-home-and-accessories",
+        "fiscal_year": 2024,
+        "quarter": "Q2",
+        "segment": "Products",
+        "product_category": "Products",
+        "product_name": "Wearables, Home and Accessories",
+        "revenue_usd_m": 7913,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:products",
+          "offering:wearables-home-accessories"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      },
+      {
+        "row_id": "row:2024:q3:ipad",
+        "fiscal_year": 2024,
+        "quarter": "Q3",
+        "segment": "Products",
+        "product_category": "Products",
+        "product_name": "iPad",
+        "revenue_usd_m": 7162,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:products",
+          "offering:ipad"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      },
+      {
+        "row_id": "row:2024:q3:iphone",
+        "fiscal_year": 2024,
+        "quarter": "Q3",
+        "segment": "Products",
+        "product_category": "Products",
+        "product_name": "iPhone",
+        "revenue_usd_m": 39296,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:products",
+          "offering:iphone"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      },
+      {
+        "row_id": "row:2024:q3:mac",
+        "fiscal_year": 2024,
+        "quarter": "Q3",
+        "segment": "Products",
+        "product_category": "Products",
+        "product_name": "Mac",
+        "revenue_usd_m": 7009,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:products",
+          "offering:mac"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      },
+      {
+        "row_id": "row:2024:q3:services",
+        "fiscal_year": 2024,
+        "quarter": "Q3",
+        "segment": "Services",
+        "product_category": "Services",
+        "product_name": "Services",
+        "revenue_usd_m": 24213,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:services",
+          "offering:services"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      },
+      {
+        "row_id": "row:2024:q3:wearables-home-and-accessories",
+        "fiscal_year": 2024,
+        "quarter": "Q3",
+        "segment": "Products",
+        "product_category": "Products",
+        "product_name": "Wearables, Home and Accessories",
+        "revenue_usd_m": 8097,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:products",
+          "offering:wearables-home-accessories"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      },
+      {
+        "row_id": "row:2024:q4:ipad",
+        "fiscal_year": 2024,
+        "quarter": "Q4",
+        "segment": "Products",
+        "product_category": "Products",
+        "product_name": "iPad",
+        "revenue_usd_m": 6950,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:products",
+          "offering:ipad"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      },
+      {
+        "row_id": "row:2024:q4:iphone",
+        "fiscal_year": 2024,
+        "quarter": "Q4",
+        "segment": "Products",
+        "product_category": "Products",
+        "product_name": "iPhone",
+        "revenue_usd_m": 46222,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:products",
+          "offering:iphone"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      },
+      {
+        "row_id": "row:2024:q4:mac",
+        "fiscal_year": 2024,
+        "quarter": "Q4",
+        "segment": "Products",
+        "product_category": "Products",
+        "product_name": "Mac",
+        "revenue_usd_m": 7744,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:products",
+          "offering:mac"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      },
+      {
+        "row_id": "row:2024:q4:services",
+        "fiscal_year": 2024,
+        "quarter": "Q4",
+        "segment": "Services",
+        "product_category": "Services",
+        "product_name": "Services",
+        "revenue_usd_m": 24972,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:services",
+          "offering:services"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      },
+      {
+        "row_id": "row:2024:q4:wearables-home-and-accessories",
+        "fiscal_year": 2024,
+        "quarter": "Q4",
+        "segment": "Products",
+        "product_category": "Products",
+        "product_name": "Wearables, Home and Accessories",
+        "revenue_usd_m": 9042,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:products",
+          "offering:wearables-home-accessories"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      }
+    ],
+    "sources": [
+      {
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "source_type": "uploaded_file",
+        "name": "apple-fy2021-fy2025-step2-full-history.csv",
+        "locator": "Rows filtered by target fiscal year and quarter",
+        "excerpt": "Apple net sales by category for FY2021-FY2025 quarters, USD millions."
+      }
+    ],
+    "excluded_items": [
+      {
+        "label": "Geographic net sales rows",
+        "reason": "Geographic lines are not Step 1 canonical analysis offerings.",
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED"
+      },
+      {
+        "label": "Consolidated operating income",
+        "reason": "Consolidated company metric, not disclosed by Step 1 canonical offering.",
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED"
+      }
+    ],
+    "validation_warnings": [
+      {
+        "code": "MISSING_OPERATING_INCOME",
+        "severity": "warn",
+        "message": "Operating income is disclosed only at consolidated level, not by category.",
+        "row_ids": [
+          "row:2024:q1:ipad",
+          "row:2024:q1:iphone",
+          "row:2024:q1:mac",
+          "row:2024:q1:services",
+          "row:2024:q1:wearables-home-and-accessories",
+          "row:2024:q2:ipad",
+          "row:2024:q2:iphone",
+          "row:2024:q2:mac",
+          "row:2024:q2:services",
+          "row:2024:q2:wearables-home-and-accessories",
+          "row:2024:q3:ipad",
+          "row:2024:q3:iphone",
+          "row:2024:q3:mac",
+          "row:2024:q3:services",
+          "row:2024:q3:wearables-home-and-accessories",
+          "row:2024:q4:ipad",
+          "row:2024:q4:iphone",
+          "row:2024:q4:mac",
+          "row:2024:q4:services",
+          "row:2024:q4:wearables-home-and-accessories"
+        ]
+      }
+    ],
+    "review_summary": {
+      "one_line": "20 verified Apple FY2024 category revenue rows; category-level operating income requires review.",
+      "highlights": [
+        "Apple FY2024 quarterly category net sales mapped to Step 1 canonical offerings."
+      ],
+      "warnings": [
+        "Operating income is not disclosed by category; legacy rows will display 0 for that metric."
+      ]
+    }
+  },
+  "2025": {
+    "schema_version": "v5.5",
+    "company_name": "Apple Inc.",
+    "target_year": 2025,
+    "rows": [
+      {
+        "row_id": "row:2025:q1:ipad",
+        "fiscal_year": 2025,
+        "quarter": "Q1",
+        "segment": "Products",
+        "product_category": "Products",
+        "product_name": "iPad",
+        "revenue_usd_m": 8088,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:products",
+          "offering:ipad"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      },
+      {
+        "row_id": "row:2025:q1:iphone",
+        "fiscal_year": 2025,
+        "quarter": "Q1",
+        "segment": "Products",
+        "product_category": "Products",
+        "product_name": "iPhone",
+        "revenue_usd_m": 69138,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:products",
+          "offering:iphone"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      },
+      {
+        "row_id": "row:2025:q1:mac",
+        "fiscal_year": 2025,
+        "quarter": "Q1",
+        "segment": "Products",
+        "product_category": "Products",
+        "product_name": "Mac",
+        "revenue_usd_m": 8987,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:products",
+          "offering:mac"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      },
+      {
+        "row_id": "row:2025:q1:services",
+        "fiscal_year": 2025,
+        "quarter": "Q1",
+        "segment": "Services",
+        "product_category": "Services",
+        "product_name": "Services",
+        "revenue_usd_m": 26340,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:services",
+          "offering:services"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      },
+      {
+        "row_id": "row:2025:q1:wearables-home-and-accessories",
+        "fiscal_year": 2025,
+        "quarter": "Q1",
+        "segment": "Products",
+        "product_category": "Products",
+        "product_name": "Wearables, Home and Accessories",
+        "revenue_usd_m": 11747,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:products",
+          "offering:wearables-home-accessories"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      },
+      {
+        "row_id": "row:2025:q2:ipad",
+        "fiscal_year": 2025,
+        "quarter": "Q2",
+        "segment": "Products",
+        "product_category": "Products",
+        "product_name": "iPad",
+        "revenue_usd_m": 6402,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:products",
+          "offering:ipad"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      },
+      {
+        "row_id": "row:2025:q2:iphone",
+        "fiscal_year": 2025,
+        "quarter": "Q2",
+        "segment": "Products",
+        "product_category": "Products",
+        "product_name": "iPhone",
+        "revenue_usd_m": 46841,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:products",
+          "offering:iphone"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      },
+      {
+        "row_id": "row:2025:q2:mac",
+        "fiscal_year": 2025,
+        "quarter": "Q2",
+        "segment": "Products",
+        "product_category": "Products",
+        "product_name": "Mac",
+        "revenue_usd_m": 7949,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:products",
+          "offering:mac"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      },
+      {
+        "row_id": "row:2025:q2:services",
+        "fiscal_year": 2025,
+        "quarter": "Q2",
+        "segment": "Services",
+        "product_category": "Services",
+        "product_name": "Services",
+        "revenue_usd_m": 26645,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:services",
+          "offering:services"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      },
+      {
+        "row_id": "row:2025:q2:wearables-home-and-accessories",
+        "fiscal_year": 2025,
+        "quarter": "Q2",
+        "segment": "Products",
+        "product_category": "Products",
+        "product_name": "Wearables, Home and Accessories",
+        "revenue_usd_m": 7522,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:products",
+          "offering:wearables-home-accessories"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      },
+      {
+        "row_id": "row:2025:q3:ipad",
+        "fiscal_year": 2025,
+        "quarter": "Q3",
+        "segment": "Products",
+        "product_category": "Products",
+        "product_name": "iPad",
+        "revenue_usd_m": 6581,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:products",
+          "offering:ipad"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      },
+      {
+        "row_id": "row:2025:q3:iphone",
+        "fiscal_year": 2025,
+        "quarter": "Q3",
+        "segment": "Products",
+        "product_category": "Products",
+        "product_name": "iPhone",
+        "revenue_usd_m": 44582,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:products",
+          "offering:iphone"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      },
+      {
+        "row_id": "row:2025:q3:mac",
+        "fiscal_year": 2025,
+        "quarter": "Q3",
+        "segment": "Products",
+        "product_category": "Products",
+        "product_name": "Mac",
+        "revenue_usd_m": 8046,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:products",
+          "offering:mac"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      },
+      {
+        "row_id": "row:2025:q3:services",
+        "fiscal_year": 2025,
+        "quarter": "Q3",
+        "segment": "Services",
+        "product_category": "Services",
+        "product_name": "Services",
+        "revenue_usd_m": 27423,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:services",
+          "offering:services"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      },
+      {
+        "row_id": "row:2025:q3:wearables-home-and-accessories",
+        "fiscal_year": 2025,
+        "quarter": "Q3",
+        "segment": "Products",
+        "product_category": "Products",
+        "product_name": "Wearables, Home and Accessories",
+        "revenue_usd_m": 7404,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:products",
+          "offering:wearables-home-accessories"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      },
+      {
+        "row_id": "row:2025:q4:ipad",
+        "fiscal_year": 2025,
+        "quarter": "Q4",
+        "segment": "Products",
+        "product_category": "Products",
+        "product_name": "iPad",
+        "revenue_usd_m": 6952,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:products",
+          "offering:ipad"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      },
+      {
+        "row_id": "row:2025:q4:iphone",
+        "fiscal_year": 2025,
+        "quarter": "Q4",
+        "segment": "Products",
+        "product_category": "Products",
+        "product_name": "iPhone",
+        "revenue_usd_m": 49025,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:products",
+          "offering:iphone"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      },
+      {
+        "row_id": "row:2025:q4:mac",
+        "fiscal_year": 2025,
+        "quarter": "Q4",
+        "segment": "Products",
+        "product_category": "Products",
+        "product_name": "Mac",
+        "revenue_usd_m": 8726,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:products",
+          "offering:mac"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      },
+      {
+        "row_id": "row:2025:q4:services",
+        "fiscal_year": 2025,
+        "quarter": "Q4",
+        "segment": "Services",
+        "product_category": "Services",
+        "product_name": "Services",
+        "revenue_usd_m": 28750,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:services",
+          "offering:services"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      },
+      {
+        "row_id": "row:2025:q4:wearables-home-and-accessories",
+        "fiscal_year": 2025,
+        "quarter": "Q4",
+        "segment": "Products",
+        "product_category": "Products",
+        "product_name": "Wearables, Home and Accessories",
+        "revenue_usd_m": 9013,
+        "operating_income_usd_m": null,
+        "mapped_from_step1_ids": [
+          "segment:products",
+          "offering:wearables-home-accessories"
+        ],
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED",
+        "validation_status": "verified_source",
+        "review_note": "Revenue is directly disclosed by category; category-level operating income is not disclosed."
+      }
+    ],
+    "sources": [
+      {
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "source_type": "uploaded_file",
+        "name": "apple-fy2021-fy2025-step2-full-history.csv",
+        "locator": "Rows filtered by target fiscal year and quarter",
+        "excerpt": "Apple net sales by category for FY2021-FY2025 quarters, USD millions."
+      }
+    ],
+    "excluded_items": [
+      {
+        "label": "Geographic net sales rows",
+        "reason": "Geographic lines are not Step 1 canonical analysis offerings.",
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED"
+      },
+      {
+        "label": "Consolidated operating income",
+        "reason": "Consolidated company metric, not disclosed by Step 1 canonical offering.",
+        "source_id": "source:file:apple-fy2021-fy2025-full-history",
+        "evidence_level": "DISCLOSED"
+      }
+    ],
+    "validation_warnings": [
+      {
+        "code": "MISSING_OPERATING_INCOME",
+        "severity": "warn",
+        "message": "Operating income is disclosed only at consolidated level, not by category.",
+        "row_ids": [
+          "row:2025:q1:ipad",
+          "row:2025:q1:iphone",
+          "row:2025:q1:mac",
+          "row:2025:q1:services",
+          "row:2025:q1:wearables-home-and-accessories",
+          "row:2025:q2:ipad",
+          "row:2025:q2:iphone",
+          "row:2025:q2:mac",
+          "row:2025:q2:services",
+          "row:2025:q2:wearables-home-and-accessories",
+          "row:2025:q3:ipad",
+          "row:2025:q3:iphone",
+          "row:2025:q3:mac",
+          "row:2025:q3:services",
+          "row:2025:q3:wearables-home-and-accessories",
+          "row:2025:q4:ipad",
+          "row:2025:q4:iphone",
+          "row:2025:q4:mac",
+          "row:2025:q4:services",
+          "row:2025:q4:wearables-home-and-accessories"
+        ]
+      }
+    ],
+    "review_summary": {
+      "one_line": "20 verified Apple FY2025 category revenue rows; category-level operating income requires review.",
+      "highlights": [
+        "Apple FY2025 quarterly category net sales mapped to Step 1 canonical offerings."
+      ],
+      "warnings": [
+        "Operating income is not disclosed by category; legacy rows will display 0 for that metric."
+      ]
+    }
+  }
+}
