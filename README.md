@@ -27,6 +27,7 @@ DCF analysis with LLMs becomes fragile when every step is just free-form prose. 
 - **DCF demo fixture**: lightweight JSON/CSV/TXT fixtures are retained for repeatable local tests
 - **Market data fetch**: WACC step can fetch ticker-level market data through Yahoo Finance
 - **SEC bootstrap endpoint**: `/api/bootstrap-company?ticker=AAPL` builds a lightweight DCF baseline from SEC Company Facts at runtime
+- **Streamlit demo shell**: `streamlit_app/` provides quick SEC bootstrap testing, prompt browsing, and optional Next app embedding
 
 ## Implementation Process
 
@@ -59,6 +60,8 @@ The portfolio code includes the first backend slice of this pattern through `GET
 
 ## Running Locally
 
+### Next.js App
+
 ```bash
 cd dcf-cfp-module
 npm install
@@ -70,6 +73,16 @@ Open `http://localhost:3000`.
 The LLM-backed analysis routes require API keys entered through the app settings. Keys are stored locally in the browser and are not committed to the repository.
 
 For SEC bootstrap requests, set `SEC_USER_AGENT` in `.env.local` so SEC can identify the client.
+
+### Streamlit Shell
+
+```bash
+cd streamlit_app
+python3 -m pip install -r requirements.txt
+streamlit run app.py
+```
+
+The Streamlit shell is useful for repeatable ticker-based SEC bootstrap tests without preparing local files. It can also embed the Next.js app if the app is running locally or deployed.
 
 ## Verification
 
@@ -83,6 +96,7 @@ npm run build
 ## Repository Layout
 
 - `dcf-cfp-module/` - Next.js workflow app, schemas, API routes, and tests
+- `streamlit_app/` - lightweight Streamlit shell for SEC bootstrap experiments and demos
 - `v5.5_DCF/` - final prompt workflow specification
 - `dcf-cfp-module/test/fixtures/` - small sanitized fixtures for deterministic tests
 

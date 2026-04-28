@@ -20,6 +20,7 @@ next-env.d.ts
 !.env.example
 *.pem
 *.key
+.streamlit/secrets.toml
 
 # Local AI/tooling state
 .claude/
