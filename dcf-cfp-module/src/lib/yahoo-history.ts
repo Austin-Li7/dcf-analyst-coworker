@@ -35,16 +35,28 @@ export function buildYahooStep2StructuredResults(params: {
   const cleanTicker = params.ticker.trim().toUpperCase();
   const sourceId = `source:yahoo:${cleanTicker.toLowerCase()}:fundamentals`;
   const annualRows = params.annualFundamentals
-    .map((row) => ({ row, fiscalYear: fiscalYearFromDate(row.date) }))
-    .filter((entry): entry is { row: YahooAnnualFundamental; fiscalYear: number } => entry.fiscalYear !== null)
+    .map((row) => ({
+      row,
+      fiscalYear: fiscalYearFromDate(row.date),
+      revenue: usdMillions(row.totalRevenue),
+      operatingIncome: usdMillions(
+        row.operatingIncome ?? row.totalOperatingIncomeAsReported ?? row.EBIT,
+      ),
+    }))
+    .filter(
+      (entry): entry is {
+        row: YahooAnnualFundamental;
+        fiscalYear: number;
+        revenue: number | null;
+        operatingIncome: number | null;
+      } =>
+        entry.fiscalYear !== null &&
+        (entry.revenue !== null || entry.operatingIncome !== null),
+    )
     .sort((a, b) => a.fiscalYear - b.fiscalYear)
     .slice(-5);
 
-  return annualRows.map(({ row, fiscalYear }) => {
-    const revenue = usdMillions(row.totalRevenue);
-    const operatingIncome = usdMillions(
-      row.operatingIncome ?? row.totalOperatingIncomeAsReported ?? row.EBIT,
-    );
+  return annualRows.map(({ row, fiscalYear, revenue, operatingIncome }) => {
     const operatingCashFlow = usdMillions(row.operatingCashFlow);
     const freeCashFlow = usdMillions(row.freeCashFlow);
     const capex = usdMillions(row.capitalExpenditure);

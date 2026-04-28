@@ -9,6 +9,9 @@ test("builds Step 2 structured history from Yahoo annual fundamentals", () => {
     companyName: "Apple Inc.",
     annualFundamentals: [
       {
+        date: new Date("2023-09-30"),
+      },
+      {
         date: new Date("2024-09-30"),
         totalRevenue: 391_035_000_000,
         operatingIncome: 123_216_000_000,
