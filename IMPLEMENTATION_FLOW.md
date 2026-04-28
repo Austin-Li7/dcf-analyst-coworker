@@ -1,10 +1,10 @@
 # Implementation Flow
 
-This project was created as an AI-assisted valuation workflow prototype.
+This project was created as an AI-assisted DCF analyst coworker: a workflow product that helps investors organize evidence, draft valuation analysis, review weak assumptions, and carry approved structured data into a DCF model.
 
 ## 1. Prompt System Design
 
-The starting point was a multi-step DCF research process. I converted it into a v5.5 workflow with explicit contracts for:
+The starting point was a multi-step DCF research process. I converted it into a v5.5 coworker workflow with explicit contracts for:
 
 - company business architecture
 - historical financial extraction
@@ -13,7 +13,7 @@ The starting point was a multi-step DCF research process. I converted it into a 
 - forecast construction
 - WACC and valuation audit
 
-Each step was designed to produce a structured artifact instead of only prose.
+Each step was designed to produce a structured artifact instead of only prose, so the investor can inspect and revise the work before it influences later valuation steps.
 
 ## 2. Structured Artifact Layer
 
@@ -29,13 +29,15 @@ This reduces prompt drift and lets later valuation steps consume approved data i
 
 The interactive Next.js app was developed with coding-agent assistance. The UI should be treated as an AI-assisted prototype implementation.
 
-The important product logic is the workflow shape:
+The important product logic is the analyst-coworker workflow shape:
 
 - collect or generate source-grounded inputs
 - parse responses into schemas
 - expose review checkpoints
 - preserve approved structured state
 - generate exports and valuation views
+
+The product does not present AI output as an automatic investment decision. It is designed to accelerate analyst work while keeping final judgment with the user.
 
 ## 4. Data Ingestion Direction
 

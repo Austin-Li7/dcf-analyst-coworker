@@ -1,17 +1,19 @@
-# AI DCF Workflow Builder
+# AI DCF Analyst Coworker
 
-An AI-assisted DCF workflow prototype that turns a long-form valuation prompt system into a structured, reviewable web application.
+A source-grounded investment research coworker that helps investors build reviewable DCF valuations with AI-generated drafts, structured artifacts, human checkpoints, and an interactive Next.js dashboard.
 
 The project combines:
 
 - step-by-step DCF prompt contracts for business architecture, historical financials, competition, synergies, forecasting, WACC, and valuation review
 - typed structured artifacts with validation tests
-- a Next.js interactive workflow for reviewing, editing, exporting, and valuing the generated outputs
+- a Next.js analyst workflow for reviewing, editing, exporting, and valuing generated outputs
 - market-data integration for WACC and valuation bridge inputs
 
 ## Why This Exists
 
-DCF analysis with LLMs becomes fragile when every step is just free-form prose. This project explores a more controlled pattern:
+One-shot AI valuation is fragile: it can skip source checks, hide weak assumptions, and turn uncertain claims into confident prose. This project takes a coworker approach instead. The AI drafts and organizes the analysis, while the investor reviews sources, edits assumptions, and keeps final judgment.
+
+The workflow is designed around a controlled pattern:
 
 1. each analytical step has a narrow prompt contract
 2. each response is parsed into a typed machine artifact
@@ -22,7 +24,7 @@ DCF analysis with LLMs becomes fragile when every step is just free-form prose. 
 ## Current Capabilities
 
 - **Prompt workflow source of truth**: final v5.5 prompt set in `v5.5_DCF/`
-- **Interactive app**: `dcf-cfp-module/` contains the Next.js workflow interface
+- **Interactive analyst app**: `dcf-cfp-module/` contains the Next.js workflow interface
 - **Structured validation**: Zod schemas and Node tests cover each major artifact contract
 - **DCF demo fixture**: lightweight JSON/CSV/TXT fixtures are retained for repeatable local tests
 - **Market data fetch**: WACC step can fetch ticker-level market data through Yahoo Finance
@@ -30,7 +32,7 @@ DCF analysis with LLMs becomes fragile when every step is just free-form prose. 
 
 ## Implementation Process
 
-This was built as an AI-assisted prototype. The visual workflow and UI implementation were developed with heavy coding-agent assistance, then refined around the valuation workflow I designed.
+This was built as an AI-assisted product prototype. The visual workflow and UI implementation were developed with heavy coding-agent assistance, then refined around the valuation workflow I designed.
 
 My main contributions were:
 
@@ -41,7 +43,7 @@ My main contributions were:
 - integrating schemas, route behavior, and valuation logic into a runnable app prototype
 - curating the project into a clean portfolio artifact with only publishable code, prompts, and sanitized demos
 
-The project should be read as a workflow/product prototype, not as a claim that every UI component was manually authored from scratch.
+The project should be read as an AI-assisted investment research coworker and workflow prototype, not as a claim that every UI component was manually authored from scratch or that the system replaces investor judgment.
 
 ## Data Strategy
 
