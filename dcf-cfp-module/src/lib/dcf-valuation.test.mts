@@ -108,6 +108,8 @@ test("builds DCF valuation from Step 5 annual forecast and WACC", () => {
   assert.equal(Math.round(result.intrinsicValuePerShare!), Math.round(result.equityValueUsdM / 100));
   assert.equal((result.impliedUpsidePct ?? 0) < 0, true);
   assert.equal(result.decision.action, "AVOID");
+  assert.equal(result.assumptionAudit.length > 0, true);
+  assert.equal(result.assumptionAudit.some((item) => item.id === "terminal-value-dependence"), true);
 });
 
 test("returns missing-input result when forecast or WACC is unavailable", () => {
@@ -120,6 +122,7 @@ test("returns missing-input result when forecast or WACC is unavailable", () => 
 
   assert.equal(result.hasInputs, false);
   assert.equal(result.forecastRows.length, 0);
+  assert.equal(result.assumptionAudit[0].severity, "high");
 });
 
 test("normalizes apparent USD billions forecast rows for mega-cap companies before equity bridge", () => {
@@ -193,4 +196,73 @@ test("classifies valuation decision from implied upside thresholds", () => {
 
   assert.equal(result.decision.action, "BUY");
   assert.match(result.decision.summary, /undervalued/i);
+});
+
+test("flags high-risk valuation assumptions when terminal spread is narrow", () => {
+  const result = buildDcfValuation({
+    forecast,
+    wacc: {
+      ...wacc,
+      calculation: {
+        ...wacc.calculation!,
+        wacc: 0.045,
+      },
+    },
+    fcfMargin: 0.4,
+    terminalGrowth: 0.035,
+  });
+
+  const spreadAudit = result.assumptionAudit.find((item) => item.id === "wacc-growth-spread");
+  const marginAudit = result.assumptionAudit.find((item) => item.id === "fcf-margin");
+  const terminalAudit = result.assumptionAudit.find((item) => item.id === "terminal-value-dependence");
+
+  assert.equal(spreadAudit?.severity, "high");
+  assert.equal(marginAudit?.severity, "high");
+  assert.equal(terminalAudit?.severity, "high");
+  assert.match(result.decision.summary, /High-risk audit flags/);
+});
+
+test("flags weak Step 5 driver exposure in the valuation audit", () => {
+  const riskyForecast: ForecastState = {
+    approved: true,
+    segments: [],
+    structuredResults: [{
+      ...artifact(),
+      machine_artifact: {
+        ...artifact().machine_artifact,
+        weak_inference_sensitivity: [
+          {
+            assumption_id: "A1",
+            evidence_level: "WEAK",
+            if_removed_revenue_impact_usd_m: 300,
+            fy5_impact_pct: 12,
+            flag: "Large weak-driver sensitivity.",
+          },
+        ],
+        confidence_summary: {
+          total_fy5_revenue_base_usd_m: 1464.1,
+          disclosed_driver_revenue_pct: 60,
+          strong_driver_revenue_pct: 5,
+          weak_driver_revenue_pct: 35,
+          high_uncertainty_flags: 3,
+        },
+      },
+    }],
+  };
+
+  const result = buildDcfValuation({
+    forecast: riskyForecast,
+    wacc,
+    fcfMargin: 0.25,
+    terminalGrowth: 0.025,
+  });
+
+  assert.equal(
+    result.assumptionAudit.find((item) => item.id === "weak-driver-exposure")?.severity,
+    "high",
+  );
+  assert.equal(
+    result.assumptionAudit.find((item) => item.id === "weak-sensitivity")?.severity,
+    "high",
+  );
 });

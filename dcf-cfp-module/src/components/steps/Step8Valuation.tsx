@@ -6,6 +6,7 @@ import { AlertTriangle, BarChart3, CheckCircle2, Shield, SlidersHorizontal } fro
 import StepShell from "./StepShell";
 import { useCFP } from "@/context/CFPContext";
 import { buildDcfValuation } from "@/lib/dcf-valuation";
+import type { AssumptionAuditSeverity } from "@/lib/dcf-valuation";
 import {
   buildStep5AssumptionRows,
   buildStep5ReviewWarningRows,
@@ -156,6 +157,23 @@ export default function Step8Valuation() {
                   </div>
                 </div>
               </div>
+
+              <div className="rounded-lg border border-zinc-800 bg-zinc-950 p-4">
+                <h4 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-amber-300">
+                  <AlertTriangle size={15} /> Assumption Audit
+                </h4>
+                <div className="mt-3 grid gap-3 lg:grid-cols-2">
+                  {valuation.assumptionAudit.map((item) => (
+                    <AuditCard
+                      key={item.id}
+                      severity={item.severity}
+                      label={item.label}
+                      summary={item.summary}
+                      detail={item.detail}
+                    />
+                  ))}
+                </div>
+              </div>
             </div>
           )}
         </section>
@@ -263,6 +281,42 @@ function InfoPanel({ title, icon, children }: { title: string; icon: ReactNode; 
         {icon} {title}
       </h4>
       {children}
+    </div>
+  );
+}
+
+function AuditCard({
+  severity,
+  label,
+  summary,
+  detail,
+}: {
+  severity: AssumptionAuditSeverity;
+  label: string;
+  summary: string;
+  detail: string;
+}) {
+  const style =
+    severity === "high"
+      ? "border-red-800/50 bg-red-950/20 text-red-200"
+      : severity === "review"
+        ? "border-amber-800/50 bg-amber-950/15 text-amber-200"
+        : "border-emerald-800/40 bg-emerald-950/10 text-emerald-200";
+  const badge =
+    severity === "high" ? "High Risk" : severity === "review" ? "Review" : "Pass";
+
+  return (
+    <div className={`rounded-lg border p-3 ${style}`}>
+      <div className="flex items-start justify-between gap-3">
+        <div>
+          <p className="text-sm font-semibold text-zinc-100">{label}</p>
+          <p className="mt-0.5 font-mono text-xs">{summary}</p>
+        </div>
+        <span className="shrink-0 rounded-full bg-zinc-950/70 px-2 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-zinc-200">
+          {badge}
+        </span>
+      </div>
+      <p className="mt-2 text-xs leading-5 text-zinc-300">{detail}</p>
     </div>
   );
 }
