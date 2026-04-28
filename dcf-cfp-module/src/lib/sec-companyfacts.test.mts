@@ -66,3 +66,49 @@ test("builds a sanitized SEC bootstrap DCF package from annual company facts", (
   assert.equal(payload.historical_quarterly_baseline.rows[1].quarter, "Q4");
   assert.equal(payload.minimum_dcf_readiness_checklist.has_revenue, true);
 });
+
+test("extracts latest annual report product category evidence when filing HTML is available", () => {
+  const payload = buildSecBootstrapPackage({
+    ticker: "AAPL",
+    cik: "0000320193",
+    companyName: "Apple Inc.",
+    latestAnnualReport: {
+      form: "10-K",
+      filingDate: "2025-10-31",
+      reportDate: "2025-09-27",
+      url: "https://www.sec.gov/Archives/edgar/data/320193/example.htm",
+      html: `
+        <html><body>
+          <h1>Item 1. Business</h1>
+          <p>Company Background. Products iPhone is the Company's line of smartphones.
+          Mac is the Company's line of personal computers. iPad is the Company's line
+          of tablets. Wearables, Home and Accessories includes smartwatches and wireless
+          headphones. Services includes advertising, AppleCare, cloud services, digital
+          content and payment services.</p>
+        </body></html>
+      `,
+    },
+    companyFacts: {
+      cik: 320193,
+      entityName: "Apple Inc.",
+      facts: {
+        "us-gaap": {
+          RevenueFromContractWithCustomerExcludingAssessedTax: {
+            units: {
+              USD: [
+                { fy: 2025, fp: "FY", form: "10-K", filed: "2025-10-31", val: 416_161_000_000 },
+              ],
+            },
+          },
+        },
+      },
+    },
+  });
+
+  assert.equal(payload.business_architecture_evidence?.latest_annual_report.form, "10-K");
+  assert.deepEqual(
+    payload.business_architecture_evidence?.revenue_category_candidates.map((candidate) => candidate.name),
+    ["iPhone", "Mac", "iPad", "Wearables, Home and Accessories", "Services"],
+  );
+  assert.equal(payload.source_manifest.at(-1)?.source_type, "sec_filing_html");
+});

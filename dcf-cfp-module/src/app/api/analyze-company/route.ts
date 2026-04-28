@@ -9,7 +9,7 @@ import {
   STEP1_RESPONSE_SCHEMA,
 } from "@/lib/step1-schema";
 import type { LLMProvider } from "@/types/cfp";
-import type { AnalyzeCompanyResponse } from "@/types/cfp";
+import type { AnalyzeCompanyResponse, Step1StructuredResult } from "@/types/cfp";
 
 const MAX_PAGES = 50;
 const STEP1_MAX_OUTPUT_TOKENS = 32768;
@@ -62,6 +62,7 @@ function buildStep1BootstrapPrompt(companyName: string, bootstrapPackageText: st
     "Input source: SEC Company Facts bootstrap package generated at runtime from public SEC APIs.",
     "Important limitations:",
     "- This bootstrap package is strongest for total-company financial baseline and source manifest.",
+    "- If business_architecture_evidence.revenue_category_candidates is present, use it as official 10-K evidence for reported revenue/product categories instead of collapsing the company to Total Company.",
     "- If segment/product architecture is not explicitly present in the bootstrap package, mark the analysis as conservative and use weak inference only when necessary.",
     "- Do not invent exact product/segment disclosures. Prefer a compact Total Company or clearly supported public-company architecture over unsupported detail.",
     '- schema_version must be "v5.5".',
@@ -76,6 +77,202 @@ function buildStep1BootstrapPrompt(companyName: string, bootstrapPackageText: st
     "SEC bootstrap JSON begins below.",
     bootstrapPackageText,
   ].join("\n");
+}
+
+type BootstrapCandidate = {
+  name?: unknown;
+  category?: unknown;
+  products?: unknown;
+  customer_type?: unknown;
+  evidence_level?: unknown;
+  source_snippet?: unknown;
+  source_location?: unknown;
+};
+
+type NormalizedBootstrapCandidate = {
+  name: string;
+  category: string;
+  products: string[];
+  customer_type: string;
+  evidence_level: "DISCLOSED" | "STRONG_INFERENCE";
+  source_snippet: string;
+  source_location: string;
+};
+
+type ParsedBootstrapPackage = {
+  company?: {
+    name?: unknown;
+    ticker?: unknown;
+  };
+  business_architecture_evidence?: {
+    latest_annual_report?: {
+      form?: unknown;
+      filing_date?: unknown;
+      url?: unknown;
+    };
+    revenue_category_candidates?: BootstrapCandidate[];
+  };
+};
+
+function textOrFallback(value: unknown, fallback: string): string {
+  return typeof value === "string" && value.trim() ? value.trim() : fallback;
+}
+
+function bootstrapCandidates(bootstrapPackage: unknown): NormalizedBootstrapCandidate[] {
+  if (!bootstrapPackage || typeof bootstrapPackage !== "object") return [];
+  const candidates = (bootstrapPackage as ParsedBootstrapPackage).business_architecture_evidence
+    ?.revenue_category_candidates;
+  if (!Array.isArray(candidates)) return [];
+
+  return candidates
+    .filter((candidate) => typeof candidate?.name === "string" && candidate.name.trim())
+    .map((candidate) => ({
+      name: textOrFallback(candidate.name, "Unnamed category"),
+      category: textOrFallback(candidate.category, "Business category"),
+      products: Array.isArray(candidate.products)
+        ? candidate.products.filter((product): product is string => typeof product === "string" && !!product.trim())
+        : [],
+      customer_type: textOrFallback(candidate.customer_type, "Not specified"),
+      evidence_level:
+        candidate.evidence_level === "STRONG_INFERENCE" ? "STRONG_INFERENCE" as const : "DISCLOSED" as const,
+      source_snippet: textOrFallback(candidate.source_snippet, "Disclosed in latest annual report."),
+      source_location: textOrFallback(candidate.source_location, "Latest annual report"),
+    }));
+}
+
+function shouldReplaceTotalCompanyView(
+  result: Step1StructuredResult,
+  candidates: NormalizedBootstrapCandidate[],
+): boolean {
+  if (candidates.length < 2) return false;
+  const segments = result.analysis_view.segments;
+  if (segments.length !== 1) return false;
+  const segmentName = segments[0]?.canonical_name.toLowerCase() ?? "";
+  const offeringNames = segments[0]?.offerings.map((offering) => offering.canonical_name.toLowerCase()) ?? [];
+  return (
+    segmentName.includes("total company") ||
+    offeringNames.length === 0 ||
+    offeringNames.every((name) => name.includes("total company"))
+  );
+}
+
+function replaceTotalCompanyWithBootstrapArchitecture(
+  result: Step1StructuredResult,
+  bootstrapPackage: unknown,
+): Step1StructuredResult {
+  const candidates = bootstrapCandidates(bootstrapPackage);
+  if (!shouldReplaceTotalCompanyView(result, candidates)) return result;
+
+  const parsedBootstrap = bootstrapPackage as ParsedBootstrapPackage;
+  const filing = parsedBootstrap.business_architecture_evidence?.latest_annual_report;
+  const sourceDocument = `${textOrFallback(filing?.form, "Latest annual report")} filed ${textOrFallback(filing?.filing_date, "unknown date")}`;
+  const sourceSection = "Item 1 Business / revenue category evidence";
+  const sourceUrl = textOrFallback(filing?.url, "SEC filing");
+
+  const claims = candidates.map((candidate, index) => ({
+    claim_id: `S1-AUTO-${String(index + 1).padStart(2, "0")}`,
+    text: `${candidate.name} is disclosed as a material product, service, or revenue category in the latest annual report.`,
+    source_snippet: candidate.source_snippet.slice(0, 180),
+    source_location: candidate.source_location,
+    evidence_level: candidate.evidence_level as "DISCLOSED" | "STRONG_INFERENCE",
+  }));
+
+  const reportedNodes = candidates.map((candidate, index) => ({
+    id: `reported:${candidate.name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}`,
+    label: candidate.name,
+    raw_name_variants: [candidate.name],
+    products: candidate.products.slice(0, 3),
+    customer_type: candidate.customer_type,
+    claim_id: claims[index].claim_id,
+    evidence_level: claims[index].evidence_level,
+    children: [],
+  }));
+
+  const productCandidates = candidates.filter((candidate) => candidate.name !== "Services");
+  const serviceCandidate = candidates.find((candidate) => candidate.name === "Services");
+  const segments = [
+    ...(productCandidates.length
+      ? [
+          {
+            id: "segment:products",
+            canonical_name: "Products",
+            raw_name_variants: ["Products"],
+            mapped_from_reported_node_ids: productCandidates.map((candidate) =>
+              `reported:${candidate.name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}`,
+            ),
+            claim_id: claims[0].claim_id,
+            evidence_level: "DISCLOSED" as const,
+            offerings: productCandidates.map((candidate) => {
+              const claim = claims[candidates.indexOf(candidate)];
+              return {
+                id: `offering:${candidate.name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}`,
+                canonical_name: candidate.name,
+                category: candidate.category,
+                raw_name_variants: [candidate.name],
+                mapped_from_reported_node_ids: [
+                  `reported:${candidate.name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}`,
+                ],
+                products: candidate.products.slice(0, 3),
+                customer_type: candidate.customer_type,
+                claim_id: claim.claim_id,
+                evidence_level: claim.evidence_level,
+              };
+            }),
+          },
+        ]
+      : []),
+    ...(serviceCandidate
+      ? [
+          {
+            id: "segment:services",
+            canonical_name: "Services",
+            raw_name_variants: ["Services"],
+            mapped_from_reported_node_ids: ["reported:services"],
+            claim_id: claims[candidates.indexOf(serviceCandidate)].claim_id,
+            evidence_level: "DISCLOSED" as const,
+            offerings: [
+              {
+                id: "offering:services",
+                canonical_name: "Services",
+                category: serviceCandidate.category,
+                raw_name_variants: ["Services"],
+                mapped_from_reported_node_ids: ["reported:services"],
+                products: serviceCandidate.products.slice(0, 3),
+                customer_type: serviceCandidate.customer_type,
+                claim_id: claims[candidates.indexOf(serviceCandidate)].claim_id,
+                evidence_level: claims[candidates.indexOf(serviceCandidate)].evidence_level,
+              },
+            ],
+          },
+        ]
+      : []),
+  ];
+
+  return {
+    ...result,
+    reported_view: {
+      view_type: "revenue_category",
+      nodes: reportedNodes,
+    },
+    analysis_view: {
+      segments,
+      excluded_items: result.analysis_view.excluded_items.filter(
+        (item) => !item.raw_name.toLowerCase().includes("product"),
+      ),
+      canonical_name_registry: Object.fromEntries(
+        ["Products", "Services", ...candidates.map((candidate) => candidate.name)].map((name) => [name, name]),
+      ),
+    },
+    claims: [...claims, ...result.claims.filter((claim) => !claim.claim_id.startsWith("S1-AUTO-"))].slice(0, 12),
+    sources: [
+      {
+        document: sourceDocument,
+        section: sourceSection,
+        page: sourceUrl,
+      },
+      ...result.sources.filter((source) => source.document !== sourceDocument),
+    ],
+  };
 }
 
 function formatStructuredResultForDisplay(payload: unknown): string {
@@ -120,6 +317,7 @@ export async function POST(req: NextRequest): Promise<NextResponse<AnalyzeCompan
     const tenKFiles = formData.getAll("tenK");
     const tenQFiles = formData.getAll("tenQ");
     const bootstrapPackage = formData.get("bootstrapPackage");
+    let parsedBootstrapPackage: ParsedBootstrapPackage | null = null;
 
     if (tenKFiles.length > 1) {
       return NextResponse.json(
@@ -163,10 +361,8 @@ export async function POST(req: NextRequest): Promise<NextResponse<AnalyzeCompan
 
     if (typeof bootstrapPackage === "string" && bootstrapPackage.trim()) {
       try {
-        const parsedBootstrap = JSON.parse(bootstrapPackage) as {
-          company?: { name?: string; ticker?: string };
-        };
-        documentTexts.push(`--- SEC Company Facts Bootstrap Package ---\n${JSON.stringify(parsedBootstrap, null, 2)}`);
+        parsedBootstrapPackage = JSON.parse(bootstrapPackage) as ParsedBootstrapPackage;
+        documentTexts.push(`--- SEC Company Facts Bootstrap Package ---\n${JSON.stringify(parsedBootstrapPackage, null, 2)}`);
       } catch {
         return NextResponse.json(
           {
@@ -231,7 +427,11 @@ export async function POST(req: NextRequest): Promise<NextResponse<AnalyzeCompan
     });
 
     const structuredPayload = extractStructuredPayload(result, llmProvider);
-    const structuredResult = parseStep1StructuredResult(structuredPayload);
+    const parsedStructuredResult = parseStep1StructuredResult(structuredPayload);
+    const structuredResult = replaceTotalCompanyWithBootstrapArchitecture(
+      parsedStructuredResult,
+      parsedBootstrapPackage,
+    );
     const architectureJson = projectStructuredStep1ToArchitecture(structuredResult);
     const step1Review = buildStep1ReviewState(structuredResult);
 

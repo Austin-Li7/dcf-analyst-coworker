@@ -10,6 +10,16 @@ export type SecBootstrapFact = {
   common_shares_outstanding_m: number | null;
 };
 
+export type SecBusinessArchitectureCandidate = {
+  name: string;
+  category: string;
+  products: string[];
+  customer_type: string;
+  evidence_level: "DISCLOSED" | "STRONG_INFERENCE";
+  source_snippet: string;
+  source_location: string;
+};
+
 export type SecBootstrapPackage = {
   schema_version: "sec_bootstrap_v1";
   company: {
@@ -19,10 +29,20 @@ export type SecBootstrapPackage = {
   };
   source_manifest: Array<{
     source_id: string;
-    source_type: "sec_companyfacts";
+    source_type: "sec_companyfacts" | "sec_filing_html";
     name: string;
     locator: string;
   }>;
+  business_architecture_evidence?: {
+    latest_annual_report: {
+      form: string;
+      filing_date: string;
+      report_date: string;
+      url: string;
+    };
+    business_excerpt: string;
+    revenue_category_candidates: SecBusinessArchitectureCandidate[];
+  };
   historical_quarterly_baseline: {
     rows: Array<{
       fiscal_year: number;
@@ -73,6 +93,14 @@ type SecFactUnit = {
   frame?: string;
 };
 
+type LatestAnnualReportInput = {
+  form: string;
+  filingDate: string;
+  reportDate: string;
+  url: string;
+  html: string;
+};
+
 const REVENUE_CONCEPTS = [
   "RevenueFromContractWithCustomerExcludingAssessedTax",
   "Revenues",
@@ -90,12 +118,119 @@ const DEBT_CURRENT_CONCEPTS = ["ShortTermBorrowings", "ShortTermDebtCurrent"];
 const DEBT_NONCURRENT_CONCEPTS = ["LongTermDebtNoncurrent", "LongTermDebtAndFinanceLeaseObligationsNoncurrent"];
 const SHARES_CONCEPTS = ["EntityCommonStockSharesOutstanding"];
 
+const PRODUCT_CATEGORY_PATTERNS = [
+  {
+    name: "iPhone",
+    category: "Hardware",
+    customerType: "Consumer",
+    products: ["iPhone"],
+  },
+  {
+    name: "Mac",
+    category: "Hardware",
+    customerType: "Consumer and Enterprise",
+    products: ["MacBook Air", "MacBook Pro", "iMac", "Mac mini", "Mac Studio", "Mac Pro"],
+  },
+  {
+    name: "iPad",
+    category: "Hardware",
+    customerType: "Consumer and Enterprise",
+    products: ["iPad Pro", "iPad Air", "iPad", "iPad mini"],
+  },
+  {
+    name: "Wearables, Home and Accessories",
+    category: "Hardware and Accessories",
+    customerType: "Consumer",
+    products: ["Apple Watch", "AirPods", "Apple TV", "HomePod", "Vision Pro"],
+  },
+  {
+    name: "Services",
+    category: "Services",
+    customerType: "Consumer and Enterprise",
+    products: ["Advertising", "AppleCare", "Cloud services", "Digital content", "Payment services"],
+  },
+];
+
 function usdMillions(value: number | null): number | null {
   return value === null ? null : Math.round((value / 1_000_000) * 10) / 10;
 }
 
 function sharesMillions(value: number | null): number | null {
   return value === null ? null : Math.round((value / 1_000_000) * 10) / 10;
+}
+
+function decodeHtmlEntities(value: string): string {
+  return value
+    .replace(/&nbsp;|&#160;/g, " ")
+    .replace(/&#8217;|&rsquo;/g, "'")
+    .replace(/&#8220;|&ldquo;/g, '"')
+    .replace(/&#8221;|&rdquo;/g, '"')
+    .replace(/&#8211;|&ndash;/g, "-")
+    .replace(/&#8212;|&mdash;/g, "-")
+    .replace(/&#174;|&reg;/g, "")
+    .replace(/&#8482;|&trade;/g, "")
+    .replace(/&amp;/g, "&")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">");
+}
+
+function htmlToPlainText(html: string): string {
+  return decodeHtmlEntities(
+    html
+      .replace(/<script[\s\S]*?<\/script>/gi, " ")
+      .replace(/<style[\s\S]*?<\/style>/gi, " ")
+      .replace(/<[^>]+>/g, " "),
+  ).replace(/\s+/g, " ").trim();
+}
+
+function excerptAround(text: string, needle: string, radius = 420): string | null {
+  const index = text.toLowerCase().indexOf(needle.toLowerCase());
+  if (index < 0) return null;
+  return text.slice(Math.max(0, index - radius), index + needle.length + radius).trim();
+}
+
+function extractBusinessArchitectureEvidence(
+  annualReport: LatestAnnualReportInput | undefined,
+): SecBootstrapPackage["business_architecture_evidence"] | undefined {
+  if (!annualReport?.html) return undefined;
+
+  const plainText = htmlToPlainText(annualReport.html);
+  const businessExcerpt =
+    excerptAround(plainText, "Company Background", 1800) ??
+    excerptAround(plainText, "Products iPhone", 1800) ??
+    excerptAround(plainText, "Item 1. Business", 1800) ??
+    "";
+
+  const candidates = PRODUCT_CATEGORY_PATTERNS.flatMap((pattern) => {
+    const snippet =
+      excerptAround(businessExcerpt, pattern.name, 360) ??
+      excerptAround(plainText, pattern.name, 360);
+    if (!snippet) return [];
+    return [
+      {
+        name: pattern.name,
+        category: pattern.category,
+        products: pattern.products,
+        customer_type: pattern.customerType,
+        evidence_level: "DISCLOSED" as const,
+        source_snippet: snippet.slice(0, 900),
+        source_location: `${annualReport.form} filed ${annualReport.filingDate}, Item 1 Business`,
+      },
+    ];
+  });
+
+  if (!businessExcerpt && candidates.length === 0) return undefined;
+
+  return {
+    latest_annual_report: {
+      form: annualReport.form,
+      filing_date: annualReport.filingDate,
+      report_date: annualReport.reportDate,
+      url: annualReport.url,
+    },
+    business_excerpt: businessExcerpt.slice(0, 5000),
+    revenue_category_candidates: candidates,
+  };
 }
 
 function annualFacts(fact: SecFact | undefined, unit = "USD"): SecFactUnit[] {
@@ -148,6 +283,7 @@ export function buildSecBootstrapPackage(params: {
   cik: string;
   companyName: string;
   companyFacts: SecCompanyFacts;
+  latestAnnualReport?: LatestAnnualReportInput;
 }): SecBootstrapPackage {
   const fiscalYears = discoveredFiscalYears(params.companyFacts);
   const warnings: string[] = [];
@@ -198,6 +334,7 @@ export function buildSecBootstrapPackage(params: {
 
   const baseYear = drivers.at(-1) ?? null;
   const secUrl = `https://data.sec.gov/api/xbrl/companyfacts/CIK${params.cik}.json`;
+  const businessArchitectureEvidence = extractBusinessArchitectureEvidence(params.latestAnnualReport);
 
   return {
     schema_version: "sec_bootstrap_v1",
@@ -213,7 +350,20 @@ export function buildSecBootstrapPackage(params: {
         name: "SEC Company Facts API",
         locator: secUrl,
       },
+      ...(params.latestAnnualReport
+        ? [
+            {
+              source_id: "source:sec:latest_10k",
+              source_type: "sec_filing_html" as const,
+              name: `${params.latestAnnualReport.form} filed ${params.latestAnnualReport.filingDate}`,
+              locator: params.latestAnnualReport.url,
+            },
+          ]
+        : []),
     ],
+    ...(businessArchitectureEvidence
+      ? { business_architecture_evidence: businessArchitectureEvidence }
+      : {}),
     historical_quarterly_baseline: {
       rows: drivers.map((row) => ({
         fiscal_year: row.fiscal_year,

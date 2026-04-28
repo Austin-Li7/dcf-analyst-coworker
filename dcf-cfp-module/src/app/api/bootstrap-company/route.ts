@@ -29,6 +29,67 @@ function normalizeSearchText(value: string): string {
   return value.toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
 }
 
+type SecSubmissions = {
+  filings?: {
+    recent?: {
+      form?: string[];
+      accessionNumber?: string[];
+      primaryDocument?: string[];
+      filingDate?: string[];
+      reportDate?: string[];
+    };
+  };
+};
+
+async function fetchLatestAnnualReport(cik: string): Promise<
+  | {
+      form: string;
+      filingDate: string;
+      reportDate: string;
+      url: string;
+      html: string;
+    }
+  | undefined
+> {
+  const submissionsUrl = `https://data.sec.gov/submissions/CIK${cik}.json`;
+  const submissionsResponse = await fetch(submissionsUrl, {
+    headers: secHeaders(),
+    next: { revalidate: 60 * 60 * 12 },
+  });
+
+  if (!submissionsResponse.ok) {
+    return undefined;
+  }
+
+  const submissions = (await submissionsResponse.json()) as SecSubmissions;
+  const recent = submissions.filings?.recent;
+  const forms = recent?.form ?? [];
+  const annualIndex = forms.findIndex((form) => form === "10-K" || form === "10-K/A");
+  if (annualIndex < 0) return undefined;
+
+  const accession = recent?.accessionNumber?.[annualIndex];
+  const primaryDocument = recent?.primaryDocument?.[annualIndex];
+  if (!accession || !primaryDocument) return undefined;
+
+  const cikPath = String(Number(cik));
+  const accessionPath = accession.replace(/-/g, "");
+  const filingUrl = `https://www.sec.gov/Archives/edgar/data/${cikPath}/${accessionPath}/${primaryDocument}`;
+  const filingResponse = await fetch(filingUrl, {
+    headers: { ...secHeaders(), Accept: "text/html,application/xhtml+xml" },
+    next: { revalidate: 60 * 60 * 24 * 7 },
+  });
+
+  if (!filingResponse.ok) return undefined;
+
+  return {
+    form: forms[annualIndex],
+    filingDate: recent?.filingDate?.[annualIndex] ?? "",
+    reportDate: recent?.reportDate?.[annualIndex] ?? "",
+    url: filingUrl,
+    html: await filingResponse.text(),
+  };
+}
+
 export async function GET(req: NextRequest) {
   try {
     const { searchParams } = new URL(req.url);
@@ -82,6 +143,7 @@ export async function GET(req: NextRequest) {
       cik,
       companyName: match.title,
       companyFacts: await factsResponse.json(),
+      latestAnnualReport: await fetchLatestAnnualReport(cik),
     });
 
     return NextResponse.json(packagePayload);
