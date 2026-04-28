@@ -28,7 +28,7 @@ The workflow is designed around a controlled pattern:
 - **Structured validation**: Zod schemas and Node tests cover each major artifact contract
 - **DCF demo fixture**: lightweight JSON/CSV/TXT fixtures are retained for repeatable local tests
 - **Market data fetch**: WACC step can fetch ticker-level market data through Yahoo Finance
-- **SEC bootstrap endpoint**: `/api/bootstrap-company?ticker=AAPL` builds a lightweight DCF baseline from SEC Company Facts at runtime
+- **SEC bootstrap flow**: Step 1 can start from a ticker/company search and build a lightweight DCF baseline from SEC Company Facts at runtime
 
 ## Implementation Process
 
@@ -57,7 +57,7 @@ For a production-grade public demo, the preferred path is an **auto-bootstrap fl
 4. the app derives a baseline DCF input package
 5. the user reviews the generated source manifest before running LLM analysis
 
-The portfolio code includes the first backend slice of this pattern through `GET /api/bootstrap-company?ticker=...`, which fetches SEC Company Facts at runtime and returns a sanitized baseline package. The UI can be extended to call this endpoint before Step 1/2 so a public demo does not require checked-in raw filings.
+The portfolio code includes the first end-to-end slice of this pattern: Step 1 calls `GET /api/bootstrap-company?query=...`, fetches SEC Company Facts at runtime, and sends the resulting source manifest to the selected AI engine. A public demo does not require checked-in raw filings or manual 10-K/10-Q uploads for Step 1.
 
 ## Running Locally
 
@@ -69,7 +69,7 @@ npm run dev
 
 Open `http://localhost:3000`.
 
-The LLM-backed analysis routes require API keys entered through the app settings. Keys are stored locally in the browser and are not committed to the repository.
+The LLM-backed analysis routes require API keys entered through the app settings or configured as server environment variables. Keys entered in the browser are stored locally and are not committed to the repository.
 
 For SEC bootstrap requests, set `SEC_USER_AGENT` in `.env.local` so SEC can identify the client.
 
@@ -82,9 +82,9 @@ Required deployment settings:
 - root directory: `dcf-cfp-module`
 - build command: `npm run build`
 - install command: `npm install`
-- environment variables: `ANTHROPIC_API_KEY` and/or `GEMINI_API_KEY` if server-side keys are desired; `SEC_USER_AGENT` for SEC bootstrap requests
+- environment variables: `ANTHROPIC_API_KEY`, `GEMINI_API_KEY`, and/or `OPENAI_API_KEY` if server-side keys are desired; `SEC_USER_AGENT` for SEC bootstrap requests
 
-The app also supports entering LLM keys in the browser settings UI for local experimentation.
+The app also supports Claude, Gemini, and OpenAI keys in the browser settings UI for local experimentation.
 
 See [DEPLOYMENT.md](DEPLOYMENT.md) for the exact Vercel setup steps.
 

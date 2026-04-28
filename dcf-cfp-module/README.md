@@ -14,7 +14,7 @@ npm run build
 
 ## Notes
 
-- API keys are entered in the app settings and kept in browser local storage.
+- Claude, Gemini, and OpenAI API keys are entered in the app settings and kept in browser local storage, or supplied through server environment variables.
 - The WACC step fetches market data from Yahoo Finance.
-- `GET /api/bootstrap-company?ticker=AAPL` fetches SEC Company Facts at runtime and returns a sanitized baseline package.
+- `GET /api/bootstrap-company?query=AAPL` fetches SEC Company Facts at runtime and returns a sanitized baseline package for Step 1.
 - Raw filings are intentionally not committed in the portfolio version.

@@ -125,7 +125,7 @@ Rules:
       prompt,
       maxTokens: 16384,
       responseSchema:
-        llmProvider === "gemini"
+        llmProvider === "gemini" || llmProvider === "openai"
           ? GEMINI_STEP5_RESPONSE_SCHEMA
           : (STEP5_RESPONSE_SCHEMA as Record<string, unknown>),
       responseToolName: "submit_step5_structured_result",

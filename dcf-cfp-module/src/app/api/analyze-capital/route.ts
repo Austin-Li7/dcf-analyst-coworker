@@ -109,7 +109,9 @@ export async function POST(req: NextRequest): Promise<NextResponse<AnalyzeCapita
       }),
       maxTokens: 12288,
       responseSchema:
-        llmProvider === "gemini" ? GEMINI_STEP4_RESPONSE_SCHEMA : STEP4_RESPONSE_SCHEMA,
+        llmProvider === "gemini" || llmProvider === "openai"
+          ? GEMINI_STEP4_RESPONSE_SCHEMA
+          : STEP4_RESPONSE_SCHEMA,
       responseToolName: "submit_step4_structured_result",
       responseToolDescription:
         "Submit the Step 4 structured synergy and capital allocation result with sources, claims, and review summary.",

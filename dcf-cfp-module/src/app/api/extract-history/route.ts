@@ -235,7 +235,9 @@ export async function POST(req: NextRequest): Promise<NextResponse<ExtractHistor
       systemPrompt,
       maxTokens: 16384,
       responseSchema:
-        llmProvider === "gemini" ? GEMINI_STEP2_RESPONSE_SCHEMA : STEP2_RESPONSE_SCHEMA,
+        llmProvider === "gemini" || llmProvider === "openai"
+          ? GEMINI_STEP2_RESPONSE_SCHEMA
+          : STEP2_RESPONSE_SCHEMA,
     });
 
     // ── Parse the response ───────────────────────────────────────────────────

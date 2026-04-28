@@ -1,6 +1,6 @@
 /**
  * Centralized server-side LLM abstraction.
- * Dispatches to Anthropic (Claude) or Google (Gemini) based on the provider.
+ * Dispatches to Anthropic (Claude), Google (Gemini), or OpenAI based on the provider.
  * Imported only by API route handlers — never by client components.
  */
 
@@ -21,10 +21,9 @@ export interface CallLLMOptions {
   systemPrompt?: string;
   maxTokens?: number;
   /**
-   * Optional Gemini-native responseSchema (JSON Schema object).
-   * When provided the Gemini branch enables responseMimeType "application/json"
-   * and passes the schema, guaranteeing structured output.
-   * When provided for Claude, the request is forced through a tool schema.
+   * Optional provider-native responseSchema (JSON Schema object).
+   * Gemini and OpenAI use JSON schema response formats.
+   * Claude uses an equivalent tool schema.
    */
   responseSchema?: JsonSchemaObject;
   responseToolName?: string;
@@ -75,7 +74,9 @@ export function resolveApiKey(
     (typeof runtimeKey === "string" && runtimeKey.trim()) ||
     (provider === "claude"
       ? process.env.ANTHROPIC_API_KEY
-      : process.env.GEMINI_API_KEY) ||
+      : provider === "gemini"
+        ? process.env.GEMINI_API_KEY
+        : process.env.OPENAI_API_KEY) ||
     "";
   return { apiKey: key, needsKey: !key };
 }
@@ -95,6 +96,18 @@ export async function callLLM(options: CallLLMOptions): Promise<CallLLMResult> {
     return callGemini(apiKey, prompt, systemPrompt, maxTokens, options.responseSchema);
   }
 
+  if (provider === "openai") {
+    return callOpenAI(
+      apiKey,
+      prompt,
+      systemPrompt,
+      maxTokens,
+      options.responseSchema,
+      options.responseToolName,
+      options.responseToolDescription,
+    );
+  }
+
   // Default: Claude
   return callClaude(
     apiKey,
@@ -105,6 +118,87 @@ export async function callLLM(options: CallLLMOptions): Promise<CallLLMResult> {
     options.responseToolName,
     options.responseToolDescription,
   );
+}
+
+// =============================================================================
+// OpenAI
+// =============================================================================
+
+type OpenAIResponsePayload = {
+  output_text?: string;
+  output?: Array<{
+    content?: Array<{
+      type?: string;
+      text?: string;
+    }>;
+  }>;
+  status?: string;
+  error?: {
+    message?: string;
+  };
+};
+
+async function callOpenAI(
+  apiKey: string,
+  prompt: string,
+  systemPrompt: string | undefined,
+  maxTokens: number,
+  responseSchema?: JsonSchemaObject,
+  responseToolName = "submit_structured_result",
+  responseToolDescription = "Return the validated structured payload.",
+): Promise<CallLLMResult> {
+  const body = {
+    model: "gpt-4.1",
+    input: [
+      ...(systemPrompt ? [{ role: "system", content: systemPrompt }] : []),
+      { role: "user", content: prompt },
+    ],
+    max_output_tokens: maxTokens,
+    ...(responseSchema
+      ? {
+          text: {
+            format: {
+              type: "json_schema",
+              name: responseToolName,
+              description: responseToolDescription,
+              schema: responseSchema,
+              strict: false,
+            },
+          },
+        }
+      : {}),
+  };
+
+  const response = await fetch("https://api.openai.com/v1/responses", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${apiKey}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(body),
+  });
+
+  const payload = (await response.json()) as OpenAIResponsePayload;
+  if (!response.ok) {
+    throw new Error(payload.error?.message ?? `OpenAI request failed with ${response.status}.`);
+  }
+
+  const text =
+    payload.output_text ??
+    payload.output
+      ?.flatMap((item) => item.content ?? [])
+      .map((content) => content.text ?? "")
+      .filter(Boolean)
+      .join("\n\n") ??
+    "";
+
+  return {
+    text,
+    structuredData: responseSchema
+      ? parseStructuredJsonText(text, { provider: "openai", finishReason: payload.status })
+      : undefined,
+    finishReason: payload.status,
+  };
 }
 
 // =============================================================================

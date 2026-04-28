@@ -25,13 +25,18 @@ function padCik(cik: number | string): string {
   return String(cik).padStart(10, "0");
 }
 
+function normalizeSearchText(value: string): string {
+  return value.toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+}
+
 export async function GET(req: NextRequest) {
   try {
     const { searchParams } = new URL(req.url);
-    const ticker = searchParams.get("ticker")?.trim().toUpperCase();
+    const rawQuery = searchParams.get("ticker") ?? searchParams.get("query");
+    const query = rawQuery?.trim();
 
-    if (!ticker) {
-      return NextResponse.json({ error: "Ticker is required." }, { status: 400 });
+    if (!query) {
+      return NextResponse.json({ error: "Ticker or company query is required." }, { status: 400 });
     }
 
     const tickerResponse = await fetch(SEC_TICKERS_URL, {
@@ -47,12 +52,17 @@ export async function GET(req: NextRequest) {
     }
 
     const tickerIndex = (await tickerResponse.json()) as SecTickerIndex;
-    const match = Object.values(tickerIndex).find((entry) => entry.ticker.toUpperCase() === ticker);
+    const normalizedQuery = normalizeSearchText(query);
+    const match = Object.values(tickerIndex).find((entry) => entry.ticker.toUpperCase() === query.toUpperCase())
+      ?? Object.values(tickerIndex).find((entry) =>
+        normalizeSearchText(entry.title).includes(normalizedQuery),
+      );
 
     if (!match) {
-      return NextResponse.json({ error: `No SEC ticker mapping found for ${ticker}.` }, { status: 404 });
+      return NextResponse.json({ error: `No SEC ticker mapping found for ${query}.` }, { status: 404 });
     }
 
+    const ticker = match.ticker.toUpperCase();
     const cik = padCik(match.cik_str);
     const factsUrl = `https://data.sec.gov/api/xbrl/companyfacts/CIK${cik}.json`;
     const factsResponse = await fetch(factsUrl, {

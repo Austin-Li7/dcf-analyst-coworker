@@ -16,6 +16,7 @@ export default function SettingsModal({ open, onClose }: SettingsModalProps) {
 
   const hasClaudeKey = settings.claudeApiKey.trim().length > 0;
   const hasGeminiKey = settings.geminiApiKey.trim().length > 0;
+  const hasOpenAIKey = settings.openaiApiKey.trim().length > 0;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm">
@@ -52,6 +53,7 @@ export default function SettingsModal({ open, onClose }: SettingsModalProps) {
             >
               <option value="claude">Claude Sonnet 4 (Anthropic)</option>
               <option value="gemini">Gemini 2.5 Pro (Google)</option>
+              <option value="openai">GPT-4.1 (OpenAI)</option>
             </select>
           </div>
 
@@ -70,6 +72,25 @@ export default function SettingsModal({ open, onClose }: SettingsModalProps) {
               placeholder="sk-ant-..."
               value={settings.claudeApiKey}
               onChange={(e) => updateSettings({ claudeApiKey: e.target.value })}
+              className="w-full rounded-lg border border-zinc-700 bg-zinc-800 px-4 py-2.5 text-sm text-zinc-100 placeholder-zinc-600 outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+            />
+          </div>
+
+          {/* OpenAI key */}
+          <div>
+            <label className="mb-1.5 flex items-center gap-2 text-sm font-medium text-zinc-300">
+              <KeyRound size={14} />
+              OpenAI API Key
+              <span className={`ml-auto flex items-center gap-1 text-xs ${hasOpenAIKey ? "text-emerald-400" : "text-zinc-600"}`}>
+                {hasOpenAIKey ? <><Check size={10} /> Configured</> : <><AlertCircle size={10} /> Not set</>}
+              </span>
+            </label>
+            <input
+              type="password"
+              autoComplete="off"
+              placeholder="sk-..."
+              value={settings.openaiApiKey}
+              onChange={(e) => updateSettings({ openaiApiKey: e.target.value })}
               className="w-full rounded-lg border border-zinc-700 bg-zinc-800 px-4 py-2.5 text-sm text-zinc-100 placeholder-zinc-600 outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
             />
           </div>

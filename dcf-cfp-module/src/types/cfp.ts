@@ -5,12 +5,13 @@
 // ---------------------------------------------------------------------------
 // Global Settings (LLM Provider & API Keys)
 // ---------------------------------------------------------------------------
-export type LLMProvider = "claude" | "gemini";
+export type LLMProvider = "claude" | "gemini" | "openai";
 
 export interface SettingsState {
   llmProvider: LLMProvider;
   claudeApiKey: string;
   geminiApiKey: string;
+  openaiApiKey: string;
 }
 
 /** Identifies one fiscal quarter (e.g. Q1 2025). */

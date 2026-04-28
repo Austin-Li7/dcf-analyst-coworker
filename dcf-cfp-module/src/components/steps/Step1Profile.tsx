@@ -1,9 +1,7 @@
 "use client";
 
-import { useState, useRef, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect } from "react";
 import {
-  Upload,
-  FileText,
   Loader2,
   Download,
   Trash2,
@@ -27,7 +25,7 @@ import type {
 } from "@/types/cfp";
 
 // =============================================================================
-// Step 1 — Company Profile: SEC Filing Upload, Analysis, and Review Gate
+// Step 1 — Company Profile: ticker-first AI bootstrap, analysis, and review gate
 // =============================================================================
 const MAX_VISIBLE_VALIDATION_ROWS = 6;
 const MAX_VISIBLE_REPORTED_NODES = 8;
@@ -39,9 +37,8 @@ export default function Step1Profile() {
   const review = state.profile.step1Review;
 
   // ---------- Local form state ----------
-  const [companyName, setCompanyName] = useState(state.profile.companyName || "");
-  const [tenKFile, setTenKFile] = useState<File | null>(null);
-  const [tenQFile, setTenQFile] = useState<File | null>(null);
+  const [companyQuery, setCompanyQuery] = useState(state.profile.ticker || state.profile.companyName || "");
+  const [bootstrapSummary, setBootstrapSummary] = useState<string | null>(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [segmentNames, setSegmentNames] = useState<Record<string, string>>({});
@@ -50,10 +47,6 @@ export default function Step1Profile() {
 
   // ---------- Settings (centralized API key) ----------
   const { settings, activeApiKey } = useSettings();
-
-  // ---------- File input refs (to reset programmatically) ----------
-  const tenKInputRef = useRef<HTMLInputElement>(null);
-  const tenQInputRef = useRef<HTMLInputElement>(null);
 
   // Has analysis result been received?
   const hasResult = state.profile.rawAnalysisMarkdown.length > 0;
@@ -91,25 +84,34 @@ export default function Step1Profile() {
   // Submit handler — calls POST /api/analyze-company
   // ------------------------------------------------------------------
   const handleSubmit = useCallback(async () => {
-    const name = companyName.trim();
-    if (!name) {
-      setErrorMsg("Please enter a company name.");
-      return;
-    }
-    if (!tenKFile && !tenQFile) {
-      setErrorMsg("Please upload at least one SEC filing (10-K or 10-Q).");
+    const query = companyQuery.trim();
+    if (!query) {
+      setErrorMsg("Please enter a company name or ticker.");
       return;
     }
 
     setErrorMsg(null);
+    setBootstrapSummary(null);
     setIsAnalyzing(true);
 
     try {
-      const formData = new FormData();
-      formData.append("companyName", name);
-      if (tenKFile) formData.append("tenK", tenKFile);
-      if (tenQFile) formData.append("tenQ", tenQFile);
+      const bootstrapRes = await fetch(`/api/bootstrap-company?query=${encodeURIComponent(query)}`);
+      const bootstrapPackage = await bootstrapRes.json();
+      if (!bootstrapRes.ok) {
+        throw new Error(bootstrapPackage.error || `SEC bootstrap failed (${bootstrapRes.status}). Try a ticker like AAPL.`);
+      }
 
+      const resolvedCompanyName = bootstrapPackage.company?.name ?? query;
+      const resolvedTicker = bootstrapPackage.company?.ticker ?? query.toUpperCase();
+      const annualRows = bootstrapPackage.historical_annual_dcf_drivers?.length ?? 0;
+      setBootstrapSummary(
+        `Loaded ${resolvedCompanyName} (${resolvedTicker}) from SEC Company Facts with ${annualRows} annual baseline row(s).`,
+      );
+
+      const formData = new FormData();
+      formData.append("companyName", resolvedCompanyName);
+      formData.append("ticker", resolvedTicker);
+      formData.append("bootstrapPackage", JSON.stringify(bootstrapPackage));
       formData.append("apiKey", activeApiKey);
       formData.append("llmProvider", settings.llmProvider);
 
@@ -127,7 +129,13 @@ export default function Step1Profile() {
         throw new Error(data.error || `Server error (${res.status})`);
       }
 
-      dispatch({ type: "UPDATE_PROFILE", payload: { companyName: name } });
+      dispatch({
+        type: "UPDATE_PROFILE",
+        payload: {
+          companyName: resolvedCompanyName,
+          ticker: resolvedTicker,
+        },
+      });
       dispatch({
         type: "SET_PROFILE_ANALYSIS",
         payload: {
@@ -142,7 +150,7 @@ export default function Step1Profile() {
     } finally {
       setIsAnalyzing(false);
     }
-  }, [companyName, tenKFile, tenQFile, activeApiKey, settings.llmProvider, dispatch]);
+  }, [activeApiKey, companyQuery, dispatch, settings.llmProvider]);
 
   const handleApproveReview = useCallback(() => {
     if (!state.profile.step1StructuredResult || !review) return;
@@ -221,19 +229,6 @@ export default function Step1Profile() {
     URL.revokeObjectURL(url);
   };
 
-  // ------------------------------------------------------------------
-  // File picker helpers
-  // ------------------------------------------------------------------
-  const clearFile = (which: "tenK" | "tenQ") => {
-    if (which === "tenK") {
-      setTenKFile(null);
-      if (tenKInputRef.current) tenKInputRef.current.value = "";
-    } else {
-      setTenQFile(null);
-      if (tenQInputRef.current) tenQInputRef.current.value = "";
-    }
-  };
-
   // ==========================================================================
   // Render
   // ==========================================================================
@@ -241,51 +236,38 @@ export default function Step1Profile() {
     <StepShell
       stepNumber={1}
       title="Company Profile"
-      subtitle="Upload SEC filings to generate a business architecture analysis powered by Claude."
+      subtitle="Enter a ticker or company name. The coworker fetches public SEC data and drafts a reviewable business architecture."
     >
       {!hasResult && (
         <div className="space-y-6">
           <div>
             <label
-              htmlFor="company-name"
+              htmlFor="company-query"
               className="mb-1.5 block text-sm font-medium text-zinc-300"
             >
-              Company Name
+              Company name or ticker
             </label>
             <input
-              id="company-name"
+              id="company-query"
               type="text"
-              placeholder="e.g. Apple Inc."
-              value={companyName}
-              onChange={(e) => setCompanyName(e.target.value)}
+              placeholder="e.g. AAPL or Apple Inc."
+              value={companyQuery}
+              onChange={(e) => setCompanyQuery(e.target.value)}
               disabled={isAnalyzing}
               className="w-full rounded-lg border border-zinc-700 bg-zinc-800 px-4 py-2.5 text-sm text-zinc-100 placeholder-zinc-600 outline-none transition-colors focus:border-blue-500 focus:ring-1 focus:ring-blue-500 disabled:opacity-50"
             />
           </div>
 
-          <div className="grid gap-4 sm:grid-cols-2">
-            <FileUploadCard
-              id="tenK"
-              label="Form 10-K"
-              sublabel="Annual report (Max 1 file)"
-              file={tenKFile}
-              inputRef={tenKInputRef}
-              disabled={isAnalyzing}
-              onFileChange={(f) => setTenKFile(f)}
-              onClear={() => clearFile("tenK")}
-            />
-
-            <FileUploadCard
-              id="tenQ"
-              label="Form 10-Q"
-              sublabel="Quarterly report (Max 1 file)"
-              file={tenQFile}
-              inputRef={tenQInputRef}
-              disabled={isAnalyzing}
-              onFileChange={(f) => setTenQFile(f)}
-              onClear={() => clearFile("tenQ")}
-            />
+          <div className="rounded-lg border border-blue-700/40 bg-blue-950/20 p-4 text-sm text-blue-100">
+            The coworker will fetch SEC Company Facts, build a source manifest, then ask the selected AI engine to draft Step 1 as a structured, review-gated artifact. No manual filing upload is required for this path.
           </div>
+
+          {bootstrapSummary && (
+            <div className="flex items-start gap-2 rounded-lg border border-emerald-700/40 bg-emerald-950/20 p-3 text-sm text-emerald-200">
+              <CheckCircle2 size={16} className="mt-0.5 shrink-0" />
+              {bootstrapSummary}
+            </div>
+          )}
 
           {errorMsg && (
             <div className="flex items-start gap-2 rounded-lg border border-red-700/40 bg-red-950/30 p-3 text-sm text-red-300">
@@ -302,10 +284,10 @@ export default function Step1Profile() {
             {isAnalyzing ? (
               <>
                 <Loader2 size={18} className="animate-spin" />
-                Analyzing filings...
+                Fetching data and drafting Step 1...
               </>
             ) : (
-              "Analyze SEC Filings"
+              "Start AI Analyst Coworker"
             )}
           </button>
         </div>
@@ -517,6 +499,7 @@ export default function Step1Profile() {
                   },
                 });
                 setErrorMsg(null);
+                setBootstrapSummary(null);
               }}
               className="flex items-center gap-2 rounded-lg border border-zinc-700 px-5 py-2.5 text-sm text-zinc-400 transition-colors hover:border-zinc-600 hover:text-zinc-200"
             >
@@ -697,78 +680,6 @@ function ReportedNodeCard({ node }: { node: Step1ReportedNodeReviewEntry }) {
           Products: {visibleProducts.join(", ")}
           {hiddenProductCount > 0 ? ` +${hiddenProductCount} more` : ""}
         </p>
-      )}
-    </div>
-  );
-}
-
-// =============================================================================
-// Reusable File Upload Card
-// =============================================================================
-function FileUploadCard({
-  id,
-  label,
-  sublabel,
-  file,
-  inputRef,
-  disabled,
-  onFileChange,
-  onClear,
-}: {
-  id: string;
-  label: string;
-  sublabel: string;
-  file: File | null;
-  inputRef: React.RefObject<HTMLInputElement | null>;
-  disabled: boolean;
-  onFileChange: (file: File | null) => void;
-  onClear: () => void;
-}) {
-  return (
-    <div className="rounded-lg border border-zinc-700 bg-zinc-800/50 p-4">
-      <p className="text-sm font-medium text-zinc-200">{label}</p>
-      <p className="mb-3 text-xs text-zinc-500">{sublabel}</p>
-
-      {!file ? (
-        <label
-          htmlFor={`file-${id}`}
-          className={`flex cursor-pointer flex-col items-center gap-2 rounded-lg border-2 border-dashed border-zinc-700 py-6 text-center transition-colors hover:border-blue-500/50 hover:bg-zinc-800 ${disabled ? "pointer-events-none opacity-50" : ""}`}
-        >
-          <Upload size={24} className="text-zinc-500" />
-          <span className="text-xs text-zinc-500">Click to upload PDF</span>
-          <input
-            ref={inputRef}
-            id={`file-${id}`}
-            type="file"
-            accept=".pdf,application/pdf"
-            multiple={false}
-            disabled={disabled}
-            className="hidden"
-            onChange={(e) => {
-              const f = e.target.files?.[0] ?? null;
-              onFileChange(f);
-            }}
-          />
-        </label>
-      ) : (
-        <div className="flex items-center gap-2 rounded-lg bg-zinc-900 px-3 py-2">
-          <FileText size={16} className="shrink-0 text-blue-400" />
-          <span className="min-w-0 flex-1 truncate text-xs text-zinc-300">
-            {file.name}
-          </span>
-          <span className="shrink-0 text-xs text-zinc-600">
-            {(file.size / 1024 / 1024).toFixed(1)} MB
-          </span>
-          {!disabled && (
-            <button
-              type="button"
-              onClick={onClear}
-              className="shrink-0 rounded p-0.5 text-zinc-600 hover:text-red-400"
-            >
-              <Trash2 size={14} />
-            </button>
-          )}
-        </div>
       )}
     </div>
   );

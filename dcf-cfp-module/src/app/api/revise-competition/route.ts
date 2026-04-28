@@ -143,7 +143,7 @@ export async function POST(req: NextRequest): Promise<NextResponse<ReviseCompeti
       prompt,
       maxTokens: 4096,
       responseSchema:
-        llmProvider === "gemini"
+        llmProvider === "gemini" || llmProvider === "openai"
           ? GEMINI_STEP3_CATEGORY_RESPONSE_SCHEMA
           : STEP3_CATEGORY_RESPONSE_SCHEMA,
       responseToolName: "submit_step3_category_revision",

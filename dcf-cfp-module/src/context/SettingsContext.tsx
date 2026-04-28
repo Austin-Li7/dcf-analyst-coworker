@@ -19,6 +19,7 @@ const defaultSettings: SettingsState = {
   llmProvider: "claude",
   claudeApiKey: "",
   geminiApiKey: "",
+  openaiApiKey: "",
 };
 
 function loadInitialSettings(): SettingsState {
@@ -67,7 +68,9 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
   const activeApiKey =
     settings.llmProvider === "claude"
       ? settings.claudeApiKey
-      : settings.geminiApiKey;
+      : settings.llmProvider === "gemini"
+        ? settings.geminiApiKey
+        : settings.openaiApiKey;
 
   return (
     <SettingsContext.Provider value={{ settings, updateSettings, activeApiKey }}>

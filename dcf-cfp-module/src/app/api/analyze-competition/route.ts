@@ -93,7 +93,9 @@ export async function POST(req: NextRequest): Promise<NextResponse<AnalyzeCompet
       prompt: buildStep3Prompt(companyName, architecture),
       maxTokens: 12288,
       responseSchema:
-        llmProvider === "gemini" ? GEMINI_STEP3_RESPONSE_SCHEMA : STEP3_RESPONSE_SCHEMA,
+        llmProvider === "gemini" || llmProvider === "openai"
+          ? GEMINI_STEP3_RESPONSE_SCHEMA
+          : STEP3_RESPONSE_SCHEMA,
       responseToolName: "submit_step3_structured_result",
       responseToolDescription:
         "Submit the Step 3 structured competition result with categories, sources, claims, and review summary.",

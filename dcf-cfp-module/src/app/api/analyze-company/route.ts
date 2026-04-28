@@ -55,6 +55,29 @@ function buildStep1Prompt(companyName: string, extractedPdfText: string): string
   ].join("\n");
 }
 
+function buildStep1BootstrapPrompt(companyName: string, bootstrapPackageText: string): string {
+  return [
+    "Task: Produce the Step 1 structured result for company business architecture review.",
+    `Company: ${companyName}`,
+    "Input source: SEC Company Facts bootstrap package generated at runtime from public SEC APIs.",
+    "Important limitations:",
+    "- This bootstrap package is strongest for total-company financial baseline and source manifest.",
+    "- If segment/product architecture is not explicitly present in the bootstrap package, mark the analysis as conservative and use weak inference only when necessary.",
+    "- Do not invent exact product/segment disclosures. Prefer a compact Total Company or clearly supported public-company architecture over unsupported detail.",
+    '- schema_version must be "v5.5".',
+    "- include ticker when present in the bootstrap package.",
+    "- reported_view is the source-native disclosure view; use Total Company when segment-level disclosure is unavailable.",
+    "- analysis_view is the canonical downstream mapping, but must stay conservative and traceable.",
+    "- Every analysis segment and offering must include mapped_from_reported_node_ids and a claim_id.",
+    "- Every claim must include evidence_level and supporting source metadata when disclosed.",
+    "- uncertain or unsupported items must go to excluded_items rather than being force-mapped.",
+    "- Keep arrays compact: max 3 products per node/offering, max 2 raw_name_variants, short source snippets only.",
+    "- Do not emit markdown, commentary, or prose outside the structured response.",
+    "SEC bootstrap JSON begins below.",
+    bootstrapPackageText,
+  ].join("\n");
+}
+
 function formatStructuredResultForDisplay(payload: unknown): string {
   return `\`\`\`json\n${JSON.stringify(payload, null, 2)}\n\`\`\``;
 }
@@ -96,6 +119,7 @@ export async function POST(req: NextRequest): Promise<NextResponse<AnalyzeCompan
 
     const tenKFiles = formData.getAll("tenK");
     const tenQFiles = formData.getAll("tenQ");
+    const bootstrapPackage = formData.get("bootstrapPackage");
 
     if (tenKFiles.length > 1) {
       return NextResponse.json(
@@ -137,6 +161,26 @@ export async function POST(req: NextRequest): Promise<NextResponse<AnalyzeCompan
     await parsePdfFile(tenKFiles[0] ?? null, "Form 10-K");
     await parsePdfFile(tenQFiles[0] ?? null, "Form 10-Q");
 
+    if (typeof bootstrapPackage === "string" && bootstrapPackage.trim()) {
+      try {
+        const parsedBootstrap = JSON.parse(bootstrapPackage) as {
+          company?: { name?: string; ticker?: string };
+        };
+        documentTexts.push(`--- SEC Company Facts Bootstrap Package ---\n${JSON.stringify(parsedBootstrap, null, 2)}`);
+      } catch {
+        return NextResponse.json(
+          {
+            rawMarkdown: "",
+            structuredResult: null,
+            architectureJson: null,
+            step1Review: null,
+            error: "Invalid SEC bootstrap package JSON.",
+          },
+          { status: 400 },
+        );
+      }
+    }
+
     if (documentTexts.length === 0) {
       return NextResponse.json(
         {
@@ -144,7 +188,7 @@ export async function POST(req: NextRequest): Promise<NextResponse<AnalyzeCompan
           structuredResult: null,
           architectureJson: null,
           step1Review: null,
-          error: "At least one PDF (10-K or 10-Q) is required.",
+          error: "A SEC bootstrap package or at least one PDF (10-K or 10-Q) is required.",
         },
         { status: 400 },
       );
@@ -172,10 +216,13 @@ export async function POST(req: NextRequest): Promise<NextResponse<AnalyzeCompan
       provider: llmProvider,
       apiKey,
       systemPrompt: STEP1_SYSTEM_PROMPT,
-      prompt: buildStep1Prompt(companyName.trim(), documentTexts.join("\n\n")),
+      prompt:
+        typeof bootstrapPackage === "string" && bootstrapPackage.trim()
+          ? buildStep1BootstrapPrompt(companyName.trim(), documentTexts.join("\n\n"))
+          : buildStep1Prompt(companyName.trim(), documentTexts.join("\n\n")),
       maxTokens: STEP1_MAX_OUTPUT_TOKENS,
       responseSchema:
-        llmProvider === "gemini"
+        llmProvider === "gemini" || llmProvider === "openai"
           ? GEMINI_STEP1_RESPONSE_SCHEMA
           : STEP1_RESPONSE_SCHEMA,
       responseToolName: "submit_step1_structured_result",
