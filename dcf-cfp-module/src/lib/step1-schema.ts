@@ -364,6 +364,121 @@ export const GEMINI_STEP1_RESPONSE_SCHEMA = sanitizeSchemaForGemini(
 
 export type ParsedStep1StructuredResult = z.infer<typeof Step1StructuredSchema>;
 
+function normalizeTextField(value: unknown, fallback: string): string {
+  return typeof value === "string" && value.trim() ? value.trim() : fallback;
+}
+
+function normalizeOptionalTextField(value: unknown): string | undefined {
+  return typeof value === "string" && value.trim() ? value.trim() : undefined;
+}
+
+function normalizeNullableTextField(value: unknown): string | null {
+  return typeof value === "string" && value.trim() ? value.trim() : null;
+}
+
+function normalizeStep1Payload(payload: unknown): unknown {
+  if (!payload || typeof payload !== "object") {
+    return payload;
+  }
+
+  const result = payload as Record<string, unknown>;
+  const sources = Array.isArray(result.sources)
+    ? result.sources.map((source, index) => {
+        if (!source || typeof source !== "object") return source;
+        const record = source as Record<string, unknown>;
+        const normalized: Record<string, unknown> = {
+          ...record,
+          document: normalizeTextField(record.document, "SEC Company Facts API"),
+          section: normalizeTextField(record.section, "Company Facts"),
+        };
+        const page = normalizeOptionalTextField(record.page);
+        if (page) {
+          normalized.page = page;
+        } else {
+          delete normalized.page;
+        }
+        if (!normalized.document) normalized.document = `Source ${index + 1}`;
+        return normalized;
+      })
+    : result.sources;
+
+  const claims = Array.isArray(result.claims)
+    ? result.claims.map((claim) => {
+        if (!claim || typeof claim !== "object") return claim;
+        const record = claim as Record<string, unknown>;
+        return {
+          ...record,
+          source_snippet: normalizeNullableTextField(record.source_snippet),
+          source_location: normalizeNullableTextField(record.source_location),
+        };
+      })
+    : result.claims;
+
+  const normalizeReportedNodes = (nodes: unknown): unknown => {
+    if (!Array.isArray(nodes)) return nodes;
+    return nodes.map((node) => {
+      if (!node || typeof node !== "object") return node;
+      const record = node as Record<string, unknown>;
+      const normalized: Record<string, unknown> = {
+        ...record,
+        children: normalizeReportedNodes(record.children),
+      };
+      const customerType = normalizeOptionalTextField(record.customer_type);
+      if (customerType) {
+        normalized.customer_type = customerType;
+      } else {
+        delete normalized.customer_type;
+      }
+      return normalized;
+    });
+  };
+
+  const reportedView =
+    result.reported_view && typeof result.reported_view === "object"
+      ? {
+          ...(result.reported_view as Record<string, unknown>),
+          nodes: normalizeReportedNodes((result.reported_view as Record<string, unknown>).nodes),
+        }
+      : result.reported_view;
+
+  const analysisView =
+    result.analysis_view && typeof result.analysis_view === "object"
+      ? {
+          ...(result.analysis_view as Record<string, unknown>),
+          segments: Array.isArray((result.analysis_view as Record<string, unknown>).segments)
+            ? ((result.analysis_view as Record<string, unknown>).segments as unknown[]).map((segment) => {
+                if (!segment || typeof segment !== "object") return segment;
+                const segmentRecord = segment as Record<string, unknown>;
+                return {
+                  ...segmentRecord,
+                  offerings: Array.isArray(segmentRecord.offerings)
+                    ? segmentRecord.offerings.map((offering) => {
+                        if (!offering || typeof offering !== "object") return offering;
+                        const offeringRecord = offering as Record<string, unknown>;
+                        return {
+                          ...offeringRecord,
+                          customer_type: normalizeTextField(
+                            offeringRecord.customer_type,
+                            "Not specified",
+                          ),
+                        };
+                      })
+                    : segmentRecord.offerings,
+                };
+              })
+            : (result.analysis_view as Record<string, unknown>).segments,
+        }
+      : result.analysis_view;
+
+  return {
+    ...result,
+    reported_view: reportedView,
+    analysis_view: analysisView,
+    claims,
+    sources,
+  };
+}
+
 export function projectStructuredStep1ToArchitecture(
   result: ParsedStep1StructuredResult,
 ): BusinessArchitecture {
@@ -386,5 +501,5 @@ export function projectStructuredStep1ToArchitecture(
 }
 
 export function parseStep1StructuredResult(payload: unknown): ParsedStep1StructuredResult {
-  return Step1StructuredSchema.parse(payload);
+  return Step1StructuredSchema.parse(normalizeStep1Payload(payload));
 }

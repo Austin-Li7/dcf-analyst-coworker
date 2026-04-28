@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 
 import {
   GEMINI_STEP1_RESPONSE_SCHEMA,
+  parseStep1StructuredResult,
   Step1StructuredSchema,
   projectStructuredStep1ToArchitecture,
 } from "./step1-schema.ts";
@@ -117,6 +118,82 @@ test("parses a valid step 1 structured payload with reported and analysis views"
   assert.equal(review.workflowStatus, "needs_review");
   assert.equal(review.reportedView.nodes.length, 2);
   assert.equal(review.analysisView.segments[0].offeringCount, 1);
+});
+
+test("normalizes empty optional Step 1 fields from model output", () => {
+  const payload = {
+    schema_version: "v5.5",
+    company_name: "Apple Inc.",
+    ticker: "AAPL",
+    reported_view: {
+      view_type: "revenue_category",
+      nodes: [
+        {
+          id: "reported:products",
+          label: "Products",
+          raw_name_variants: ["Products"],
+          products: ["iPhone"],
+          customer_type: "",
+          claim_id: "S1-001",
+          evidence_level: "DISCLOSED",
+          children: [],
+        },
+      ],
+    },
+    analysis_view: {
+      segments: [
+        {
+          id: "segment:products",
+          canonical_name: "Products",
+          raw_name_variants: ["Products"],
+          mapped_from_reported_node_ids: ["reported:products"],
+          claim_id: "S1-001",
+          evidence_level: "DISCLOSED",
+          offerings: [
+            {
+              id: "offering:iphone",
+              canonical_name: "iPhone",
+              category: "Hardware",
+              raw_name_variants: ["iPhone"],
+              mapped_from_reported_node_ids: ["reported:products"],
+              products: ["iPhone"],
+              customer_type: "",
+              claim_id: "S1-001",
+              evidence_level: "DISCLOSED",
+            },
+          ],
+        },
+      ],
+      excluded_items: [],
+      canonical_name_registry: {
+        Products: "Products",
+        iPhone: "iPhone",
+      },
+    },
+    claims: [
+      {
+        claim_id: "S1-001",
+        text: "Apple reports Products revenue category.",
+        source_snippet: "",
+        source_location: "",
+        evidence_level: "DISCLOSED",
+      },
+    ],
+    sources: [
+      {
+        document: "SEC Company Facts API",
+        section: "Company Facts",
+        page: "",
+      },
+    ],
+  };
+
+  const parsed = parseStep1StructuredResult(payload);
+
+  assert.equal(parsed.reported_view.nodes[0].customer_type, undefined);
+  assert.equal(parsed.analysis_view.segments[0].offerings[0].customer_type, "Not specified");
+  assert.equal(parsed.claims[0].source_location, null);
+  assert.equal(parsed.sources[0].page, undefined);
 });
 
 test("rejects a segment that is missing mapping provenance", () => {
