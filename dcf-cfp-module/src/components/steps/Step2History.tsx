@@ -1,11 +1,7 @@
 "use client";
 
-import { useState, useRef, useCallback, useEffect, useMemo } from "react";
+import { useState, useCallback, useMemo } from "react";
 import {
-  Upload,
-  FileText,
-  FileSpreadsheet,
-  Braces,
   Loader2,
   Download,
   Trash2,
@@ -13,54 +9,21 @@ import {
   AlertTriangle,
   CheckCircle2,
   ChevronDown,
-  Database,
   Plus,
-  X,
 } from "lucide-react";
 import * as XLSX from "xlsx";
 import StepShell from "./StepShell";
-import { useSettings } from "@/context/SettingsContext";
 import { useCFP } from "@/context/CFPContext";
-import {
-  detectFiscalYearsFromRecords,
-  detectFiscalYearsFromText,
-  mergeHistoryYears,
-  normalizeFiscalYearSelection,
-} from "@/lib/step2-baseline";
-import {
-  recordsFromDcfInputPayload,
-  summarizeDcfInputPayload,
-  type DcfInputSummary,
-} from "@/lib/step2-fixture-ingest";
+import { mergeHistoryYears } from "@/lib/step2-baseline";
 import type { HistoricalExtractionRow, ExtractHistoryResponse } from "@/types/cfp";
 
 // =============================================================================
 // Constants
 // =============================================================================
 const MAX_YEARS = 5;
-const MAX_FILES = 4;
-const ACCEPTED_MIME = [
-  "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-  "application/vnd.ms-excel",
-  "application/json",
-  ".json",
-  "text/csv",
-  "text/plain",
-].join(",");
 
 function uid(): string {
   return Math.random().toString(36).slice(2) + Date.now().toString(36);
-}
-
-function fileIcon(name: string) {
-  const ext = name.split(".").pop()?.toLowerCase() ?? "";
-  if (ext === "xlsx" || ext === "xls" || ext === "xlsm" || ext === "csv") {
-    return <FileSpreadsheet size={14} className="shrink-0 text-emerald-400" />;
-  }
-  if (ext === "json") {
-    return <Braces size={14} className="shrink-0 text-violet-400" />;
-  }
-  return <FileText size={14} className="shrink-0 text-blue-400" />;
 }
 
 function formatNullableMetric(value: number | null): string {
@@ -79,75 +42,17 @@ function parseNullableMetric(value: string): number | null {
 
 type Step2StructuredResultForReview = NonNullable<ExtractHistoryResponse["structuredResult"]>;
 
-async function detectFiscalYearsFromFile(file: File): Promise<number[]> {
-  const ext = file.name.split(".").pop()?.toLowerCase() ?? "";
-
-  if (ext === "txt") {
-    return detectFiscalYearsFromText(await file.text());
-  }
-
-  if (ext === "json") {
-    const text = await file.text();
-    try {
-      const records = recordsFromDcfInputPayload(JSON.parse(text));
-      if (records.length > 0) {
-        return detectFiscalYearsFromRecords(records, Number.MAX_SAFE_INTEGER);
-      }
-    } catch {
-      // Fall back to text scanning for loosely structured JSON-like notes.
-    }
-    return detectFiscalYearsFromText(text);
-  }
-
-  if (ext === "csv" || ext === "xlsx" || ext === "xls" || ext === "xlsm") {
-    const buffer = await file.arrayBuffer();
-    const wb = XLSX.read(buffer, { type: "array" });
-    const years: number[] = [];
-
-    for (const sheetName of wb.SheetNames) {
-      const ws = wb.Sheets[sheetName];
-      const records = XLSX.utils.sheet_to_json<Record<string, unknown>>(ws, { defval: "" });
-      years.push(...detectFiscalYearsFromRecords(records, Number.MAX_SAFE_INTEGER));
-    }
-
-    return normalizeFiscalYearSelection(years);
-  }
-
-  return [];
-}
-
-async function summarizeDcfInputFromFile(file: File): Promise<DcfInputSummary | null> {
-  const ext = file.name.split(".").pop()?.toLowerCase() ?? "";
-  if (ext !== "json") return null;
-
-  try {
-    return summarizeDcfInputPayload(JSON.parse(await file.text()));
-  } catch {
-    return null;
-  }
-}
-
 // =============================================================================
 // Step 2 — Historical Financials
 // =============================================================================
 export default function Step2History() {
   const { state, dispatch } = useCFP();
-  const { settings, activeApiKey } = useSettings();
 
   const step1Input = state.profile.step1StructuredResult ?? state.profile.architectureJson;
   const hasArchitecture = !!step1Input;
 
-  // ── Form inputs ─────────────────────────────────────────────────────────────
-  const [targetYear, setTargetYear] = useState("");
-  const [detectedYears, setDetectedYears] = useState<number[]>([]);
-  const [dcfInputSummary, setDcfInputSummary] = useState<DcfInputSummary | null>(null);
-  const [dataFiles, setDataFiles] = useState<File[]>([]);
-  const [textNotes, setTextNotes] = useState("");
-  const fileInputRef = useRef<HTMLInputElement>(null);
-
   // ── Extraction state ─────────────────────────────────────────────────────────
   const [isExtracting, setIsExtracting] = useState(false);
-  const [extractingYear, setExtractingYear] = useState<number | null>(null);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
   // ── Staging rows (editable before confirming to master) ──────────────────────
@@ -161,45 +66,7 @@ export default function Step2History() {
   const canAddMoreYears = confirmedYears.length < MAX_YEARS;
 
   const hasStagingData = stagingRows.length > 0;
-  const yearsToExtract = useMemo(() => {
-    const manualYear = Number(targetYear.trim());
-    if (targetYear.trim() && Number.isInteger(manualYear)) {
-      return normalizeFiscalYearSelection([manualYear], 1);
-    }
-    return detectedYears.filter((year) => !confirmedYears.includes(year));
-  }, [confirmedYears, detectedYears, targetYear]);
-
-  useEffect(() => {
-    let cancelled = false;
-
-    async function detectYears() {
-      const years: number[] = [];
-      let nextDcfInputSummary: DcfInputSummary | null = null;
-      years.push(...detectFiscalYearsFromText(textNotes));
-
-      for (const file of dataFiles) {
-        years.push(...(await detectFiscalYearsFromFile(file)));
-        nextDcfInputSummary ??= await summarizeDcfInputFromFile(file);
-      }
-
-      if (!cancelled) {
-        setDetectedYears(normalizeFiscalYearSelection(years));
-        setDcfInputSummary(nextDcfInputSummary);
-      }
-    }
-
-    void detectYears().catch((error) => {
-      console.warn("[Step2History] Failed to detect fiscal years:", error);
-      if (!cancelled) {
-        setDetectedYears([]);
-        setDcfInputSummary(null);
-      }
-    });
-
-    return () => {
-      cancelled = true;
-    };
-  }, [dataFiles, textNotes]);
+  const ticker = state.profile.ticker.trim().toUpperCase();
 
   // Group master rows by segment for the read-only accordion
   const groupedMaster = useMemo(() => {
@@ -218,30 +85,15 @@ export default function Step2History() {
   }, [masterRows]);
 
   // ============================================================================
-  // Extract handler — POST to /api/extract-history
+  // Extract handler — GET /api/yahoo-history
   // ============================================================================
   const handleExtract = useCallback(async () => {
-    const selectedYears = yearsToExtract;
-
-    if (selectedYears.length === 0) {
-      setErrorMsg(
-        targetYear.trim()
-          ? "Please enter a valid fiscal year (e.g. 2025)."
-          : "Upload a file or paste notes containing fiscal years, such as 2021-2025.",
-      );
+    if (!ticker) {
+      setErrorMsg("Step 1 did not save a ticker. Re-run Step 1 with a public ticker such as AAPL.");
       return;
     }
-    const duplicateYears = selectedYears.filter((year) => confirmedYears.includes(year));
-    if (duplicateYears.length > 0) {
-      setErrorMsg(`Year ${duplicateYears.join(", ")} already exists in the historical baseline.`);
-      return;
-    }
-    if (confirmedYears.length + selectedYears.length > MAX_YEARS) {
-      setErrorMsg(`Maximum of ${MAX_YEARS} distinct years reached. Remove history to add more.`);
-      return;
-    }
-    if (dataFiles.length === 0 && !textNotes.trim()) {
-      setErrorMsg("Please upload a file or paste text notes.");
+    if (!canAddMoreYears) {
+      setErrorMsg(`Maximum of ${MAX_YEARS} distinct years reached. Remove history to refresh the baseline.`);
       return;
     }
 
@@ -252,46 +104,31 @@ export default function Step2History() {
     setStructuredResults([]);
 
     try {
-      const nextRows: HistoricalExtractionRow[] = [];
-      const nextStructuredResults: Step2StructuredResultForReview[] = [];
+      const params = new URLSearchParams({
+        ticker,
+        companyName: state.profile.companyName || ticker,
+      });
+      const res = await fetch(`/api/yahoo-history?${params.toString()}`);
+      const data: ExtractHistoryResponse = await res.json();
 
-      for (const year of selectedYears) {
-        setExtractingYear(year);
-        const formData = new FormData();
-        formData.append("targetYear", String(year));
-        formData.append("architecture", JSON.stringify(step1Input));
-        for (const f of dataFiles) {
-          formData.append("dataFiles", f);
-        }
-        if (textNotes.trim()) {
-          formData.append("textNotes", textNotes.trim());
-        }
-        formData.append("apiKey", activeApiKey);
-        formData.append("llmProvider", settings.llmProvider);
-
-        const res = await fetch("/api/extract-history", {
-          method: "POST",
-          body: formData,
-        });
-
-        const data: ExtractHistoryResponse = await res.json();
-
-        if (!res.ok) {
-          if (data.requiresApiKey) {
-            throw new Error("No API key configured. Open Settings (⚙) to add your key.");
-          }
-          throw new Error(`FY ${year}: ${data.error ?? `Server error (${res.status})`}`);
-        }
-
-        if (data.rows.length === 0) {
-          throw new Error(`FY ${year}: No rows were extracted.`);
-        }
-
-        nextRows.push(...data.rows.map((r) => ({ ...r, id: uid(), yoyGrowth: 0 })));
-        if (data.structuredResult) {
-          nextStructuredResults.push(data.structuredResult);
-        }
+      if (!res.ok) {
+        throw new Error(data.error ?? `Yahoo Finance history request failed (${res.status}).`);
       }
+
+      const freshRows = data.rows.filter((row) => !confirmedYears.includes(row.fiscalYear));
+      if (freshRows.length === 0) {
+        throw new Error("Yahoo Finance returned no new fiscal years to add.");
+      }
+      const selectedYears = Array.from(new Set(freshRows.map((row) => row.fiscalYear)))
+        .sort((a, b) => a - b)
+        .slice(-MAX_YEARS + confirmedYears.length);
+      const selectedYearSet = new Set(selectedYears);
+      const nextRows = freshRows
+        .filter((row) => selectedYearSet.has(row.fiscalYear))
+        .map((row) => ({ ...row, id: uid(), yoyGrowth: 0 }));
+      const nextStructuredResults =
+        data.structuredResults?.filter((result) => selectedYearSet.has(result.target_year)) ??
+        (data.structuredResult ? [data.structuredResult] : []);
 
       setStagingRows(nextRows);
       setStagingYears(selectedYears);
@@ -300,18 +137,8 @@ export default function Step2History() {
       setErrorMsg(err instanceof Error ? err.message : "Extraction failed.");
     } finally {
       setIsExtracting(false);
-      setExtractingYear(null);
     }
-  }, [
-    targetYear,
-    yearsToExtract,
-    dataFiles,
-    textNotes,
-    activeApiKey,
-    settings.llmProvider,
-    step1Input,
-    confirmedYears,
-  ]);
+  }, [canAddMoreYears, confirmedYears, state.profile.companyName, ticker]);
 
   // ── Staging: edit a cell ─────────────────────────────────────────────────────
   const updateStagingCell = (
@@ -341,10 +168,6 @@ export default function Step2History() {
     setStagingRows([]);
     setStagingYears([]);
     setStructuredResults([]);
-    setTargetYear("");
-    setDataFiles([]);
-    setTextNotes("");
-    if (fileInputRef.current) fileInputRef.current.value = "";
   };
 
   // ── Excel download ───────────────────────────────────────────────────────────
@@ -380,21 +203,6 @@ export default function Step2History() {
     );
   };
 
-  // ── File picker ──────────────────────────────────────────────────────────────
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const incoming = Array.from(e.target.files ?? []);
-    setDataFiles((prev) => {
-      const merged = [...prev, ...incoming];
-      return merged.slice(0, MAX_FILES);
-    });
-    // Reset the input so the same file can be re-added after removal
-    if (fileInputRef.current) fileInputRef.current.value = "";
-  };
-
-  const removeFile = (index: number) => {
-    setDataFiles((prev) => prev.filter((_, i) => i !== index));
-  };
-
   // ============================================================================
   // Render
   // ============================================================================
@@ -402,7 +210,7 @@ export default function Step2History() {
     <StepShell
       stepNumber={2}
       title="Historical Financials"
-      subtitle="Upload Excel, CSV, or text exports and let the AI map them to segment data."
+      subtitle="Fetch Yahoo Finance annual fundamentals and convert them into the Step 2 review JSON."
     >
       {/* ── Architecture gate ──────────────────────────────────────────────── */}
       {!hasArchitecture && (
@@ -439,146 +247,20 @@ export default function Step2History() {
               </span>
             </div>
 
-            {/* Year detection */}
-            <div className="grid gap-3 rounded-lg border border-zinc-800 bg-zinc-900/60 p-4 sm:grid-cols-[minmax(0,1fr)_minmax(220px,320px)]">
+            <div className="rounded-lg border border-blue-800/50 bg-blue-950/20 p-4">
               <div>
-                <p className="text-sm font-medium text-zinc-200">Detected fiscal years</p>
+                <p className="text-sm font-medium text-blue-100">Yahoo Finance auto-import</p>
                 <p className="mt-1 text-xs text-zinc-500">
-                  Upload a full history file or complete DCF JSON and Step 2 will extract the
-                  latest five fiscal years into one DCF baseline.
+                  The coworker will pull annual income statement, cash flow, and balance sheet
+                  fundamentals for <span className="font-semibold text-blue-200">{ticker || "the Step 1 ticker"}</span>,
+                  then stage the latest available fiscal years as consolidated Step 2 JSON.
                 </p>
-                <div className="mt-3 flex flex-wrap gap-2">
-                  {detectedYears.length > 0 ? (
-                    detectedYears.map((year) => (
-                      <span
-                        key={year}
-                        className={`rounded-full px-3 py-1 text-xs font-semibold ${
-                          confirmedYears.includes(year)
-                            ? "bg-emerald-600/15 text-emerald-300"
-                            : "bg-blue-600/15 text-blue-300"
-                        }`}
-                      >
-                        FY {year}
-                      </span>
-                    ))
-                  ) : (
-                    <span className="rounded-full bg-zinc-800 px-3 py-1 text-xs text-zinc-500">
-                      No years detected yet
-                    </span>
-                  )}
-                </div>
               </div>
-              <div>
-              <label htmlFor="target-year" className="mb-1.5 block text-sm font-medium text-zinc-300">
-                Optional single-year override
-              </label>
-              <input
-                id="target-year"
-                type="text"
-                inputMode="numeric"
-                placeholder="Leave blank for full baseline"
-                value={targetYear}
-                onChange={(e) => setTargetYear(e.target.value.replace(/\D/g, "").slice(0, 4))}
-                disabled={isExtracting || !canAddMoreYears}
-                className="w-full rounded-lg border border-zinc-700 bg-zinc-800 px-4 py-2.5 text-sm text-zinc-100 placeholder-zinc-600 outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 disabled:opacity-50"
-              />
-              <p className="mt-1.5 text-xs text-zinc-600">
-                Use only when you want to re-run one fiscal year.
-              </p>
+              <div className="mt-3 rounded-lg border border-amber-800/40 bg-amber-950/20 px-3 py-2 text-xs text-amber-200/90">
+                Yahoo Finance is consolidated company-level data. It is useful for DCF baseline
+                revenue and operating income, but it does not replace filing-level segment/product
+                disclosures.
               </div>
-            </div>
-
-            <DcfInputPackageSummary summary={dcfInputSummary} compact />
-
-            {/* File upload area */}
-            <div>
-              <label className="mb-1.5 block text-sm font-medium text-zinc-300">
-                Data Files
-                <span className="ml-2 text-xs font-normal text-zinc-500">
-                  .json · .xlsx · .csv · .txt (max {MAX_FILES})
-                </span>
-              </label>
-
-              {/* Drop zone */}
-              {dataFiles.length < MAX_FILES && (
-                <label
-                  htmlFor="data-files"
-                  className={`flex cursor-pointer flex-col items-center justify-center gap-2 rounded-lg border-2 border-dashed border-zinc-700 py-6 text-sm text-zinc-500 transition-colors hover:border-blue-500/50 hover:text-zinc-300 ${isExtracting ? "pointer-events-none opacity-50" : ""}`}
-                >
-                  <Upload size={22} className="text-zinc-600" />
-                  <span>
-                    Drag &amp; drop or{" "}
-                    <span className="text-blue-400 underline-offset-2 hover:underline">
-                      browse
-                    </span>
-                  </span>
-                  <span className="text-xs text-zinc-600">
-                    Complete DCF JSON, Excel exports, quarterly CSV, or pasted-as-txt
-                  </span>
-                  <input
-                    ref={fileInputRef}
-                    id="data-files"
-                    type="file"
-                    accept={ACCEPTED_MIME}
-                    multiple
-                    disabled={isExtracting}
-                    className="hidden"
-                    onChange={handleFileChange}
-                  />
-                </label>
-              )}
-
-              {/* File list */}
-              {dataFiles.length > 0 && (
-                <ul className="mt-2 space-y-1">
-                  {dataFiles.map((f, i) => (
-                    <li
-                      key={i}
-                      className="flex items-center gap-2 rounded-lg bg-zinc-900 px-3 py-1.5"
-                    >
-                      {fileIcon(f.name)}
-                      <span className="min-w-0 flex-1 truncate text-xs text-zinc-300">
-                        {f.name}
-                      </span>
-                      <span className="shrink-0 text-xs text-zinc-600">
-                        {(f.size / 1024).toFixed(0)} KB
-                      </span>
-                      {!isExtracting && (
-                        <button
-                          onClick={() => removeFile(i)}
-                          className="shrink-0 text-zinc-600 hover:text-red-400"
-                          aria-label={`Remove ${f.name}`}
-                        >
-                          <X size={14} />
-                        </button>
-                      )}
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </div>
-
-            {/* Text notes textarea */}
-            <div>
-              <label htmlFor="text-notes" className="mb-1.5 block text-sm font-medium text-zinc-300">
-                Text Notes
-                <span className="ml-2 text-xs font-normal text-zinc-500">
-                  optional — paste raw data or context here
-                </span>
-              </label>
-              <textarea
-                id="text-notes"
-                rows={5}
-                placeholder={
-                  "Paste any raw financial text, copied table rows, or analyst notes here…\n\n" +
-                  "Example:\nQ1 2023 — Creative Cloud: $1,233M revenue, $456M operating income\n" +
-                  "Q2 2023 — Document Cloud: $741M revenue, $302M operating income"
-                }
-                value={textNotes}
-                onChange={(e) => setTextNotes(e.target.value)}
-                disabled={isExtracting}
-                className="w-full rounded-lg border border-zinc-700 bg-zinc-800 px-4 py-3 text-sm text-zinc-100 placeholder-zinc-600 outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 disabled:opacity-50 font-mono leading-relaxed resize-y"
-              />
             </div>
 
             {/* Error banner */}
@@ -598,12 +280,12 @@ export default function Step2History() {
               {isExtracting ? (
                 <>
                   <Loader2 size={18} className="animate-spin" />
-                  {extractingYear ? `Extracting FY ${extractingYear}…` : "Extracting baseline…"}
+                  Fetching Yahoo Finance history…
                 </>
               ) : (
                 <>
                   <Plus size={16} />
-                  Extract Full Historical Baseline
+                  Fetch Yahoo Finance Baseline
                 </>
               )}
             </button>
@@ -624,8 +306,6 @@ export default function Step2History() {
               </div>
 
               <Step2ReviewSummary results={structuredResults} />
-
-              <DcfInputPackageSummary summary={dcfInputSummary} />
 
               <div className="overflow-x-auto rounded-lg border border-zinc-700">
                 <table className="w-full text-left text-xs">
@@ -759,148 +439,6 @@ export default function Step2History() {
         </div>
       )}
     </StepShell>
-  );
-}
-
-// =============================================================================
-// SegmentGroup — collapsible accordion for Master History
-// =============================================================================
-function DcfInputPackageSummary({
-  summary,
-  compact = false,
-}: {
-  summary: DcfInputSummary | null;
-  compact?: boolean;
-}) {
-  if (!summary) return null;
-
-  const baseYearLabel = summary.baseYearFiscalYear ? `FY ${summary.baseYearFiscalYear}` : "Base year";
-  const packageName = [summary.ticker, summary.companyName].filter(Boolean).join(" · ");
-  const readinessLabel = summary.readinessComplete ? "Complete DCF package" : "Partial DCF package";
-  const moduleLabels = summary.availableModules.length
-    ? summary.availableModules.join(" · ")
-    : "No DCF modules detected";
-
-  if (compact) {
-    return (
-      <section className="rounded-lg border border-violet-800/50 bg-violet-950/15 px-4 py-3">
-        <div className="flex flex-wrap items-center justify-between gap-3">
-          <div className="flex min-w-0 items-center gap-3">
-            <Database size={18} className="shrink-0 text-violet-300" />
-            <div className="min-w-0">
-              <p className="truncate text-sm font-semibold text-violet-100">
-                {readinessLabel}
-                {packageName ? ` — ${packageName}` : ""}
-              </p>
-              <p className="mt-0.5 truncate text-xs text-violet-200/60">{moduleLabels}</p>
-            </div>
-          </div>
-          <div className="flex shrink-0 flex-wrap gap-2 text-xs">
-            <span className="rounded-full bg-violet-500/15 px-2.5 py-1 text-violet-200">
-              {summary.quarterlyRows} quarterly rows
-            </span>
-            <span className="rounded-full bg-violet-500/15 px-2.5 py-1 text-violet-200">
-              {summary.annualDriverYears} annual driver years
-            </span>
-          </div>
-        </div>
-      </section>
-    );
-  }
-
-  return (
-    <section className="rounded-lg border border-violet-800/50 bg-violet-950/15">
-      <div className="flex flex-wrap items-start justify-between gap-3 border-b border-violet-900/40 px-4 py-3">
-        <div className="flex min-w-0 gap-3">
-          <Database size={18} className="mt-0.5 shrink-0 text-violet-300" />
-          <div className="min-w-0">
-            <p className="text-sm font-semibold text-violet-100">
-              Complete DCF Input Package
-              {packageName ? ` — ${packageName}` : ""}
-            </p>
-            <p className="mt-1 text-xs text-violet-200/60">
-              Shows the data modules available beyond the Step 2 quarterly table.
-            </p>
-          </div>
-        </div>
-        <span
-          className={`rounded-full px-3 py-1 text-xs font-semibold ${
-            summary.readinessComplete
-              ? "bg-emerald-600/15 text-emerald-300"
-              : "bg-amber-600/15 text-amber-300"
-          }`}
-        >
-          {readinessLabel}
-        </span>
-      </div>
-
-      <div className="grid gap-0 divide-y divide-violet-900/30 text-sm sm:grid-cols-2 sm:divide-x sm:divide-y-0">
-        <div className="space-y-2 px-4 py-3">
-          <DataLine label="Quarterly baseline" value={`${summary.quarterlyRows} rows`} />
-          <DataLine label="Annual DCF drivers" value={`${summary.annualDriverYears} years`} />
-          <DataLine label="Normalized base year" value={baseYearLabel} />
-          <DataLine
-            label="Forecast assumptions"
-            value={summary.hasForecastAssumptions ? "Included" : "Missing"}
-          />
-          <DataLine
-            label="WACC / terminal assumptions"
-            value={summary.hasValuationAssumptions ? "Included" : "Missing"}
-          />
-        </div>
-        <div className="space-y-2 px-4 py-3">
-          <DataLine
-            label="Base revenue"
-            value={
-              summary.baseYearRevenueUsdM === null
-                ? "—"
-                : `$${formatNullableMetric(summary.baseYearRevenueUsdM)}M`
-            }
-          />
-          <DataLine
-            label="Base EBIT"
-            value={
-              summary.baseYearEbitUsdM === null
-                ? "—"
-                : `$${formatNullableMetric(summary.baseYearEbitUsdM)}M`
-            }
-          />
-          <DataLine
-            label="Base free cash flow"
-            value={
-              summary.baseYearFreeCashFlowUsdM === null
-                ? "—"
-                : `$${formatNullableMetric(summary.baseYearFreeCashFlowUsdM)}M`
-            }
-          />
-          <DataLine
-            label="Cash + marketable securities"
-            value={
-              summary.cashAndMarketableSecuritiesUsdM === null
-                ? "—"
-                : `$${formatNullableMetric(summary.cashAndMarketableSecuritiesUsdM)}M`
-            }
-          />
-          <DataLine
-            label="Debt / shares"
-            value={
-              summary.totalDebtUsdM === null || summary.commonSharesOutstandingM === null
-                ? "—"
-                : `$${formatNullableMetric(summary.totalDebtUsdM)}M debt · ${formatNullableMetric(summary.commonSharesOutstandingM)}M shares`
-            }
-          />
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function DataLine({ label, value }: { label: string; value: string }) {
-  return (
-    <div className="flex items-center justify-between gap-4">
-      <span className="text-xs text-zinc-500">{label}</span>
-      <span className="text-right text-xs font-medium text-zinc-200">{value}</span>
-    </div>
   );
 }
 

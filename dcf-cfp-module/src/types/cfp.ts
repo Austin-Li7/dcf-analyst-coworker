@@ -298,7 +298,7 @@ export type Step2ValidationStatus =
 
 export interface Step2Source {
   source_id: string;
-  source_type: "uploaded_file" | "text_notes" | "derived" | "not_available";
+  source_type: "uploaded_file" | "text_notes" | "derived" | "yahoo_finance" | "not_available";
   name: string;
   locator: string | null;
   excerpt: string | null;
@@ -353,6 +353,7 @@ export interface Step2StructuredResult {
 export interface ExtractHistoryResponse {
   rows: Omit<HistoricalExtractionRow, "id" | "yoyGrowth">[];
   structuredResult?: Step2StructuredResult | null;
+  structuredResults?: Step2StructuredResult[];
   error?: string;
   requiresApiKey?: boolean;
 }

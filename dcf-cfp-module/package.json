@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "test": "node --test src/lib/step1-review.test.mts src/lib/step1-schema.test.mts src/lib/llm-service.test.mts src/lib/ticker-lookup.test.mts src/lib/wacc-handoff.test.mts src/lib/dcf-valuation.test.mts src/lib/step2-schema.test.mts src/lib/step2-baseline.test.mts src/lib/step2-fixture-ingest.test.mts src/lib/step3-schema.test.mts src/lib/step4-schema.test.mts src/lib/step5-schema.test.mts src/lib/aggregate-forecast.test.mts src/lib/dcf-demo-fixture.test.mts src/lib/sec-companyfacts.test.mts"
+    "test": "node --test src/lib/step1-review.test.mts src/lib/step1-schema.test.mts src/lib/llm-service.test.mts src/lib/ticker-lookup.test.mts src/lib/wacc-handoff.test.mts src/lib/dcf-valuation.test.mts src/lib/step2-schema.test.mts src/lib/step2-baseline.test.mts src/lib/step2-fixture-ingest.test.mts src/lib/step3-schema.test.mts src/lib/step4-schema.test.mts src/lib/step5-schema.test.mts src/lib/aggregate-forecast.test.mts src/lib/dcf-demo-fixture.test.mts src/lib/sec-companyfacts.test.mts src/lib/yahoo-history.test.mts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.88.0",

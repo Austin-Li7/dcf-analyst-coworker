@@ -13,7 +13,7 @@ const QuarterSchema = z.enum(["Q1", "Q2", "Q3", "Q4"]);
 
 const SourceSchema = z.object({
   source_id: z.string().min(1),
-  source_type: z.enum(["uploaded_file", "text_notes", "derived", "not_available"]),
+  source_type: z.enum(["uploaded_file", "text_notes", "derived", "yahoo_finance", "not_available"]),
   name: z.string().min(1),
   locator: z.string().min(1).nullable(),
   excerpt: z.string().min(1).max(220).nullable(),
@@ -136,6 +136,8 @@ export function projectStep2StructuredToRows(
       sourceType:
         source?.source_type === "uploaded_file" || source?.source_type === "text_notes"
           ? "User Provided"
+          : source?.source_type === "yahoo_finance"
+            ? "External"
           : "Not Available",
       sourceName: source?.name ?? "Not available",
       sourceLink: source?.locator ?? "Not available",
