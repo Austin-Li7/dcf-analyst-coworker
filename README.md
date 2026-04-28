@@ -86,6 +86,8 @@ Required deployment settings:
 
 The app also supports entering LLM keys in the browser settings UI for local experimentation.
 
+See [DEPLOYMENT.md](DEPLOYMENT.md) for the exact Vercel setup steps.
+
 ## Verification
 
 ```bash
