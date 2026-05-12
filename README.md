@@ -97,6 +97,8 @@ The project should be read as an AI-assisted investment research coworker and wo
 
 ## Running Locally
 
+Use Node.js 24 or newer. The test suite uses Node's native test runner with `.mts` TypeScript modules.
+
 ```bash
 cd dcf-cfp-module
 npm ci

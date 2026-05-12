@@ -10,6 +10,8 @@ https://ai-dcf-analyst-coworker.vercel.app/
 
 ## Local Development
 
+Use Node.js 24 or newer. The test suite uses Node's native test runner with `.mts` TypeScript modules.
+
 ```bash
 npm ci
 npm run dev
