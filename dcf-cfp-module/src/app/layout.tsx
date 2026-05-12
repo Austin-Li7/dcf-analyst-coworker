@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "DCF Valuation Tool",
-  description: "Modular DCF toolkit: Cash Flow Projector + Discount Rate (WACC)",
+  title: "AI DCF Analyst Coworker",
+  description:
+    "Source-grounded AI workflow for reviewable DCF valuation artifacts, human checkpoints, WACC, and valuation audit trails.",
 };
 
 export default function RootLayout({

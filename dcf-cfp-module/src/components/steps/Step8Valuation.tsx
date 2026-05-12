@@ -181,8 +181,7 @@ export default function Step8Valuation() {
         <section className="grid gap-4 lg:grid-cols-3">
           <InfoPanel title="Market Sanity Check" icon={<BarChart3 size={15} />}>
             <p>
-              Recent public analyst target references for AAPL cluster around $299-$303 average target, with high targets around $350.
-              Treat that as a cross-check only; it is not an input to this DCF.
+              Treat external price targets and market commentary as cross-checks only. They are not inputs to this DCF; the valuation uses the approved forecast artifact, WACC, and explicit bridge assumptions above.
             </p>
           </InfoPanel>
 

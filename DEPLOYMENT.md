@@ -6,7 +6,7 @@ This project is a Next.js app inside a subdirectory. Deploy `dcf-cfp-module/`, n
 
 1. Go to https://vercel.com/new
 2. Import the GitHub repository:
-   `Austin-Li7/ai-dcf-analyst-coworker`
+   `Austin-Li7/dcf-analyst-coworker`
 3. In project configuration, set:
    - Framework Preset: `Next.js`
    - Root Directory: `dcf-cfp-module`

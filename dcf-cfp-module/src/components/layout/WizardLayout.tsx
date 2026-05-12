@@ -158,7 +158,7 @@ export default function WizardLayout() {
       {/* ---- Sidebar (hidden on small screens) ---- */}
       <aside className="hidden w-64 shrink-0 border-r border-zinc-800 bg-zinc-900/60 p-4 lg:block">
         <h2 className="mb-6 text-lg font-semibold tracking-tight text-zinc-200">
-          DCF Valuation Tool
+          AI DCF Analyst
         </h2>
 
         <nav className="flex flex-col gap-1">
@@ -183,8 +183,8 @@ export default function WizardLayout() {
         </nav>
 
         <div className="mt-8 rounded-lg border border-zinc-800 bg-zinc-900 p-3 text-xs text-zinc-500">
-          <p className="font-medium text-zinc-400">DCF Valuation Tool</p>
-          <p className="mt-1">Complete the CFP module, calculate WACC, then review the final DCF valuation dashboard.</p>
+          <p className="font-medium text-zinc-400">AI DCF Analyst Coworker</p>
+          <p className="mt-1">Build source-grounded DCF artifacts, review assumptions, calculate WACC, and inspect valuation audit flags.</p>
         </div>
       </aside>
 

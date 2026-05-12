@@ -1,92 +1,120 @@
 # AI DCF Analyst Coworker
 
-A source-grounded investment research coworker that helps investors build reviewable DCF valuations with AI-generated drafts, structured artifacts, human checkpoints, and an interactive Next.js dashboard.
+[Live demo](https://ai-dcf-analyst-coworker.vercel.app/) · [GitHub repo](https://github.com/Austin-Li7/dcf-analyst-coworker)
 
-The project combines:
+![Next.js](https://img.shields.io/badge/Next.js-16-black)
+![React](https://img.shields.io/badge/React-19-149eca)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-3178c6)
+![Tests](https://img.shields.io/badge/tests-81%20passing-2ea44f)
 
-- step-by-step DCF prompt contracts for business architecture, historical financials, competition, synergies, forecasting, WACC, and valuation review
-- typed structured artifacts with validation tests
-- a Next.js analyst workflow for reviewing, editing, exporting, and valuing generated outputs
-- market-data integration for WACC and valuation bridge inputs
+AI DCF Analyst Coworker is a source-grounded investment research workflow that helps an investor turn public-company data into reviewable DCF valuation artifacts. Instead of asking an LLM for a one-shot valuation, the app breaks the work into typed steps: source ingestion, structured AI drafts, human review checkpoints, forecast assembly, WACC, and a final valuation dashboard.
+
+The project is built as a portfolio-grade prototype: the deployed app is interactive, the prompt system is versioned, the LLM outputs are parsed into Zod-validated machine artifacts, and the financial logic is covered by automated tests.
+
+## What It Does
+
+1. A user enters a ticker or company name.
+2. The app fetches public SEC Company Facts and latest 10-K evidence at runtime.
+3. The selected LLM drafts a structured company architecture, competitive landscape, synergy map, and forecast package.
+4. Each AI artifact goes through an explicit review gate before it can feed downstream steps.
+5. The app combines approved forecasts with market data and WACC assumptions to produce a DCF valuation view with audit flags.
+
+The live demo can be opened directly in a browser. LLM-backed steps require a Claude, Gemini, or OpenAI key through the settings modal or server environment variables; the public SEC bootstrap endpoint can be tested without an LLM key.
+
+```text
+https://ai-dcf-analyst-coworker.vercel.app/api/bootstrap-company?query=AAPL
+```
 
 ## Why This Exists
 
-One-shot AI valuation is fragile: it can skip source checks, hide weak assumptions, and turn uncertain claims into confident prose. This project takes a coworker approach instead. The AI drafts and organizes the analysis, while the investor reviews sources, edits assumptions, and keeps final judgment.
+One-shot AI valuation is fragile. It can skip source checks, bury weak assumptions, and turn uncertain claims into confident prose. This project takes a coworker approach: the AI drafts and organizes the analysis, while the investor reviews sources, edits assumptions, and keeps final judgment.
 
-The workflow is designed around a controlled pattern:
+The core pattern is:
 
-1. each analytical step has a narrow prompt contract
-2. each response is parsed into a typed machine artifact
-3. each artifact has a human review checkpoint
-4. downstream steps consume approved structured data rather than raw chat output
-5. the final valuation view exposes assumptions, WACC, implied value, and audit notes
+- narrow prompt contracts for each analytical step
+- structured machine artifacts instead of raw chat transcripts
+- Zod validation before artifacts enter the app state
+- human review checkpoints before downstream handoff
+- explicit valuation assumptions, WACC inputs, and audit notes
 
-## Current Capabilities
+## Product Workflow
 
-- **Prompt workflow source of truth**: final v5.5 prompt set in `v5.5_DCF/`
-- **Interactive analyst app**: `dcf-cfp-module/` contains the Next.js workflow interface
-- **Structured validation**: Zod schemas and Node tests cover each major artifact contract
-- **DCF demo fixture**: lightweight JSON/CSV/TXT fixtures are retained for repeatable local tests
-- **Market data fetch**: WACC step can fetch ticker-level market data through Yahoo Finance
-- **SEC bootstrap flow**: Step 1 can start from a ticker/company search and build a lightweight DCF baseline from SEC Company Facts at runtime
+| Step | User-facing module | What the system produces |
+| --- | --- | --- |
+| 1 | Company Profile | SEC-grounded business architecture and review matrix |
+| 2 | Historical Financials | Five-year historical baseline from SEC/Yahoo/manual inputs |
+| 3 | Competitive Landscape | Porter-style competitive forces with source links |
+| 4 | Synergies & Drivers | Capability paths, flywheel logic, and capital allocation signals |
+| 5 | Forecast | Structured segment forecast with assumption IDs and confidence flags |
+| 6 | Executive Summary | Aggregated forecast summary and review notes |
+| 7 | WACC Calculator | Market-data-backed discount-rate inputs |
+| 8 | DCF Valuation | Intrinsic value, market bridge, sensitivity controls, and audit flags |
 
-## Implementation Process
+## Architecture
 
-This was built as an AI-assisted product prototype. The visual workflow and UI implementation were developed with heavy coding-agent assistance, then refined around the valuation workflow I designed.
+```mermaid
+flowchart LR
+  Ticker["Ticker / company query"] --> PublicData["SEC EDGAR + Yahoo Finance"]
+  PublicData --> SourceManifest["Source manifest + baseline package"]
+  SourceManifest --> PromptContracts["v5.5 prompt contracts"]
+  PromptContracts --> LLM["Claude / Gemini / OpenAI"]
+  LLM --> Schemas["Zod structured artifacts"]
+  Schemas --> ReviewUI["Human review gates"]
+  ReviewUI --> Forecast["Forecast + WACC handoff"]
+  Forecast --> Valuation["DCF dashboard + audit trail"]
+```
+
+Key implementation pieces:
+
+- `dcf-cfp-module/src/app/api/` contains the Next.js API routes for SEC bootstrap, LLM analysis, forecast generation, revision, WACC data, and export flows.
+- `dcf-cfp-module/src/lib/*-schema.ts` defines typed contracts for the structured artifacts.
+- `dcf-cfp-module/src/lib/dcf-valuation.ts` converts approved forecast and WACC inputs into enterprise value, equity value, implied upside, and assumption audit flags.
+- `v5.5_DCF/` contains the final prompt workflow specification used as the analytical source of truth.
+
+## Tech Stack
+
+- **Frontend:** Next.js 16, React 19, TypeScript, Tailwind CSS
+- **AI providers:** Anthropic Claude, Google Gemini, OpenAI
+- **Data:** SEC EDGAR Company Facts, latest 10-K HTML evidence, Yahoo Finance market data
+- **Validation:** Zod schemas, provider-safe JSON schema generation
+- **Testing:** Node test runner with schema, ingestion, forecast, WACC, and valuation tests
+- **Deployment:** Vercel, with the app rooted at `dcf-cfp-module/`
+
+## My Contribution
+
+This was built as an AI-assisted product prototype. Coding agents helped implement the visual workflow and UI, while I designed the valuation workflow, prompt architecture, review gates, and artifact contracts.
 
 My main contributions were:
 
-- designing the v5.5 DCF prompt architecture and step boundaries
-- defining the structured artifact pattern: `machine_artifact`, `reviewer_summary`, `ui_handoff`
-- specifying review checkpoints and validation behavior
-- testing the prompt system against public-company examples
-- integrating schemas, route behavior, and valuation logic into a runnable app prototype
-- curating the project into a clean portfolio artifact with only publishable code, prompts, and sanitized demos
+- designed the v5.5 DCF prompt architecture and step boundaries
+- defined the structured artifact pattern: `machine_artifact`, `reviewer_summary`, and `ui_handoff`
+- specified source-grounding, review checkpoints, and downstream handoff behavior
+- integrated schema validation, API route behavior, and valuation logic into a runnable app
+- tested the prompt system and valuation pipeline against public-company examples
+- curated the repo into a publishable portfolio artifact with sanitized fixtures
 
-The project should be read as an AI-assisted investment research coworker and workflow prototype, not as a claim that every UI component was manually authored from scratch or that the system replaces investor judgment.
-
-## Data Strategy
-
-The portfolio version avoids committing raw SEC filings, spreadsheets, or proprietary handoff material. It keeps only lightweight sanitized fixtures needed for tests.
-
-For a production-grade public demo, the preferred path is an **auto-bootstrap flow**:
-
-1. user enters a ticker
-2. the app fetches public company identifiers and filings from SEC EDGAR
-3. the app fetches market data from Yahoo Finance
-4. the app derives a baseline DCF input package
-5. the user reviews the generated source manifest before running LLM analysis
-
-The portfolio code includes the first end-to-end slice of this pattern: Step 1 calls `GET /api/bootstrap-company?query=...`, fetches SEC Company Facts at runtime, and sends the resulting source manifest to the selected AI engine. A public demo does not require checked-in raw filings or manual 10-K/10-Q uploads for Step 1.
+The project should be read as an AI-assisted investment research coworker and workflow prototype, not as financial advice and not as a claim that every UI component was manually authored from scratch.
 
 ## Running Locally
 
 ```bash
 cd dcf-cfp-module
-npm install
+npm ci
 npm run dev
 ```
 
 Open `http://localhost:3000`.
 
-The LLM-backed analysis routes require API keys entered through the app settings or configured as server environment variables. Keys entered in the browser are stored locally and are not committed to the repository.
+Create `dcf-cfp-module/.env.local` when using server-side keys:
 
-For SEC bootstrap requests, set `SEC_USER_AGENT` in `.env.local` so SEC can identify the client.
+```bash
+SEC_USER_AGENT="Your Name your.email@example.com"
+ANTHROPIC_API_KEY=""
+GEMINI_API_KEY=""
+OPENAI_API_KEY=""
+```
 
-## Deployment
-
-This is a Next.js app, so it can be deployed as a normal web application. The simplest portfolio path is to push this repository to GitHub and connect `dcf-cfp-module/` to Vercel. Vercel will build the app and provide a public URL that people can open directly in a browser.
-
-Required deployment settings:
-
-- root directory: `dcf-cfp-module`
-- build command: `npm run build`
-- install command: `npm install`
-- environment variables: `ANTHROPIC_API_KEY`, `GEMINI_API_KEY`, and/or `OPENAI_API_KEY` if server-side keys are desired; `SEC_USER_AGENT` for SEC bootstrap requests
-
-The app also supports Claude, Gemini, and OpenAI keys in the browser settings UI for local experimentation.
-
-See [DEPLOYMENT.md](DEPLOYMENT.md) for the exact Vercel setup steps.
+Keys can also be entered through the in-app settings modal. Browser-entered keys stay in local storage and are not committed to the repository.
 
 ## Verification
 
@@ -97,17 +125,41 @@ npm run lint
 npm run build
 ```
 
+Current local verification:
+
+- `npm test`: 81 tests passing
+- `npm run lint`: passing
+- `npm run build`: passing
+- deployed homepage: `200 OK`
+- deployed SEC bootstrap API: returns a structured AAPL SEC package
+
 ## Repository Layout
 
-- `dcf-cfp-module/` - Next.js workflow app, schemas, API routes, and tests
-- `v5.5_DCF/` - final prompt workflow specification
-- `dcf-cfp-module/test/fixtures/` - small sanitized fixtures for deterministic tests
+```text
+.
+├── dcf-cfp-module/              # Next.js app, API routes, schemas, tests
+├── v5.5_DCF/                    # Versioned prompt workflow specification
+├── DEPLOYMENT.md                # Vercel setup notes
+└── IMPLEMENTATION_FLOW.md       # Development/workflow notes
+```
 
-## Publishing Notes
+## Current Limitations
 
-Before pushing to a public GitHub repository, confirm:
+- LLM-backed steps require user-provided or server-provided API keys.
+- The portfolio version avoids committing raw filings, spreadsheets, or proprietary handoff material.
+- The app is a research workflow prototype, not a production investment-advice system.
+- A fixture-driven no-key demo mode would make the public demo easier for recruiters to evaluate.
 
-- no `.env` files are present
-- no raw PDF/XLSX/HTML filings are present
-- no handoff, onboarding, or company-internal documents are present
-- Git remote points to the new personal repository, not the original transferred repository
+## Deployment
+
+Deploy the app from the `dcf-cfp-module/` subdirectory on Vercel.
+
+Required settings:
+
+- root directory: `dcf-cfp-module`
+- install command: `npm install`
+- build command: `npm run build`
+- optional server-side environment variables: `ANTHROPIC_API_KEY`, `GEMINI_API_KEY`, `OPENAI_API_KEY`
+- recommended environment variable for SEC requests: `SEC_USER_AGENT`
+
+See [DEPLOYMENT.md](DEPLOYMENT.md) for detailed setup.
